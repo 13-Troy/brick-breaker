@@ -1,3 +1,3 @@
-import Records from "./Records";
+import Records from './Records';
 
 export default Records;

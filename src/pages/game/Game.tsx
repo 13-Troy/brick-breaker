@@ -1,10 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Game = () => {
-
-  return (<>
-    Game page
-  </>)
-}
+	return <>Game page</>;
+};
 
 export default Game;
