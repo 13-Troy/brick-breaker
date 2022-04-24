@@ -13,19 +13,26 @@ import Game from "../pages/game";
 // components
 import NavTest from "../components/NavTest";
 
+// constants
+import { AppRoute } from "../services/const"
+
+// style
+import { GlobalStyle } from "../styles/style";
+
 const Page = () =>{
     return (
       <div>
+        <GlobalStyle/>
         <BrowserRouter>
           <NavTest/>
           <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="about" element={<About/>} />
-            <Route path="registration" element={<Registration/>} />
-            <Route path="profile" element={<Profile/>} />
-            <Route path="forum" element={<Forum/>} />
-            <Route path="records" element={<Records/>} />
-            <Route path="game" element={<Game/>} />
+            <Route path={AppRoute.ROOT} element={<Home/>} />
+            <Route path={AppRoute.ABOUT} element={<About/>} />
+            <Route path={AppRoute.REGISTRATION} element={<Registration/>} />
+            <Route path={AppRoute.PROFILE} element={<Profile/>} />
+            <Route path={AppRoute.FORUM} element={<Forum/>} />
+            <Route path={AppRoute.RECORDS} element={<Records/>} />
+            <Route path={AppRoute.GAME} element={<Game/>} />
           </Routes>
         </BrowserRouter>
       </div>
