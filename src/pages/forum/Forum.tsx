@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Forum = () => {
-  return <>Forum page</>;
+	return <>Forum page</>;
 };
 
 export default Forum;
