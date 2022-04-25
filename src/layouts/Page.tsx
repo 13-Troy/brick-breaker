@@ -20,8 +20,8 @@ const Page = () => {
         <NavTest />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="registration" element={<Registration />} />
+                  <Route path="about" element={<About />} />
+                          <Route path="registration" element={<Registration />} />
           <Route path="profile" element={<Profile />} />
           <Route path="forum" element={<Forum />} />
           <Route path="records" element={<Records />} />

@@ -1,11 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const About = ({ test = "hello" }: { test?: string }) => {
-  useEffect(() => {
-    console.log("hello", test);
-  }, []);
-
-  return <>Test page</>;
+const About = () => {
+          return <>Test page</>;
 };
 
-export default About;
+          export default About;
