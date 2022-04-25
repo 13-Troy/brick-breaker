@@ -1,10 +1,15 @@
 import React from "react";
 
-import { TestStyledComponents } from "./style"
+import Title from "../../components/Title";
+
+import { HardPopUpSt } from "./style"
 
 const Home = () => {
   return (<>
-    <TestStyledComponents>Home page</TestStyledComponents>
+    <HardPopUpSt>
+        <Title value={"вход"} h={2} />
+        <Title value={"вход"} h={3} />
+    </HardPopUpSt>
   </>)
 }
 
