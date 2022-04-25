@@ -12,8 +12,6 @@ const Home = () => {
         <form action="">
             <Title value={"вход"} h={2} />
             <Button value={"вход"} fullWidth />
-            <Button value={"вход2"} />
-            <Button value={"вход"} fullWidth />
         </form>
     </HardPopUpSt>
   </>)
