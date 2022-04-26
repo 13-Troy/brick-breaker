@@ -1,3 +1,3 @@
-import NavTest from "./NavTest";
+import NavTest from './NavTest';
 
 export default NavTest;

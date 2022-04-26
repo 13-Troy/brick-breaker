@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+
 
 import Title from "../../components/Title";
 import Button from "../../components/Button";
@@ -7,8 +8,6 @@ import Link from "../../components/Link";
 import { AppRoute } from "../../services/const";
 
 import { HardPopUpSt } from "./style"
-
-
 
 const Home = () => {
   return (<>
