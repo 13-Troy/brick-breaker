@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, InputHTMLAttributes } from 'react';
 
 import { InputSt } from './style';
 
@@ -17,7 +17,7 @@ const Input: FC<InputProps> = ({ type, idName, placeholder, onChange }) => {
       type={type}
       placeholder={placeholder}
       onChange={onChange}
-    ></InputSt>
+    />
   );
 };
 
