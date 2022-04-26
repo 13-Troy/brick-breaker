@@ -5,7 +5,7 @@ import { TestStyledComponents } from './style';
 const Home = () => {
   return (
     <>
-      <TestStyledComponents>Home page test</TestStyledComponents>
+      <TestStyledComponents>Home page test2</TestStyledComponents>
     </>
   );
 };
