@@ -4,23 +4,18 @@ import { ButtonSt } from './style';
 
 /**
  * В компонент передаются пропсы:
- * value - строка, опредлеяющая текст кнопки
- * fullWidth - булев:
+ * @param fullWidth - булев:
  *   true - ширина кнопки будет 100%
  *   false - ширина - auto
  */
 
 interface ButtonProps {
-  value: string;
+  children: React.ReactNode;
   fullWidth?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({ value, fullWidth }) => {
-  return (
-    <>
-      <ButtonSt fullWidth={fullWidth ?? false}>{value}</ButtonSt>
-    </>
-  );
+const Button: FC<ButtonProps> = ({ children, fullWidth = false }) => {
+  return <ButtonSt fullWidth={fullWidth}>{children}</ButtonSt>;
 };
 
 export default Button;

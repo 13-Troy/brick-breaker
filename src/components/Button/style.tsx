@@ -5,7 +5,7 @@ interface ButtonStProps {
 }
 
 export const ButtonSt = styled.button<ButtonStProps>`
-  width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   background-color: #4f46e5;
   color: #ffffff;
   border: none;

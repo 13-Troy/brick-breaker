@@ -17,45 +17,41 @@ const Home = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(logIn);
-    alert(`логин: ${logIn.login}, пароль: ${logIn.password}`);
+    /* @fixme remove later */ console.log(logIn);
+    /* @fixme remove later */ alert(
+      `логин: ${logIn.login}, пароль: ${logIn.password}`
+    );
     navigate(AppRoute.REGISTRATION);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name === 'login') {
-      setLogIn({ login: e.target.value, password: logIn.password });
-    }
-    if (e.target.name === 'password') {
-      setLogIn({ login: logIn.login, password: e.target.value });
-    }
+    const { name, value } = e.target;
+    setLogIn((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
 
   return (
-    <>
-      <HardPopUpSt>
-        <form onSubmit={onSubmit}>
-          <Title value={'вход'} h={2} />
-          <Input
-            idName={'login'}
-            type={'text'}
-            placeholder={'логин'}
-            onChange={handleChange}
-          />
-          <Input
-            idName={'password'}
-            type={'password'}
-            placeholder={'пароль'}
-            onChange={handleChange}
-          />
-          <Link
-            value={'Нет аккаунта? Регистрация'}
-            link={AppRoute.REGISTRATION}
-          />
-          <Button value={'вход'} fullWidth />
-        </form>
-      </HardPopUpSt>
-    </>
+    <HardPopUpSt>
+      <form onSubmit={onSubmit}>
+        <Title h={2}>вход</Title>
+        <Input
+          idName={'login'}
+          type={'text'}
+          placeholder={'логин'}
+          onChange={handleChange}
+        />
+        <Input
+          idName={'password'}
+          type={'password'}
+          placeholder={'пароль'}
+          onChange={handleChange}
+        />
+        <Link
+          value={'Нет аккаунта? Регистрация'}
+          link={AppRoute.REGISTRATION}
+        />
+        <Button fullWidth>{'вход'}</Button>
+      </form>
+    </HardPopUpSt>
   );
 };
 
