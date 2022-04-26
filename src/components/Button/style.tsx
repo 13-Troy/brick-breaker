@@ -4,7 +4,7 @@ interface ButtonStProps {
   fullWidth: boolean;
 }
 
-export const ButtonSt = styled.button<ButtonStProps>`
+const Button = styled.button<ButtonStProps>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   background-color: #4f46e5;
   color: #ffffff;
@@ -18,3 +18,5 @@ export const ButtonSt = styled.button<ButtonStProps>`
     color: #4338ca;
   }
 `;
+
+export default Button;

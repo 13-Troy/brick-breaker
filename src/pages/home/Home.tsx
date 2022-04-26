@@ -45,10 +45,7 @@ const Home = () => {
           placeholder={'пароль'}
           onChange={handleChange}
         />
-        <Link
-          value={'Нет аккаунта? Регистрация'}
-          link={AppRoute.REGISTRATION}
-        />
+        <Link to={AppRoute.REGISTRATION}>{'Нет аккаунта? Регистрация'}</Link>
         <Button fullWidth>{'вход'}</Button>
       </form>
     </HardPopUpSt>

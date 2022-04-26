@@ -30,7 +30,7 @@ const Registration = () => {
           placeholder={'логин'}
           onChange={handleChange}
         />
-        <Link value={'Войти'} link={AppRoute.ROOT} />
+        <Link to={AppRoute.ROOT}>{'Войти'}</Link>
         <Button fullWidth>{'зарегистрироваться'}</Button>
       </form>
     </HardPopUpSt>
