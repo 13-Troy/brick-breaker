@@ -10,12 +10,21 @@ import { AppRoute } from '../../services/const';
 import { HardPopUpSt } from './style';
 
 const Registration = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  };
+
   return (
     <>
       <HardPopUpSt>
         <form action="">
           <Title value={'регистрация'} h={2} />
-          <Input />
+          <Input
+            idName={'email'}
+            type={'email'}
+            placeholder={'почта'}
+            onChange={handleChange}
+          />
           <Link value={'Войти'} link={AppRoute.ROOT} />
           <Button value={'зарегистрироваться'} fullWidth />
         </form>
