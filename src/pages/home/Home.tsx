@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Title from '../../components/Title';
@@ -13,14 +13,22 @@ import { HardPopUpSt } from './style';
 const Home = () => {
   const navigate = useNavigate();
 
+  const [logIn, setLogIn] = useState({ login: '', password: '' });
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert('test!');
+    console.log(logIn);
+    alert(`логин: ${logIn.login}, пароль: ${logIn.password}`);
     navigate(AppRoute.REGISTRATION);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    if (e.target.name === 'login') {
+      setLogIn({ login: e.target.value, password: logIn.password });
+    }
+    if (e.target.name === 'password') {
+      setLogIn({ login: logIn.login, password: e.target.value });
+    }
   };
 
   return (
