@@ -17,10 +17,19 @@ const Home = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    /* @fixme remove later */ console.log(logIn);
-    /* @fixme remove later */ alert(
-      `логин: ${logIn.login}, пароль: ${logIn.password}`
-    );
+
+    fetch(`https://ya-praktikum.tech/api/v2/auth/signin`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(logIn),
+    }).then((data) => {
+      console.log(JSON.stringify(logIn));
+      console.log('test', data);
+    });
+
     navigate(AppRoute.ROOT);
   };
 

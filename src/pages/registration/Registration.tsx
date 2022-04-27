@@ -13,19 +13,31 @@ import { HardPopUpSt } from './style';
 const Registration = () => {
   const navigate = useNavigate();
 
-  const [logIn, setLogIn] = useState({ login: '', password: '' });
+  const [signUp, setSignUp] = useState({ login: '', password: '' });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(logIn);
+    fetch(`https://ya-praktikum.tech/api/v2/auth/signup`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(signUp),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(JSON.stringify(signUp));
+        console.log('test', data);
+      });
 
     navigate(AppRoute.REGISTRATION);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setLogIn((prevLogin) => ({ ...prevLogin, [name]: value }));
+    setSignUp((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
 
   return (
@@ -45,13 +57,13 @@ const Registration = () => {
           onChange={handleChange}
         />
         <Input
-          name={'firstName'}
+          name={'first_name'}
           type={'text'}
           placeholder={'имя'}
           onChange={handleChange}
         />
         <Input
-          name={'secondName'}
+          name={'second_name'}
           type={'text'}
           placeholder={'фамилия'}
           onChange={handleChange}
