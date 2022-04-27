@@ -28,9 +28,10 @@ export const GlobalStyle = createGlobalStyle`
     outline: 0;
     outline-offset: 0;
   }
-
+  textarea,
   input {
     outline: none;
+    font-family: ${baseTheme.fonts.font_family};
   }
 
   input:-webkit-autofill {
