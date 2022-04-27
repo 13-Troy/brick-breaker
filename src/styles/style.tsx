@@ -1,12 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
-import { fonts, baseTheme } from '../styles/variables';
+import { baseTheme } from '../styles/variables';
 
 export const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${baseTheme.colors.bg};
-    font-family: ${fonts.font_family};
-    color:  ${baseTheme.colors.font};
+    font-family: ${baseTheme.fonts.font_family};
+    color: ${baseTheme.colors.font};
   }
    
   * {

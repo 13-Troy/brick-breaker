@@ -1,12 +1,11 @@
 import styled, { css } from 'styled-components';
-import { fonts } from '../../styles/variables';
 
 const titleSt = css`
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 24px;
   color: ${({ theme }) => theme.colors.font};
-  font-weight: ${fonts.black};
+  font-weight: ${({ theme }) => theme.fonts.black};
 `;
 
 export const H1St = styled.h1`

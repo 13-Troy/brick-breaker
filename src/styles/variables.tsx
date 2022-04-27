@@ -10,9 +10,6 @@ export const colors = {
   purple_light: '#E0E7FF',
 };
 
-export const borderRadius = '6px';
-export const skillsStartAnim = '0.3s';
-
 export const baseTheme = {
   colors: {
     bg: colors.purple_medium,
@@ -25,10 +22,13 @@ export const baseTheme = {
     danger: colors.red,
     inputBorder: colors.purple,
   },
-};
 
-export const fonts = {
-  font_family: 'Montserrat, sans-serif',
-  semi_bold: '600',
-  black: '900',
+  fonts: {
+    font_family: 'Montserrat, sans-serif',
+    semi_bold: '600',
+    black: '900',
+  },
+
+  borderRadius: '6px',
+  skillsStartAnim: '0.3s',
 };
