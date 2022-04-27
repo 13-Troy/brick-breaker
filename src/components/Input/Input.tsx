@@ -11,15 +11,13 @@ interface InputProps {
 
 const Input: FC<InputProps> = ({ type, idName, placeholder, onChange }) => {
   return (
-    <>
-      <InputSt
-        id={idName}
-        name={idName}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-      ></InputSt>
-    </>
+    <InputSt
+      id={idName}
+      name={idName}
+      type={type}
+      placeholder={placeholder}
+      onChange={onChange}
+    />
   );
 };
 

@@ -1,18 +1,25 @@
 import styled from 'styled-components';
-import { fonts } from '../../styles/variables';
+import { fonts, borderRadius, skillsStartAnim } from '../../styles/variables';
+
 interface ButtonStProps {
   fullWidth: boolean;
-  backgroundColor: string;
-  color: string;
 }
 
-export const ButtonSt = styled.button<ButtonStProps>`
-  width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
+const Button = styled.button<ButtonStProps>`
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
   background-color: ${({ theme }) => theme.colors.bgBtn};
   color: ${({ theme }) => theme.colors.fontBtn};
-  border: none;
-  border-radius: 6px;
-  padding: 12px;
-  text-transform: uppercase;
   font-weight: ${fonts.black};
+  font-size: 14px;
+  border: none;
+  border-radius: ${borderRadius};
+  padding: 10px;
+  cursor: pointer;
+  transition: ${skillsStartAnim} all;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.bgBtnHover};
+    color: ${({ theme }) => theme.colors.fontBtnHover};
+  }
 `;
+
+export default Button;

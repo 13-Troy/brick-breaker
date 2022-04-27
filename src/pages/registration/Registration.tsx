@@ -11,25 +11,29 @@ import { HardPopUpSt } from './style';
 
 const Registration = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    /* @fixme remove later */ console.log(e.target.value);
   };
 
   return (
-    <>
-      <HardPopUpSt>
-        <form action="">
-          <Title value={'регистрация'} h={2} />
-          <Input
-            idName={'email'}
-            type={'email'}
-            placeholder={'почта'}
-            onChange={handleChange}
-          />
-          <Link value={'Войти'} link={AppRoute.ROOT} />
-          <Button value={'зарегистрироваться'} fullWidth />
-        </form>
-      </HardPopUpSt>
-    </>
+    <HardPopUpSt>
+      <form action="">
+        <Title h={2}>{'регистрация'}</Title>
+        <Input
+          idName={'email'}
+          type={'email'}
+          placeholder={'почта'}
+          onChange={handleChange}
+        />
+        <Input
+          idName={'login'}
+          type={'text'}
+          placeholder={'логин'}
+          onChange={handleChange}
+        />
+        <Link to={AppRoute.ROOT}>{'Войти'}</Link>
+        <Button fullWidth>{'зарегистрироваться'}</Button>
+      </form>
+    </HardPopUpSt>
   );
 };
 

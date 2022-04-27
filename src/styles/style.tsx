@@ -1,58 +1,42 @@
 import { createGlobalStyle } from 'styled-components';
-import { colors as c, baseTheme } from '../styles/variables';
+import { fonts, baseTheme } from '../styles/variables';
 
 export const GlobalStyle = createGlobalStyle`
 
-   body {
-      background-color: ${baseTheme.colors.bg};
-      font-family: 'Montserrat', sans-serif
-   }
+  body {
+    background-color: ${baseTheme.colors.bg};
+    font-family: ${fonts.font_family};
+    color:  ${baseTheme.colors.font};
+  }
    
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
+
   p {
-      white-space: pre-line;
+    white-space: pre-line;
+  }
+
+  a {
+    outline: none;
+    text-decoration: none;
   }
   
-  /* Remove outline on the forms and links */
   :active, :hover, :focus {
-      outline: 0;
-      outline-offset: 0;
+    outline: 0;
+    outline-offset: 0;
   }
+
   input {
-      outline: none;
+    outline: none;
   }
+
   input:-webkit-autofill {
       -webkit-box-shadow: inset 0 0 0 50px #fff !important;
   }
 
-  ::-webkit-input-placeholder { /* WebKit browsers */
-      color: ${c.black};
-  }
-  input:focus::-webkit-input-placeholder {
-      color: ${c.white};
-  }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-      color: ${c.black};
-  }
-  input:focus:-moz-placeholder {
-      color: ${c.white};
-  }   
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-      color: ${c.black};
-  }
-  input:focus::-moz-placeholder {
-      color: ${c.white};
-  }
-  :-ms-input-placeholder { /* Internet Explorer 10+ */
-      color: ${c.black};
-  }
-  input:focus:-ms-input-placeholder  {
-      color: ${c.white};
-  }
   textarea,
   input:matches(
   [type="email"],
