@@ -1,21 +1,22 @@
 import styled from 'styled-components';
-
 interface ButtonStProps {
   fullWidth: boolean;
 }
 
 const Button = styled.button<ButtonStProps>`
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
-  background-color: #4f46e5;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.bgBtn};
+  color: ${({ theme }) => theme.colors.fontBtn};
+  font-weight: ${({ theme }) => theme.fonts.black};
+  font-size: 14px;
   border: none;
-  border-radius: 6px;
-  padding: 12px;
-  text-transform: uppercase;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  padding: 10px;
   cursor: pointer;
+  transition: ${({ theme }) => theme.skillsStartAnim} all;
   &:hover {
-    background-color: #e0e7ff;
-    color: #4338ca;
+    background-color: ${({ theme }) => theme.colors.bgBtnHover};
+    color: ${({ theme }) => theme.colors.fontBtnHover};
   }
 `;
 
