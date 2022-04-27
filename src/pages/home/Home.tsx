@@ -19,6 +19,7 @@ const Home = () => {
     e.preventDefault();
 
     fetch(`https://ya-praktikum.tech/api/v2/auth/signin`, {
+      credentials: 'include',
       method: 'POST',
       headers: {
         Accept: 'application/json',
