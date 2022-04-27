@@ -21,8 +21,8 @@ const Home = () => {
     fetch(`https://ya-praktikum.tech/api/v2/auth/signin`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(logIn),
     }).then((data) => {
