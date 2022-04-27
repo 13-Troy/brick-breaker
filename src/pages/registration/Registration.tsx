@@ -19,15 +19,21 @@ const Registration = () => {
       <form action="">
         <Title h={2}>{'регистрация'}</Title>
         <Input
-          idName={'email'}
+          name={'email'}
           type={'email'}
           placeholder={'почта'}
           onChange={handleChange}
         />
         <Input
-          idName={'login'}
+          name={'login'}
           type={'text'}
           placeholder={'логин'}
+          onChange={handleChange}
+        />
+        <Input
+          name={'firstName'}
+          type={'text'}
+          placeholder={'имя'}
           onChange={handleChange}
         />
         <Link to={AppRoute.ROOT}>{'Войти'}</Link>

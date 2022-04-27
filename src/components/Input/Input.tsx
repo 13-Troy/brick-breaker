@@ -1,24 +1,11 @@
-import React, { FC } from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
 import { InputSt } from './style';
 
-interface InputProps {
-  type: string;
-  idName: string;
-  placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+type inputProps = InputHTMLAttributes<HTMLInputElement>;
 
-const Input: FC<InputProps> = ({ type, idName, placeholder, onChange }) => {
-  return (
-    <InputSt
-      id={idName}
-      name={idName}
-      type={type}
-      placeholder={placeholder}
-      onChange={onChange}
-    />
-  );
+const Input = ({ ...inputProps }: inputProps) => {
+  return <InputSt {...inputProps} />;
 };
 
 export default Input;
