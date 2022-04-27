@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import { borderRadius } from '../../styles/variables';
 
 export const InputSt = styled.input`
   width: 100%;
   padding: 12px;
-  border-radius: 4px;
+  border-radius: ${borderRadius};
   margin-bottom: 24px;
-  border: 1px solid #6b6b94;
-  outline: none;
+  border: 1px solid ${({ theme }) => theme.colors.inputBorder};
 `;

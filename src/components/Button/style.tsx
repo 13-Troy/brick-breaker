@@ -8,9 +8,8 @@ interface ButtonStProps {
 
 export const ButtonSt = styled.button<ButtonStProps>`
   width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
-  background-color: ${(props) =>
-    props.backgroundColor ? props.backgroundColor : '#4F46E5'};
-  color: ${(props) => (props.color ? props.color : '#ffffff')};
+  background-color: ${({ theme }) => theme.colors.bgBtn};
+  color: ${({ theme }) => theme.colors.fontBtn};
   border: none;
   border-radius: 6px;
   padding: 12px;
