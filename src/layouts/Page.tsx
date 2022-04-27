@@ -18,10 +18,13 @@ import { AppRoute } from '../services/const';
 
 // style
 import { GlobalStyle } from '../styles/style';
+import { ThemeProvider } from 'styled-components';
+
+import { baseTheme } from '../styles/variables';
 
 const Page = () => {
   return (
-    <div>
+    <ThemeProvider theme={baseTheme}>
       <GlobalStyle />
       <BrowserRouter>
         <NavTest />
@@ -35,7 +38,7 @@ const Page = () => {
           <Route path={AppRoute.GAME} element={<Game />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </ThemeProvider>
   );
 };
 export default Page;

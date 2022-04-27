@@ -5,9 +5,10 @@ export const Link = styled(LinkSC)`
   display: block;
   text-align: center;
   margin-bottom: 24px;
-  color: #4f46e5;
+  color: ${({ theme }) => theme.colors.fontLink};
+  font-size: 12px;
   &:hover {
-    color: #ff0000;
+    text-decoration: underline;
   }
 `;
 
