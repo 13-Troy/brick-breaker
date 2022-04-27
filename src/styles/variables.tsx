@@ -31,4 +31,5 @@ export const fonts = {
   font_family: 'Montserrat, sans-serif',
   semi_bold: '600',
   black: '900',
+  // size: size => `font-size: ${size}px;`,
 };

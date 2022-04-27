@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { fonts } from '../../styles/variables';
 interface ButtonStProps {
   fullWidth: boolean;
   backgroundColor: string;
@@ -14,4 +14,5 @@ export const ButtonSt = styled.button<ButtonStProps>`
   border-radius: 6px;
   padding: 12px;
   text-transform: uppercase;
+  font-weight: ${fonts.black};
 `;
