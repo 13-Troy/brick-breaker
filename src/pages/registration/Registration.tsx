@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Link from '../../components/Link';
 import Title from '../../components/Title';
@@ -10,13 +11,26 @@ import { AppRoute } from '../../services/const';
 import { HardPopUpSt } from './style';
 
 const Registration = () => {
+  const navigate = useNavigate();
+
+  const [logIn, setLogIn] = useState({ login: '', password: '' });
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    console.log(logIn);
+
+    navigate(AppRoute.REGISTRATION);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    /* @fixme remove later */ console.log(e.target.value);
+    const { name, value } = e.target;
+    setLogIn((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
 
   return (
     <HardPopUpSt>
-      <form action="">
+      <form onSubmit={onSubmit}>
         <Title h={2}>{'регистрация'}</Title>
         <Input
           name={'email'}
@@ -34,6 +48,30 @@ const Registration = () => {
           name={'firstName'}
           type={'text'}
           placeholder={'имя'}
+          onChange={handleChange}
+        />
+        <Input
+          name={'secondName'}
+          type={'text'}
+          placeholder={'фамилия'}
+          onChange={handleChange}
+        />
+        <Input
+          name={'phone'}
+          type={'tel'}
+          placeholder={'телефон'}
+          onChange={handleChange}
+        />
+        <Input
+          name={'password'}
+          type={'password'}
+          placeholder={'пароль'}
+          onChange={handleChange}
+        />
+        <Input
+          name={'passwordRepeat'}
+          type={'password'}
+          placeholder={'повторите пароль'}
           onChange={handleChange}
         />
         <Link to={AppRoute.ROOT}>{'Войти'}</Link>

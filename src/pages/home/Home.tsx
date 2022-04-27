@@ -21,7 +21,7 @@ const Home = () => {
     /* @fixme remove later */ alert(
       `логин: ${logIn.login}, пароль: ${logIn.password}`
     );
-    navigate(AppRoute.REGISTRATION);
+    navigate(AppRoute.ROOT);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
