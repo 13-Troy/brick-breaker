@@ -34,13 +34,13 @@ const Home = () => {
       <form onSubmit={onSubmit}>
         <Title h={2}>вход</Title>
         <Input
-          idName={'login'}
+          name={'login'}
           type={'text'}
           placeholder={'логин'}
           onChange={handleChange}
         />
         <Input
-          idName={'password'}
+          name={'password'}
           type={'password'}
           placeholder={'пароль'}
           onChange={handleChange}
