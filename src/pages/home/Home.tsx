@@ -28,6 +28,7 @@ const Home = () => {
       body: JSON.stringify(logIn),
     }).then((data) => {
       if (data.ok) navigate(AppRoute.PROFILE);
+      location.reload();
     });
   };
 

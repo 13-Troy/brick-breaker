@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // page
@@ -23,6 +23,34 @@ import { ThemeProvider } from 'styled-components';
 import { baseTheme } from '../styles/variables';
 
 const Page = () => {
+  const [user, setUser] = useState({
+    id: 0,
+    email: '',
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    phone: '',
+    login: '',
+    avatar: '',
+  });
+
+  useEffect(() => {
+    fetch(`https://ya-praktikum.tech/api/v2/auth/user`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        setUser(data);
+        console.log(data);
+      });
+  }, []);
+
   return (
     <ThemeProvider theme={baseTheme}>
       <GlobalStyle />
@@ -30,12 +58,19 @@ const Page = () => {
         <NavTest />
         <Routes>
           <Route path={AppRoute.ROOT} element={<Home />} />
-          <Route path={AppRoute.ABOUT} element={<About />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-          <Route path={AppRoute.PROFILE} element={<Profile />} />
-          <Route path={AppRoute.FORUM} element={<Forum />} />
-          <Route path={AppRoute.RECORDS} element={<Records />} />
-          <Route path={AppRoute.GAME} element={<Game />} />
+          {user.id && (
+            <>
+              <Route path={AppRoute.ABOUT} element={<About />} />
+              <Route
+                path={AppRoute.PROFILE}
+                element={<Profile user={user} />}
+              />
+              <Route path={AppRoute.FORUM} element={<Forum />} />
+              <Route path={AppRoute.RECORDS} element={<Records />} />
+              <Route path={AppRoute.GAME} element={<Game />} />
+            </>
+          )}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Title from '../../components/Title';
@@ -10,35 +10,20 @@ import { AppRoute } from '../../services/const';
 
 import { HardPopUpSt, InfoSt } from './style';
 
-const Profile = () => {
+interface ProfileProps {
+  user: {
+    avatar: string;
+    email: string;
+    login: string;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    phone: string;
+  };
+}
+
+const Profile: FC<ProfileProps> = ({ user }) => {
   const navigate = useNavigate();
-
-  const [user, setUser] = useState({
-    test: '',
-    email: '',
-    first_name: '',
-    second_name: '',
-    display_name: '',
-    phone: '',
-    login: '',
-    avatar: '',
-  });
-
-  useEffect(() => {
-    fetch(`https://ya-praktikum.tech/api/v2/auth/user`, {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        setUser(data);
-      });
-  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,10 +36,9 @@ const Profile = () => {
       },
     }).then(() => {
       navigate(AppRoute.ROOT);
+      location.reload();
     });
   };
-
-  console.log(`https://ya-praktikum.tech/api/v2/resources${user.avatar}`);
 
   return (
     <div>
