@@ -1,4 +1,4 @@
-export const colors = {
+export const allColors = {
   yellow: '#FBBF24',
   white: '#FFFFFF',
   black: '#231F20',
@@ -12,15 +12,15 @@ export const colors = {
 
 export const baseTheme = {
   colors: {
-    bg: colors.purple_medium,
-    bgBtn: colors.purple_medium,
-    bgBtnHover: colors.purple_light,
-    font: colors.black,
-    fontBtn: colors.white,
-    fontBtnHover: colors.purple,
-    fontLink: colors.blue,
-    danger: colors.red,
-    inputBorder: colors.purple,
+    bg: allColors.purple_medium,
+    bgBtn: allColors.purple_medium,
+    bgBtnHover: allColors.purple_light,
+    font: allColors.black,
+    fontBtn: allColors.white,
+    fontBtnHover: allColors.purple,
+    fontLink: allColors.blue,
+    danger: allColors.red,
+    inputBorder: allColors.purple,
   },
 
   fonts: {
