@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Title from '../../components/Title';
@@ -10,8 +10,14 @@ import { AppRoute } from '../../services/const';
 
 import { HardPopUpSt } from './style';
 
-const Home = () => {
+interface HomeProps {
+  userId: number;
+}
+
+const Home: FC<HomeProps> = ({ userId }) => {
   const navigate = useNavigate();
+
+  if (userId) navigate(AppRoute.PROFILE);
 
   const [logIn, setLogIn] = useState({ login: '', password: '' });
 

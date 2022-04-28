@@ -47,7 +47,6 @@ const Page = () => {
       })
       .then((data) => {
         setUser(data);
-        console.log(data);
       });
   }, []);
 
@@ -57,7 +56,7 @@ const Page = () => {
       <BrowserRouter>
         <NavTest />
         <Routes>
-          <Route path={AppRoute.ROOT} element={<Home />} />
+          <Route path={AppRoute.ROOT} element={<Home userId={user.id} />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
           {user.id && (
             <>
