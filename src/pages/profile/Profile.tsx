@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Title from '../../components/Title';
 import DataLine from '../../components/DataLine';
 import Button from '../../components/Button';
+import Avatar from '../../components/Avatar';
 
 import { AppRoute } from '../../services/const';
 
@@ -58,6 +59,7 @@ const Profile = () => {
   return (
     <div>
       <HardPopUpSt>
+        <Avatar />
         <Title h={4}>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>
