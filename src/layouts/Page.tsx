@@ -9,6 +9,7 @@ import Profile from '../pages/profile';
 import Forum from '../pages/forum';
 import Records from '../pages/records';
 import Game from '../pages/game';
+import NotFound from '../pages/404';
 
 // components
 import NavTest from '../components/NavTest';
@@ -70,6 +71,7 @@ const Page = () => {
               <Route path={AppRoute.GAME} element={<Game />} />
             </>
           )}
+          <Route path={'*'} element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
