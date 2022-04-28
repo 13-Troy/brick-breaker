@@ -28,11 +28,8 @@ const Registration = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(JSON.stringify(signUp));
-        console.log('test', data);
+        if (data.id) navigate(AppRoute.ROOT);
       });
-
-    navigate(AppRoute.REGISTRATION);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

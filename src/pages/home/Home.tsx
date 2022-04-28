@@ -27,11 +27,8 @@ const Home = () => {
       },
       body: JSON.stringify(logIn),
     }).then((data) => {
-      console.log(JSON.stringify(logIn));
-      console.log('test', data);
+      if (data.ok) navigate(AppRoute.PROFILE);
     });
-
-    navigate(AppRoute.ROOT);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
