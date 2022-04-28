@@ -10,3 +10,7 @@ export const HardPopUpSt = styled.div`
   bottom: 0;
   left: 0;
 `;
+
+export const InfoSt = styled.div`
+  margin: 60px 0;
+`;

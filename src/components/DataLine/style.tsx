@@ -7,6 +7,7 @@ export const DataLineSt = styled.div`
   justify-content: center;
   position: relative;
   padding: 12px 0;
+  min-height: 44px;
 `;
 
 export const TitleSt = styled.div`

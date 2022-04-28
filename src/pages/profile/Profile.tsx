@@ -7,12 +7,20 @@ import Button from '../../components/Button';
 
 import { AppRoute } from '../../services/const';
 
-import { HardPopUpSt } from './style';
+import { HardPopUpSt, InfoSt } from './style';
 
 const Profile = () => {
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({ first_name: '', id: '' });
+  const [user, setUser] = useState({
+    test: '',
+    email: '',
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    phone: '',
+    login: '',
+  });
 
   useEffect(() => {
     fetch(`https://ya-praktikum.tech/api/v2/auth/user`, {
@@ -45,13 +53,20 @@ const Profile = () => {
     });
   };
 
+  console.log(Object.entries(user));
+
   return (
     <div>
       <HardPopUpSt>
         <Title h={4}>{user.first_name}</Title>
-        <DataLine title={'Почта'} value={'pochta@yandex.ru'}></DataLine>
-        <p>{user.first_name}</p>
-        <p>{user.id}</p>
+        <InfoSt>
+          <DataLine title={'Почта'} value={user.email}></DataLine>
+          <DataLine title={'Логин'} value={user.login}></DataLine>
+          <DataLine title={'Имя'} value={user.first_name}></DataLine>
+          <DataLine title={'Фамилия'} value={user.second_name}></DataLine>
+          <DataLine title={'Ник'} value={user.display_name}></DataLine>
+          <DataLine title={'Телефон'} value={user.phone}></DataLine>
+        </InfoSt>
         <form onSubmit={onSubmit}>
           <Button fullWidth={false}>{'выход'}</Button>
         </form>
