@@ -18,6 +18,13 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     hot: true,
+    open: false,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
   },
   module: {
     rules: [

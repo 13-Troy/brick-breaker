@@ -1,22 +1,21 @@
-export class Paddle {
+import { IGame, IPaddle, Position } from '../game.types';
+
+export class Paddle implements IPaddle {
   readonly width: number;
   readonly height: number;
   readonly maxSpeed: number;
   readonly gameWidth: number;
   speed: number;
-  position: {
-    x: number;
-    y: number;
-  };
+  position: Position;
 
-  constructor(gameWidth: number, gameHeight: number) {
+  constructor(game: IGame) {
     this.width = 150;
     this.height = 20;
-    this.gameWidth = gameWidth;
+    this.gameWidth = game.gameWidth;
 
     this.position = {
-      x: gameWidth / 2 - this.width / 2,
-      y: gameHeight - this.height - 10,
+      x: game.gameWidth / 2 - this.width / 2,
+      y: game.gameHeight - this.height - 10,
     };
 
     this.maxSpeed = 7;
@@ -28,8 +27,7 @@ export class Paddle {
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(deltaTime: number) {
-    if (!deltaTime) return;
+  update() {
     this.position.x += this.speed;
     if (this.position.x < 0) {
       this.position.x = 0;

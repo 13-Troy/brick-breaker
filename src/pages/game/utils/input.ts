@@ -1,5 +1,7 @@
+import { IPaddle } from '../game.types';
+
 export class InputHandler {
-  constructor(paddle: any) {
+  constructor(paddle: IPaddle) {
     document.addEventListener('keydown', (event) => {
       switch (event.code) {
         case 'ArrowLeft': {
@@ -11,11 +13,9 @@ export class InputHandler {
           break;
         }
         case 'Escape': {
-          // game.togglePause();
           break;
         }
         case 'Space': {
-          // game.start();
           break;
         }
         default:
