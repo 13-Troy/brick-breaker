@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { AvatarSt } from './style';
 
-const Avatar = () => {
-  return <AvatarSt></AvatarSt>;
+interface AvatarProps {
+  backgroundImage: string;
+}
+
+const Avatar: FC<AvatarProps> = ({ backgroundImage }) => {
+  return <AvatarSt backgroundImage={backgroundImage} />;
 };
 
 export default Avatar;

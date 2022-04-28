@@ -21,6 +21,7 @@ const Profile = () => {
     display_name: '',
     phone: '',
     login: '',
+    avatar: '',
   });
 
   useEffect(() => {
@@ -36,7 +37,6 @@ const Profile = () => {
       })
       .then((data) => {
         setUser(data);
-        console.log('test', data);
       });
   }, []);
 
@@ -54,12 +54,12 @@ const Profile = () => {
     });
   };
 
-  console.log(Object.entries(user));
+  console.log(`https://ya-praktikum.tech/api/v2/resources${user.avatar}`);
 
   return (
     <div>
       <HardPopUpSt>
-        <Avatar />
+        <Avatar backgroundImage={user.avatar} />
         <Title h={4}>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>
