@@ -1,4 +1,4 @@
-export const colors = {
+const allColors = {
   yellow: '#FBBF24',
   white: '#FFFFFF',
   black: '#231F20',
@@ -11,16 +11,28 @@ export const colors = {
 };
 
 export const baseTheme = {
+  allColors: {
+    yellow: '#FBBF24',
+    white: '#FFFFFF',
+    black: '#231F20',
+    red: '#F87171',
+    green: '#34D399',
+    blue: '#4F46E5',
+    purple: '#5E5E5E',
+    purple_medium: '#818CF8',
+    purple_light: '#E0E7FF',
+  },
+
   colors: {
-    bg: colors.purple_medium,
-    bgBtn: colors.blue,
-    bgBtnHover: colors.purple_light,
-    font: colors.black,
-    fontBtn: colors.white,
-    fontBtnHover: colors.purple,
-    fontLink: colors.blue,
-    danger: colors.red,
-    inputBorder: colors.purple,
+    bg: allColors.purple_medium,
+    bgBtn: allColors.blue,
+    bgBtnHover: allColors.purple_light,
+    font: allColors.black,
+    fontBtn: allColors.white,
+    fontBtnHover: allColors.purple,
+    fontLink: allColors.blue,
+    danger: allColors.red,
+    inputBorder: allColors.purple,
   },
 
   fonts: {
