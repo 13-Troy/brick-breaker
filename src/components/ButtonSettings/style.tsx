@@ -4,7 +4,7 @@ import { allColors } from '../../styles/variables';
 const ButtonSettings = styled.button`
   display: block;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
   color: ${allColors.white};
   font-size: 12px;
   background: none;

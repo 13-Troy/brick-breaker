@@ -13,7 +13,7 @@ export const allColors = {
 export const baseTheme = {
   colors: {
     bg: allColors.purple_medium,
-    bgBtn: allColors.purple_medium,
+    bgBtn: allColors.blue,
     bgBtnHover: allColors.purple_light,
     font: allColors.black,
     fontBtn: allColors.white,

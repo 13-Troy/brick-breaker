@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // page
@@ -9,12 +9,13 @@ import Profile from '../pages/profile';
 import Forum from '../pages/forum';
 import Records from '../pages/records';
 import Game from '../pages/game';
+import NotFound from '../pages/404';
 
 // components
 import NavTest from '../components/NavTest';
 
 // constants
-import { AppRoute } from '../services/const';
+import { AppRoute, UrlSite } from '../services/const';
 
 // style
 import { GlobalStyle } from '../styles/style';
@@ -23,19 +24,55 @@ import { ThemeProvider } from 'styled-components';
 import { baseTheme } from '../styles/variables';
 
 const Page = () => {
+  const [user, setUser] = useState({
+    id: 0,
+    email: '',
+    first_name: '',
+    second_name: '',
+    display_name: '',
+    phone: '',
+    login: '',
+    avatar: '',
+  });
+
+  useEffect(() => {
+    fetch(`${UrlSite.URL}/auth/user`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        setUser(data);
+      });
+  }, []);
+
   return (
     <ThemeProvider theme={baseTheme}>
       <GlobalStyle />
       <BrowserRouter>
         <NavTest />
         <Routes>
-          <Route path={AppRoute.ROOT} element={<Home />} />
-          <Route path={AppRoute.ABOUT} element={<About />} />
+          <Route path={AppRoute.ROOT} element={<Home userId={user.id} />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-          <Route path={AppRoute.PROFILE} element={<Profile />} />
-          <Route path={AppRoute.FORUM} element={<Forum />} />
-          <Route path={AppRoute.RECORDS} element={<Records />} />
-          <Route path={AppRoute.GAME} element={<Game />} />
+          {/* @todo */}
+          {user.id && (
+            <>
+              <Route path={AppRoute.ABOUT} element={<About />} />
+              <Route
+                path={AppRoute.PROFILE}
+                element={<Profile user={user} />}
+              />
+              <Route path={AppRoute.FORUM} element={<Forum />} />
+              <Route path={AppRoute.RECORDS} element={<Records />} />
+              <Route path={AppRoute.GAME} element={<Game />} />
+            </>
+          )}
+          <Route path={'*'} element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
