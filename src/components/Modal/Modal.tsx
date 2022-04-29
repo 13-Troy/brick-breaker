@@ -11,21 +11,19 @@ interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({ isShown, hide, children, headerText }) => {
+  if (!isShown) {
+    return null;
+  }
+
   return (
     <>
-      {isShown ? (
-        <>
-          <BackdropSt onClick={hide} />
-          <WrapperSt>
-            <ModalSt>
-              <Title h={4}>{headerText}</Title>
-              {children}
-            </ModalSt>
-          </WrapperSt>
-        </>
-      ) : (
-        <></>
-      )}
+      <BackdropSt onClick={hide} />
+      <WrapperSt>
+        <ModalSt>
+          <Title h={4}>{headerText}</Title>
+          {children}
+        </ModalSt>
+      </WrapperSt>
     </>
   );
 };

@@ -2,17 +2,17 @@ import React from 'react';
 import ButtonSettings from '../../components/ButtonSettings';
 import Modal from '../../components/Modal';
 
-import { useModal } from '../../hooks/useModal';
+import { useToggle } from '../../hooks/useToggle';
 
 const Profile = () => {
-  const { isShown, toggle } = useModal();
+  const [isShown, toggleVisible] = useToggle(false);
   const contentModalTest = <>{'Здесь контент'}</>;
   return (
     <>
-      <ButtonSettings onClick={toggle}>{'редактировать'}</ButtonSettings>
+      <ButtonSettings onClick={toggleVisible}>{'редактировать'}</ButtonSettings>
       <Modal
         isShown={isShown}
-        hide={toggle}
+        hide={toggleVisible}
         headerText="Редактирование профиля"
       >
         {contentModalTest}

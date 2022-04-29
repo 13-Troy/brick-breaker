@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 export const WrapperSt = styled.div`
   position: fixed;
   top: 50%;
