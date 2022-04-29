@@ -58,10 +58,12 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           <DataLine title={'Телефон'} value={user.phone}></DataLine>
         </InfoSt>
         <ButtonSettings onClick={toggleVisible}>
-          {'Изменить данные'}
+          {' '}
+          Изменить данные{' '}
         </ButtonSettings>
         <ButtonSettings onClick={toggleVisible}>
-          {'Изменить пароль'}
+          {' '}
+          Изменить пароль{' '}
         </ButtonSettings>
         <Modal
           isShown={isShown}
@@ -70,9 +72,9 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         >
           {contentModalTest}
         </Modal>
-
         <Button fullWidth={false} onClick={onSend}>
-          {'выход'}
+          {' '}
+          выход{' '}
         </Button>
       </HardPopUpSt>
     </div>

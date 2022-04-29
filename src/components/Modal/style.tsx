@@ -22,7 +22,7 @@ export const BackdropSt = styled.div`
 
 export const ModalSt = styled.div`
   z-index: 100;
-  background: #fff;
+  background: ${({ theme }) => theme.allColors.white};
   position: relative;
   margin: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
