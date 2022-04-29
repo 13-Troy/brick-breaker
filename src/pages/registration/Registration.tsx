@@ -15,9 +15,7 @@ const Registration = () => {
 
   const [signUp, setSignUp] = useState({ login: '', password: '' });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSend = () => {
     fetch(`${UrlSite.URL}/auth/signup`, {
       method: 'POST',
       headers: {
@@ -39,53 +37,53 @@ const Registration = () => {
 
   return (
     <HardPopUpSt>
-      <form onSubmit={onSubmit}>
-        <Title h={2}>{'регистрация'}</Title>
-        <Input
-          name={'email'}
-          type={'email'}
-          placeholder={'почта'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'login'}
-          type={'text'}
-          placeholder={'логин'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'first_name'}
-          type={'text'}
-          placeholder={'имя'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'second_name'}
-          type={'text'}
-          placeholder={'фамилия'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'phone'}
-          type={'tel'}
-          placeholder={'телефон'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'password'}
-          type={'password'}
-          placeholder={'пароль'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'passwordRepeat'}
-          type={'password'}
-          placeholder={'повторите пароль'}
-          onChange={handleChange}
-        />
-        <Link to={AppRoute.ROOT}>{'Войти'}</Link>
-        <Button fullWidth>{'зарегистрироваться'}</Button>
-      </form>
+      <Title h={2}>{'регистрация'}</Title>
+      <Input
+        name={'email'}
+        type={'email'}
+        placeholder={'почта'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'login'}
+        type={'text'}
+        placeholder={'логин'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'first_name'}
+        type={'text'}
+        placeholder={'имя'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'second_name'}
+        type={'text'}
+        placeholder={'фамилия'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'phone'}
+        type={'tel'}
+        placeholder={'телефон'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'password'}
+        type={'password'}
+        placeholder={'пароль'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'passwordRepeat'}
+        type={'password'}
+        placeholder={'повторите пароль'}
+        onChange={handleChange}
+      />
+      <Link to={AppRoute.ROOT}>{'Войти'}</Link>
+      <Button fullWidth onClick={onSend}>
+        {'зарегистрироваться'}
+      </Button>
     </HardPopUpSt>
   );
 };

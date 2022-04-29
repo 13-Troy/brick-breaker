@@ -25,9 +25,7 @@ interface ProfileProps {
 const Profile: FC<ProfileProps> = ({ user }) => {
   const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSend = () => {
     fetch(`${UrlSite.URL}/auth/logout`, {
       credentials: 'include',
       method: 'POST',
@@ -53,9 +51,9 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           <DataLine title={'Ник'} value={user.display_name}></DataLine>
           <DataLine title={'Телефон'} value={user.phone}></DataLine>
         </InfoSt>
-        <form onSubmit={onSubmit}>
-          <Button fullWidth={false}>{'выход'}</Button>
-        </form>
+        <Button fullWidth={false} onClick={onSend}>
+          {'выход'}
+        </Button>
       </HardPopUpSt>
     </div>
   );

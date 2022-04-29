@@ -21,9 +21,7 @@ const Home: FC<HomeProps> = ({ userId }) => {
 
   const [logIn, setLogIn] = useState({ login: '', password: '' });
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSens = () => {
     fetch(`${UrlSite.URL}/auth/signin`, {
       credentials: 'include',
       method: 'POST',
@@ -45,23 +43,23 @@ const Home: FC<HomeProps> = ({ userId }) => {
 
   return (
     <HardPopUpSt>
-      <form onSubmit={onSubmit}>
-        <Title h={2}>вход</Title>
-        <Input
-          name={'login'}
-          type={'text'}
-          placeholder={'логин'}
-          onChange={handleChange}
-        />
-        <Input
-          name={'password'}
-          type={'password'}
-          placeholder={'пароль'}
-          onChange={handleChange}
-        />
-        <Link to={AppRoute.REGISTRATION}>{'Нет аккаунта? Регистрация'}</Link>
-        <Button fullWidth>{'вход'}</Button>
-      </form>
+      <Title h={2}>вход</Title>
+      <Input
+        name={'login'}
+        type={'text'}
+        placeholder={'логин'}
+        onChange={handleChange}
+      />
+      <Input
+        name={'password'}
+        type={'password'}
+        placeholder={'пароль'}
+        onChange={handleChange}
+      />
+      <Link to={AppRoute.REGISTRATION}>{'Нет аккаунта? Регистрация'}</Link>
+      <Button fullWidth onClick={onSens}>
+        {'вход'}
+      </Button>
     </HardPopUpSt>
   );
 };
