@@ -20,13 +20,11 @@ const Avatar: FC<AvatarProps> = ({ backgroundImage }) => {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        'Content-Type': 'multipart/form-data',
         accept: 'application/json',
       },
-
       body: formData,
     }).then((data) => {
-      console.log(data);
+      location.reload();
     });
   };
 
