@@ -6,7 +6,7 @@ import Title from '../../components/Title';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { AppRoute } from '../../services/const';
+import { AppRoute, UrlSite } from '../../services/const';
 
 import { HardPopUpSt } from './style';
 
@@ -18,7 +18,7 @@ const Registration = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch(`https://ya-praktikum.tech/api/v2/auth/signup`, {
+    fetch(`${UrlSite.URL}/auth/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ import NotFound from '../pages/404';
 import NavTest from '../components/NavTest';
 
 // constants
-import { AppRoute } from '../services/const';
+import { AppRoute, UrlSite } from '../services/const';
 
 // style
 import { GlobalStyle } from '../styles/style';
@@ -36,7 +36,7 @@ const Page = () => {
   });
 
   useEffect(() => {
-    fetch(`https://ya-praktikum.tech/api/v2/auth/user`, {
+    fetch(`${UrlSite.URL}/auth/user`, {
       credentials: 'include',
       method: 'GET',
       headers: {
@@ -59,6 +59,7 @@ const Page = () => {
         <Routes>
           <Route path={AppRoute.ROOT} element={<Home userId={user.id} />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+          {/* @todo */}
           {user.id && (
             <>
               <Route path={AppRoute.ABOUT} element={<About />} />

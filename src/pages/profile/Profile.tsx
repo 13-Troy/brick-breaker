@@ -6,7 +6,7 @@ import DataLine from '../../components/DataLine';
 import Button from '../../components/Button';
 import Avatar from '../../components/Avatar';
 
-import { AppRoute } from '../../services/const';
+import { AppRoute, UrlSite } from '../../services/const';
 
 import { HardPopUpSt, InfoSt } from './style';
 
@@ -28,7 +28,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch(`https://ya-praktikum.tech/api/v2/auth/logout`, {
+    fetch(`${UrlSite.URL}/auth/logout`, {
       credentials: 'include',
       method: 'POST',
       headers: {
@@ -43,7 +43,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   return (
     <div>
       <HardPopUpSt>
-        <Avatar backgroundImage={user.avatar} />
+        <Avatar backgroundImage={user.avatar} size={130} />
         <Title h={4}>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>

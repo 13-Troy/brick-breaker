@@ -13,5 +13,5 @@ export const DataLineSt = styled.div`
 export const TitleSt = styled.div`
   position: absolute;
   left: 0;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.fontBtn};
 `;

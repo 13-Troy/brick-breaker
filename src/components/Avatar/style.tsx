@@ -2,11 +2,12 @@ import styled from 'styled-components';
 
 interface AvatarProps {
   backgroundImage: string;
+  size: number;
 }
 
-export const AvatarSt = styled.div<AvatarProps>`
-  width: 130px;
-  height: 130px;
+const Avatar = styled.div<AvatarProps>`
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
   margin: 0 auto 30px;
   background-image: url(${({ backgroundImage }) =>
     backgroundImage
@@ -15,3 +16,5 @@ export const AvatarSt = styled.div<AvatarProps>`
   background-size: cover;
   border-radius: 50%;
 `;
+
+export default Avatar;

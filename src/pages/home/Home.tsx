@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 import Link from '../../components/Link';
 import Input from '../../components/Input';
 
-import { AppRoute } from '../../services/const';
+import { AppRoute, UrlSite } from '../../services/const';
 
 import { HardPopUpSt } from './style';
 
@@ -24,7 +24,7 @@ const Home: FC<HomeProps> = ({ userId }) => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch(`https://ya-praktikum.tech/api/v2/auth/signin`, {
+    fetch(`${UrlSite.URL}/auth/signin`, {
       credentials: 'include',
       method: 'POST',
       headers: {
