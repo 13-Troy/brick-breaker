@@ -25,6 +25,26 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/no-explicit-any': 'off',
+    'padding-line-between-statements': [
+      'warn',
+      { blankLine: 'always', prev: '*', next: 'if' },
+      { blankLine: 'always', prev: '*', next: 'return' },
+      {
+        blankLine: 'always',
+        prev: ['const', 'let', 'var'],
+        next: [
+          'for',
+          'try',
+          'while',
+          'expression',
+          'block',
+          'block-like',
+          'function',
+          'switch',
+        ],
+      },
+      { blankLine: 'always', prev: ['case', 'default'], next: '*' },
+    ],
   },
   settings: {
     react: {

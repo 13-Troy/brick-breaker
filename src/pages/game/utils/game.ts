@@ -23,8 +23,8 @@ export class MainGame {
     console.log('started');
   }
 
-  update(deltaTime?: number) {
-    this.gameObjects.forEach((gameObject) => gameObject.update(deltaTime));
+  update() {
+    this.gameObjects.forEach((gameObject) => gameObject.update());
   }
 
   draw(ctx: CanvasRenderingContext2D) {

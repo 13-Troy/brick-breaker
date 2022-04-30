@@ -11,7 +11,7 @@ export interface IPaddle {
   speed: number;
   position: Position;
   draw: (ctx: CanvasRenderingContext2D) => void;
-  update: (deltaTime?: number) => void;
+  update: () => void;
   moveLeft: () => void;
   moveRight: () => void;
   stop: () => void;
@@ -23,7 +23,7 @@ export interface IGame {
   paddle: IPaddle;
   ball: IBall;
   start: () => void;
-  update: (deltaTime?: number) => void;
+  update: () => void;
   draw: (ctx: CanvasRenderingContext2D) => void;
 }
 
@@ -35,5 +35,5 @@ export interface IBall {
   position: Position;
   speed: Position;
   draw: (ctx: CanvasRenderingContext2D) => void;
-  update: (deltaTime?: number) => void;
+  update: () => void;
 }

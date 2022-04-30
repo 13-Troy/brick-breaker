@@ -3,30 +3,32 @@ import { IGame, Position } from '../game.types';
 
 export class Ball {
   readonly image: HTMLImageElement;
-  readonly size: number;
   readonly gameWidth: number;
   readonly gameHeight: number;
-  position: Position;
-  speed: Position;
-  constructor(game: IGame) {
+  readonly size = 16;
+  position: Position = {
+    x: 10,
+    y: 10,
+  };
+  speed: Position = {
+    x: 2,
+    y: 2,
+  };
+
+  constructor({ gameWidth, gameHeight }: IGame) {
+    this.image = this.createImage();
+    this.gameWidth = gameWidth;
+    this.gameHeight = gameHeight;
+  }
+
+  createImage() {
     const ballImage = new Image();
+
     ballImage.width = 10;
     ballImage.height = 10;
     ballImage.src = ballImg;
-    this.image = ballImage;
 
-    this.gameWidth = game.gameWidth;
-    this.gameHeight = game.gameHeight;
-
-    this.position = {
-      x: 10,
-      y: 10,
-    };
-    this.speed = {
-      x: 2,
-      y: 2,
-    };
-    this.size = 16;
+    return ballImage;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -39,7 +41,7 @@ export class Ball {
     );
   }
 
-  update(deltaTime?: number) {
+  update() {
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
 

@@ -1,25 +1,20 @@
 import { IGame, IPaddle, Position } from '../game.types';
 
 export class Paddle implements IPaddle {
-  readonly width: number;
-  readonly height: number;
-  readonly maxSpeed: number;
   readonly gameWidth: number;
-  speed: number;
   position: Position;
+  readonly width = 150;
+  readonly height = 20;
+  readonly maxSpeed = 7;
+  public speed = 0;
 
-  constructor(game: IGame) {
-    this.width = 150;
-    this.height = 20;
-    this.gameWidth = game.gameWidth;
+  constructor({ gameWidth, gameHeight }: IGame) {
+    this.gameWidth = gameWidth;
 
     this.position = {
-      x: game.gameWidth / 2 - this.width / 2,
-      y: game.gameHeight - this.height - 10,
+      x: gameWidth / 2 - this.width / 2,
+      y: gameHeight - this.height - 10,
     };
-
-    this.maxSpeed = 7;
-    this.speed = 0;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -29,6 +24,7 @@ export class Paddle implements IPaddle {
 
   update() {
     this.position.x += this.speed;
+
     if (this.position.x < 0) {
       this.position.x = 0;
     }
