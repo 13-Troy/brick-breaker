@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-import { MainGame } from './utils/game';
+import { Game } from './utils/game';
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
 
-const Game = () => {
+const GamePage = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-  const game = useMemo(() => new MainGame(GAME_WIDTH, GAME_HEIGHT), []);
+  const game = useMemo(() => new Game(GAME_WIDTH, GAME_HEIGHT), []);
 
   const animate = useCallback(() => {
     if (ctxRef.current) {
@@ -41,4 +41,4 @@ const Game = () => {
   );
 };
 
-export default Game;
+export default GamePage;

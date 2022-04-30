@@ -3,7 +3,7 @@ import { InputHandler } from './input';
 import { Ball } from './ball';
 import { IBall, IPaddle } from 'pages/game/game.types';
 
-export class MainGame {
+export class Game {
   readonly gameWidth: number;
   readonly gameHeight: number;
   paddle: IPaddle;
