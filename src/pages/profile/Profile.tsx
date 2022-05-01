@@ -29,11 +29,7 @@ interface ProfileProps {
 const Profile: FC<ProfileProps> = ({ user }) => {
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
-  const [password, setPassword] = useState({
-    oldPassword: '',
-    newPassword: '',
-    repeatNewPassword: '',
-  });
+  const [avatar, setAvatar] = useState('');
   const [data, setData] = useState({
     first_name: user.first_name,
     second_name: user.second_name,
@@ -41,6 +37,11 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     login: user.login,
     email: user.email,
     phone: user.phone,
+  });
+  const [password, setPassword] = useState({
+    oldPassword: '',
+    newPassword: '',
+    repeatNewPassword: '',
   });
 
   const navigate = useNavigate();
@@ -58,20 +59,20 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     });
   };
 
-  const changePassword = () => {
-    if (password.newPassword === password.repeatNewPassword) {
-      fetch(`${UrlSite.URL}/user/password`, {
-        credentials: 'include',
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(password),
-      }).then(() => {
-        toggleVisible();
-      });
-    } else console.log('error');
+  const changeAvatar = () => {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+
+    fetch(`https://ya-praktikum.tech/api/v2/user/profile/avatar`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        accept: 'application/json',
+      },
+      body: formData,
+    }).then(() => {
+      location.reload();
+    });
   };
 
   const changeData = () => {
@@ -88,12 +89,29 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changePassword = () => {
+    if (password.newPassword === password.repeatNewPassword) {
+      fetch(`${UrlSite.URL}/user/password`, {
+        credentials: 'include',
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(password),
+      }).then(() => {
+        toggleVisible();
+      });
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
     const { name, value } = e.target;
     if (changeProfile === 'changePassword')
       setPassword((prevPassword) => ({ ...prevPassword, [name]: value }));
     if (changeProfile === 'changeData')
       setData((prevData) => ({ ...prevData, [name]: value }));
+    if (changeProfile === 'changeAvatar') setAvatar(e.target.files[0]);
   };
 
   const onCallModal = (change: string) => {
@@ -104,7 +122,11 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   return (
     <div>
       <HardPopUpSt>
-        <Avatar backgroundImage={user.avatar} size={130} />
+        <Avatar
+          backgroundImage={user.avatar}
+          size={130}
+          onClick={() => onCallModal('changeAvatar')}
+        />
         <Title h={4}>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>
@@ -121,6 +143,20 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           {'Изменить пароль'}
         </ButtonSettings>
         <Modal isShown={isShown} hide={toggleVisible}>
+          {changeProfile === 'changeAvatar' && (
+            <>
+              <Title h={4}>{'загрузите файл'}</Title>
+              <Input
+                name={'avatar'}
+                type={'file'}
+                placeholder={'file'}
+                onChange={handleChange}
+              />
+              <Button fullWidth onClick={changeAvatar}>
+                {'поменять'}
+              </Button>
+            </>
+          )}
           {changeProfile === 'changeData' && (
             <>
               <Title h={4}>{'изменить данные'}</Title>
@@ -166,7 +202,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 onChange={handleChange}
                 value={data.phone}
               />
-              <Button fullWidth={false} onClick={changeData}>
+              <Button fullWidth onClick={changeData}>
                 {'сохранить'}
               </Button>
             </>
@@ -192,7 +228,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
                 placeholder={'повторить пароль'}
                 onChange={handleChange}
               />
-              <Button fullWidth={false} onClick={changePassword}>
+              <Button fullWidth onClick={changePassword}>
                 {'сохранить'}
               </Button>
             </>

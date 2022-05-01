@@ -15,6 +15,7 @@ const Avatar = styled.div<AvatarProps>`
       : '/images/default_avatar.png'});
   background-size: cover;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 export default Avatar;
