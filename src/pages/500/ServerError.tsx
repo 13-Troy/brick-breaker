@@ -1,24 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import Button from '../../components/Button';
-
-import { CenterSt, BigSt, SmallSt } from './style';
+import ErrorPageTemplate from '../../components/ErrorPageTemplate';
 
 const ServerError = () => {
-  const navigate = useNavigate();
-
-  return (
-    <CenterSt>
-      <div>
-        <BigSt>500 </BigSt>
-        <SmallSt>упс, ошибка сервера</SmallSt>
-      </div>
-      <Button fullWidth={false} onClick={() => navigate(-1)}>
-        {'назад'}
-      </Button>
-    </CenterSt>
-  );
+  return <ErrorPageTemplate title="500" subtitle="упс, ошибка сервера" />;
 };
 
 export default ServerError;
