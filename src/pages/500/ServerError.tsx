@@ -5,14 +5,14 @@ import Button from '../../components/Button';
 
 import { CenterSt, BigSt, SmallSt } from './style';
 
-const NotFound = () => {
+const ServerError = () => {
   const navigate = useNavigate();
 
   return (
     <CenterSt>
       <div>
-        <BigSt>404 </BigSt>
-        <SmallSt>упс, страница не найдена</SmallSt>
+        <BigSt>500 </BigSt>
+        <SmallSt>упс, ошибка сервера</SmallSt>
       </div>
       <Button fullWidth={false} onClick={() => navigate(-1)}>
         {'назад'}
@@ -21,4 +21,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default ServerError;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const CenterSt = styled.div`
-  max-width: 500px;
+  max-width: 384px;
   height: min-content;
   position: absolute;
   margin: auto;
