@@ -34,6 +34,14 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     newPassword: '',
     repeatNewPassword: '',
   });
+  const [data, setData] = useState({
+    first_name: user.first_name,
+    second_name: user.second_name,
+    display_name: user.display_name,
+    login: user.login,
+    email: user.email,
+    phone: user.phone,
+  });
 
   const navigate = useNavigate();
 
@@ -66,10 +74,16 @@ const Profile: FC<ProfileProps> = ({ user }) => {
     } else console.log('error');
   };
 
+  const changeData = () => {
+    console.log(data);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (changeProfile === 'changePassword')
       setPassword((prevPassword) => ({ ...prevPassword, [name]: value }));
+    if (changeProfile === 'changeData')
+      setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const onCallModal = (change: string) => {
@@ -100,7 +114,49 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           {changeProfile === 'changeData' && (
             <>
               <Title h={4}>{'изменить данные'}</Title>
-              <Button fullWidth={false} onClick={changePassword}>
+              <Input
+                name={'email'}
+                type={'email'}
+                placeholder={'почта'}
+                onChange={handleChange}
+                value={data.email}
+              />
+              <Input
+                name={'login'}
+                type={'text'}
+                placeholder={'логин'}
+                onChange={handleChange}
+                value={data.login}
+              />
+              <Input
+                name={'first_name'}
+                type={'text'}
+                placeholder={'имя'}
+                onChange={handleChange}
+                value={data.first_name}
+              />
+              <Input
+                name={'second_name'}
+                type={'text'}
+                placeholder={'фамилия'}
+                onChange={handleChange}
+                value={data.second_name}
+              />
+              <Input
+                name={'display_name'}
+                type={'text'}
+                placeholder={'ник'}
+                onChange={handleChange}
+                value={data.display_name ? data.display_name : ''}
+              />
+              <Input
+                name={'phone'}
+                type={'tel'}
+                placeholder={'телефон'}
+                onChange={handleChange}
+                value={data.phone}
+              />
+              <Button fullWidth={false} onClick={changeData}>
                 {'сохранить'}
               </Button>
             </>
