@@ -7,7 +7,9 @@ import Button from '../../components/Button';
 import ButtonSettings from '../../components/ButtonSettings';
 import Avatar from '../../components/Avatar';
 import Modal from '../../components/Modal';
-import Input from '../../components/Input';
+import ChangeAvatarModal from '../../components/ChangeAvatarModal';
+import ChangeProfileDataModal from '../../components/ChangeProfileDataModal';
+import ChangePasswordModal from '../../components/ChangePasswordModal';
 
 import { AppRoute, UrlSite } from '../../services/const';
 import { useToggle } from '../../hooks/useToggle';
@@ -29,20 +31,6 @@ interface ProfileProps {
 const Profile: FC<ProfileProps> = ({ user }) => {
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [data, setData] = useState({
-    first_name: user.first_name,
-    second_name: user.second_name,
-    display_name: user.display_name,
-    login: user.login,
-    email: user.email,
-    phone: user.phone,
-  });
-  const [password, setPassword] = useState({
-    oldPassword: '',
-    newPassword: '',
-    repeatNewPassword: '',
-  });
 
   const navigate = useNavigate();
 
@@ -57,61 +45,6 @@ const Profile: FC<ProfileProps> = ({ user }) => {
       navigate(AppRoute.ROOT);
       location.reload();
     });
-  };
-
-  const changeAvatar = () => {
-    const formData = new FormData();
-    formData.append('avatar', avatar);
-
-    fetch(`https://ya-praktikum.tech/api/v2/user/profile/avatar`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: {
-        accept: 'application/json',
-      },
-      body: formData,
-    }).then(() => {
-      location.reload();
-    });
-  };
-
-  const changeData = () => {
-    fetch(`${UrlSite.URL}/user/profile`, {
-      credentials: 'include',
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then(() => {
-      location.reload();
-    });
-  };
-
-  const changePassword = () => {
-    if (password.newPassword === password.repeatNewPassword) {
-      fetch(`${UrlSite.URL}/user/password`, {
-        credentials: 'include',
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(password),
-      }).then(() => {
-        toggleVisible();
-      });
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | any) => {
-    const { name, value } = e.target;
-    if (changeProfile === 'changePassword')
-      setPassword((prevPassword) => ({ ...prevPassword, [name]: value }));
-    if (changeProfile === 'changeData')
-      setData((prevData) => ({ ...prevData, [name]: value }));
-    if (changeProfile === 'changeAvatar') setAvatar(e.target.files[0]);
   };
 
   const onCallModal = (change: string) => {
@@ -143,96 +76,11 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           {'Изменить пароль'}
         </ButtonSettings>
         <Modal isShown={isShown} hide={toggleVisible}>
-          {changeProfile === 'changeAvatar' && (
-            <>
-              <Title h={4}>{'загрузите файл'}</Title>
-              <Input
-                name={'avatar'}
-                type={'file'}
-                placeholder={'file'}
-                onChange={handleChange}
-              />
-              <Button fullWidth onClick={changeAvatar}>
-                {'поменять'}
-              </Button>
-            </>
-          )}
+          {changeProfile === 'changeAvatar' && <ChangeAvatarModal />}
           {changeProfile === 'changeData' && (
-            <>
-              <Title h={4}>{'изменить данные'}</Title>
-              <Input
-                name={'email'}
-                type={'email'}
-                placeholder={'почта'}
-                onChange={handleChange}
-                value={data.email}
-              />
-              <Input
-                name={'login'}
-                type={'text'}
-                placeholder={'логин'}
-                onChange={handleChange}
-                value={data.login}
-              />
-              <Input
-                name={'first_name'}
-                type={'text'}
-                placeholder={'имя'}
-                onChange={handleChange}
-                value={data.first_name}
-              />
-              <Input
-                name={'second_name'}
-                type={'text'}
-                placeholder={'фамилия'}
-                onChange={handleChange}
-                value={data.second_name}
-              />
-              <Input
-                name={'display_name'}
-                type={'text'}
-                placeholder={'ник'}
-                onChange={handleChange}
-                value={data.display_name ? data.display_name : ''}
-              />
-              <Input
-                name={'phone'}
-                type={'tel'}
-                placeholder={'телефон'}
-                onChange={handleChange}
-                value={data.phone}
-              />
-              <Button fullWidth onClick={changeData}>
-                {'сохранить'}
-              </Button>
-            </>
+            <ChangeProfileDataModal user={user} />
           )}
-          {changeProfile === 'changePassword' && (
-            <>
-              <Title h={4}>{'изменить пароль'}</Title>
-              <Input
-                name={'oldPassword'}
-                type={'password'}
-                placeholder={'старый пароль'}
-                onChange={handleChange}
-              />
-              <Input
-                name={'newPassword'}
-                type={'password'}
-                placeholder={'новый пароль'}
-                onChange={handleChange}
-              />
-              <Input
-                name={'repeatNewPassword'}
-                type={'password'}
-                placeholder={'повторить пароль'}
-                onChange={handleChange}
-              />
-              <Button fullWidth onClick={changePassword}>
-                {'сохранить'}
-              </Button>
-            </>
-          )}
+          {changeProfile === 'changePassword' && <ChangePasswordModal />}
         </Modal>
         <Button fullWidth={false} onClick={onSend}>
           {'выход'}
