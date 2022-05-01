@@ -75,7 +75,17 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   };
 
   const changeData = () => {
-    console.log(data);
+    fetch(`${UrlSite.URL}/user/profile`, {
+      credentials: 'include',
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then(() => {
+      location.reload();
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
