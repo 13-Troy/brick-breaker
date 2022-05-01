@@ -1,7 +1,8 @@
 import ballImg from '../../../assets/img/ball.png';
-import { IGame, Position } from '../game.types';
+import { IBall, IGame, Position } from '../game.types';
+import { GameObject } from './gameObject';
 
-export class Ball {
+export class Ball extends GameObject implements IBall {
   readonly image: HTMLImageElement;
   readonly gameWidth: number;
   readonly gameHeight: number;
@@ -16,6 +17,7 @@ export class Ball {
   };
 
   constructor({ gameWidth, gameHeight }: IGame) {
+    super();
     this.image = this.createImage();
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
