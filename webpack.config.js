@@ -12,7 +12,7 @@ module.exports = {
     assetModuleFilename: '[name][ext]',
   },
   resolve: {
-    extensions: ['.ts', '.js', '.tsx'],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   devtool: 'inline-source-map',
   devServer: {
@@ -24,7 +24,7 @@ module.exports = {
         errors: true,
         warnings: false,
       },
-    },
+    }
   },
   module: {
     rules: [
@@ -37,6 +37,7 @@ module.exports = {
         test: /\.s[ac]ss$/,
         use: ['style-loader', 'css-loader'],
       },
+
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
         type: 'asset',

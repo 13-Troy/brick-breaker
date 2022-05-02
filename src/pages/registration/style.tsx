@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const HardPopUpSt = styled.div`
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.allColors.white};
   max-width: 384px;
   height: min-content;
   position: absolute;
