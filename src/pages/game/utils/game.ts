@@ -3,6 +3,7 @@ import { InputHandler } from './input';
 import { Ball } from './ball';
 import { level1, buildLevels } from './levels';
 import { Brick } from './brick';
+import { GameObject } from './gameObject';
 
 interface IGame {
   canvasElement: HTMLCanvasElement;
@@ -13,16 +14,21 @@ interface IGame {
 export class Game {
   readonly gameWidth: number;
   readonly gameHeight: number;
+
   paddle: Paddle;
   ball: Ball;
-  gameObjects: [Ball, Paddle];
+  gameObjects: GameObject[];
   bricks: Brick[];
+
   ctx: CanvasRenderingContext2D;
+
   constructor({ canvasElement, gameWidth, gameHeight }: IGame) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
+
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
+    new InputHandler(this.paddle);
 
     this.gameObjects = [this.ball, this.paddle];
     this.bricks = buildLevels(this, level1);
@@ -30,7 +36,6 @@ export class Game {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.ctx = canvasElement.getContext('2d')!;
 
-    new InputHandler(this.paddle);
     this.animate = this.animate.bind(this);
   }
 

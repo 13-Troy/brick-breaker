@@ -10,15 +10,18 @@ export class Ball extends GameObject {
   readonly gameWidth: number;
   readonly gameHeight: number;
   readonly size = 16;
+
+  public paddle: Paddle;
+
   position: Position = {
     x: 10,
     y: 400,
   };
+
   speed: Position = {
     x: 2,
     y: -2,
   };
-  public paddle: Paddle;
 
   constructor({ gameWidth, gameHeight, paddle }: Game) {
     super();

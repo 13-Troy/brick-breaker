@@ -13,12 +13,12 @@ export function buildLevels(game: Game, level: number[][]) {
 
   level.forEach((row: number[], rowIndex: number) => {
     row.forEach((brick, brickIndex) => {
-      const position = {
-        x: brickIndex * 80,
-        y: 60 + rowIndex * 24,
-      };
-
       if (brick) {
+        const position = {
+          x: brickIndex * 80,
+          y: 60 + rowIndex * 24,
+        };
+
         bricks.push(new Brick(game, position));
       }
     });
