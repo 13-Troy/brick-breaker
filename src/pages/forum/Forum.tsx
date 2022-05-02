@@ -3,24 +3,20 @@ import data from '../../mocks/data';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import Input from '../../components/Input';
-import { useModal } from '../../hooks/useModal';
+import Textarea from '../../components/Textarea';
+import Table from '../../components/Table';
 
-import {
-  WrapperSt,
-  TableSt,
-  TableHeadSt,
-  TableBodySt,
-  TableRowSt,
-  TableColSt,
-} from './style';
+import { useToggle } from '../../hooks/useToggle';
+
+import { WrapperSt, ButtonWrapperSt } from './style';
 
 const Forum = () => {
-  const { isShown, toggle } = useModal();
+  const [isShown, toggleVisible] = useToggle(false);
   const [postList, setPostList] = useState(data);
 
   const [logIn, setLogIn] = useState({ name: '', content: '' });
 
-  const addTask = () => {
+  const addPost = () => {
     const newPost = {
       id: postList.length + 1,
       content: logIn.content,
@@ -28,23 +24,27 @@ const Forum = () => {
       user_id: 33,
       user_name: 'Семен',
       answer_count: 0,
+      answers: [],
     };
 
     setPostList([...postList, newPost]);
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-
-    addTask();
+  const handleSubmit = () => {
+    addPost();
+    toggleVisible();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setLogIn((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
 
-  const titles = ['Тема', 'Автор', 'Ответы', ''];
+  const titles = ['Название', 'Автор', 'Ответы', ''];
 
   const contentModalTest = (
     <>
@@ -54,48 +54,26 @@ const Forum = () => {
         placeholder={'название'}
         onChange={handleChange}
       />
-
-      <Input
+      <Textarea
         name={'content'}
-        type={'text'}
         placeholder={'текст поста'}
         onChange={handleChange}
       />
-      <Button onClick={handleSubmit}>{'сохранить'}</Button>
+      <Button onClick={handleSubmit}>сохранить</Button>
     </>
-  );
-
-  const tableHead = (
-    <TableHeadSt>
-      <TableRowSt>
-        {postList &&
-          titles.map((title, i) => <TableColSt key={i}>{title}</TableColSt>)}
-      </TableRowSt>
-    </TableHeadSt>
   );
 
   return (
     <>
       <WrapperSt>
-        <TableSt>
-          {tableHead}
-          <TableBodySt>
-            {postList &&
-              postList.map((todo, i) => (
-                <TableRowSt key={i}>
-                  <TableColSt>{todo.name}</TableColSt>
-                  <TableColSt>{todo.user_name}</TableColSt>
-                  <TableColSt>{todo.answer_count}</TableColSt>
-                  <TableColSt>edit</TableColSt>
-                </TableRowSt>
-              ))}
-          </TableBodySt>
-        </TableSt>
+        <Table titles={titles} content={postList} />
+        <ButtonWrapperSt>
+          <Button onClick={toggleVisible}>{'создать пост'}</Button>
+        </ButtonWrapperSt>
 
-        <Button onClick={toggle}>{'редактировать'}</Button>
         <Modal
           isShown={isShown}
-          hide={toggle}
+          hide={toggleVisible}
           headerText="Редактирование профиля"
         >
           {contentModalTest}

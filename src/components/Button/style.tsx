@@ -18,6 +18,8 @@ const Button = styled.button<ButtonStProps>`
     background-color: ${({ theme }) => theme.colors.bgBtnHover};
     color: ${({ theme }) => theme.colors.fontBtnHover};
   }
+  margin: 0 auto;
+  display: block;
 `;
 
 export default Button;

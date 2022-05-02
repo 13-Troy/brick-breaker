@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import Title from '../../components/Title';
 
 import { BackdropSt, WrapperSt, ModalSt } from './style';
@@ -6,26 +6,28 @@ import { BackdropSt, WrapperSt, ModalSt } from './style';
 interface ModalProps {
   isShown?: boolean;
   hide?: () => void;
-  children?: React.ReactNode;
   headerText?: string;
 }
 
-const Modal: FC<ModalProps> = ({ isShown, hide, children, headerText }) => {
+const Modal: FC<PropsWithChildren<ModalProps>> = ({
+  isShown,
+  children,
+  hide,
+  headerText,
+}) => {
+  if (!isShown) {
+    return null;
+  }
+
   return (
     <>
-      {isShown ? (
-        <>
-          <BackdropSt onClick={hide} />
-          <WrapperSt>
-            <ModalSt>
-              <Title h={4}>{headerText}</Title>
-              {children}
-            </ModalSt>
-          </WrapperSt>
-        </>
-      ) : (
-        <></>
-      )}
+      <BackdropSt onClick={hide} />
+      <WrapperSt>
+        <ModalSt>
+          <Title h={4}>{headerText}</Title>
+          {children}
+        </ModalSt>
+      </WrapperSt>
     </>
   );
 };

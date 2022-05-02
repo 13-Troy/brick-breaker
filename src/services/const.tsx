@@ -4,7 +4,11 @@ export const AppRoute = {
   REGISTRATION: '/registration',
   PROFILE: '/profile',
   FORUM: '/forum',
-  POST: '/post',
   RECORDS: '/records',
   GAME: '/game',
+  POST: '/post',
+};
+
+export const UrlSite = {
+  URL: 'https://ya-praktikum.tech/api/v2',
 };

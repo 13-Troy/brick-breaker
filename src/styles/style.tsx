@@ -1,12 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
-import { baseTheme } from '../styles/variables';
+interface ThemeProps {
+  colors: {
+    bg: string;
+    font: string;
+  };
+  fonts: {
+    font_family: string;
+  };
+}
 
-export const GlobalStyle = createGlobalStyle`
-
+export const GlobalStyle = createGlobalStyle<{ theme: ThemeProps }>`
   body {
-    background-color: ${baseTheme.colors.bg};
-    font-family: ${baseTheme.fonts.font_family};
-    color: ${baseTheme.colors.font};
+    background-color: ${({ theme }) => theme.colors.bg};
+    font-family: ${({ theme }) => theme.fonts.font_family};
+    color: ${({ theme }) => theme.colors.font};
   }
    
   * {
@@ -31,7 +38,7 @@ export const GlobalStyle = createGlobalStyle`
   textarea,
   input {
     outline: none;
-    font-family: ${baseTheme.fonts.font_family};
+    font-family: ${({ theme }) => theme.fonts.font_family};
   }
 
   input:-webkit-autofill {

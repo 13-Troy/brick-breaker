@@ -1,4 +1,4 @@
-export const allColors = {
+const allColors = {
   yellow: '#FBBF24',
   white: '#FFFFFF',
   black: '#231F20',
@@ -11,6 +11,18 @@ export const allColors = {
 };
 
 export const baseTheme = {
+  allColors: {
+    yellow: '#FBBF24',
+    white: '#FFFFFF',
+    black: '#231F20',
+    red: '#F87171',
+    green: '#34D399',
+    blue: '#4F46E5',
+    purple: '#5E5E5E',
+    purple_medium: '#818CF8',
+    purple_light: '#E0E7FF',
+  },
+
   colors: {
     bg: allColors.purple_medium,
     bgBtn: allColors.blue,
