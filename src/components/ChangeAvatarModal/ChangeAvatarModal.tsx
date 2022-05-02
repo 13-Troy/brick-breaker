@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 import Title from '../Title';
 import Button from '../Button';
 import Input from '../Input';
 
 const ChangeAvatarModal = () => {
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState<File | null>(null);
 
   const changeAvatar = () => {
+    if (!avatar) {
+      return; // если аватара нет, то и менять нечего
+    }
+
     const formData = new FormData();
     formData.append('avatar', avatar);
 
@@ -23,7 +27,10 @@ const ChangeAvatarModal = () => {
     });
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
     setAvatar(e.target.files[0]);
   };
 
