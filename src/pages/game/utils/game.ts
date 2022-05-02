@@ -1,7 +1,6 @@
 import { Paddle } from './paddle';
 import { InputHandler } from './input';
 import { Ball } from './ball';
-import { IPaddle } from 'pages/game/game.types';
 import { level1, buildLevels } from './levels';
 import { Brick } from './brick';
 
@@ -14,9 +13,9 @@ interface IGame {
 export class Game {
   readonly gameWidth: number;
   readonly gameHeight: number;
-  paddle: IPaddle;
+  paddle: Paddle;
   ball: Ball;
-  gameObjects: [Ball, IPaddle];
+  gameObjects: [Ball, Paddle];
   bricks: Brick[];
   ctx: CanvasRenderingContext2D;
   constructor({ canvasElement, gameWidth, gameHeight }: IGame) {
@@ -24,13 +23,7 @@ export class Game {
     this.gameHeight = gameHeight;
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
-    // this.brick = new Brick(this, {x: 20, y:20});
 
-    // const bricks:IBrick[] = [];
-
-    // for(let i = 0; i<10; i++) {
-    //   bricks.push(new Brick(this, {x: 52*i, y: 30}));
-    // }
     this.gameObjects = [this.ball, this.paddle];
     this.bricks = buildLevels(this, level1);
 

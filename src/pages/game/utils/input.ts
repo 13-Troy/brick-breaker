@@ -1,7 +1,7 @@
-import { IPaddle } from '../game.types';
+import { Paddle } from './paddle';
 
 export class InputHandler {
-  constructor(paddle: IPaddle) {
+  constructor(paddle: Paddle) {
     document.addEventListener('keydown', (event) => {
       switch (event.code) {
         case 'ArrowLeft': {

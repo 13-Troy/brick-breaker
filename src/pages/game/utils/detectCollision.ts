@@ -1,4 +1,4 @@
-import { IBall } from '../game.types';
+import { Ball } from './ball';
 
 type GameObject = {
   position: {
@@ -9,7 +9,7 @@ type GameObject = {
   height: number;
   width: number;
 };
-export function detectCollision(ball: IBall, gameObject: GameObject) {
+export function detectCollision(ball: Ball, gameObject: GameObject) {
   const topOfTheGameObject = gameObject.position.y;
 
   const bottomOfTheGameObject = gameObject.position.y + gameObject.height;

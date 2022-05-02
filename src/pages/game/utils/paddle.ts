@@ -1,7 +1,8 @@
-import { IGame, IPaddle, Position } from '../game.types';
+import { Position } from '../game.types';
 import { GameObject } from './gameObject';
+import { Game } from './game';
 
-export class Paddle extends GameObject implements IPaddle {
+export class Paddle extends GameObject {
   readonly gameWidth: number;
   position: Position;
   readonly width = 150;
@@ -9,7 +10,7 @@ export class Paddle extends GameObject implements IPaddle {
   readonly maxSpeed = 7;
   public speed = 0;
 
-  constructor({ gameWidth, gameHeight }: IGame) {
+  constructor({ gameWidth, gameHeight }: Game) {
     super();
     this.gameWidth = gameWidth;
 
