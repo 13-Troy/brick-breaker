@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const WrapperSt = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   z-index: 700;
-  width: inherit;
-  outline: 0;
+  max-width: 384px;
+  height: min-content;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `;
 
 export const BackdropSt = styled.div`

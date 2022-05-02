@@ -10,6 +10,7 @@ import Forum from '../pages/forum';
 import Records from '../pages/records';
 import Game from '../pages/game';
 import NotFound from '../pages/404';
+import ServerError from '../pages/500';
 
 // components
 import NavTest from '../components/NavTest';
@@ -73,6 +74,7 @@ const Page = () => {
             </>
           )}
           <Route path={'*'} element={<NotFound />} />
+          <Route path={'/500'} element={<ServerError />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
