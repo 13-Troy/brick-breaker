@@ -1,6 +1,7 @@
 import ballImg from '../../../assets/img/ball.png';
 import { IBall, IGame, IPaddle, Position } from '../game.types';
 import { GameObject } from './gameObject';
+import { detectCollision } from './detectCollision';
 
 export class Ball extends GameObject implements IBall {
   readonly image: HTMLImageElement;
@@ -9,11 +10,11 @@ export class Ball extends GameObject implements IBall {
   readonly size = 16;
   position: Position = {
     x: 10,
-    y: 10,
+    y: 400,
   };
   speed: Position = {
     x: 2,
-    y: 2,
+    y: -2,
   };
   public paddle: IPaddle;
 
@@ -59,16 +60,7 @@ export class Ball extends GameObject implements IBall {
       this.speed.y = -this.speed.y;
     }
 
-    const topOfThePaddle = this.paddle.position.y;
-    const bottomOfTheBall = this.position.y + this.size;
-    const leftOfThePaddle = this.paddle.position.x;
-    const rightOfThePaddle = this.paddle.position.x + this.paddle.width;
-
-    if (
-      bottomOfTheBall >= topOfThePaddle &&
-      this.position.x >= leftOfThePaddle &&
-      this.position.x + this.size <= rightOfThePaddle
-    ) {
+    if (detectCollision(this, this.paddle)) {
       this.speed.y = -this.speed.y;
       this.position.y = this.paddle.position.y - this.size;
     }

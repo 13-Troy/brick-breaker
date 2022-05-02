@@ -37,3 +37,16 @@ export interface IBall {
   draw: (ctx: CanvasRenderingContext2D) => void;
   update: () => void;
 }
+
+export interface IBrick {
+  readonly image: HTMLImageElement;
+  position: Position;
+  draw: (ctx: CanvasRenderingContext2D) => void;
+  width: number;
+  height: number;
+  update: () => void;
+  // readonly size: number;
+  // readonly gameWidth: number;
+  // readonly gameHeight: number;
+  // speed: Position;
+}
