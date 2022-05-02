@@ -18,7 +18,13 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     hot: true,
-    port: 3005,
+    open: false,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    }
   },
   module: {
     rules: [
@@ -30,6 +36,11 @@ module.exports = {
       {
         test: /\.s[ac]ss$/,
         use: ['style-loader', 'css-loader'],
+      },
+
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: 'asset',
       },
     ],
   },

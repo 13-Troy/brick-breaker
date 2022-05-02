@@ -38,6 +38,7 @@ const Home: FC<HomeProps> = ({ userId }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setLogIn((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
 
