@@ -6,8 +6,8 @@ export const WrapperSt = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 700;
-  width: inherit;
-  outline: 0;
+  max-width: 384px;
+  height: min-content;
 `;
 
 export const BackdropSt = styled.div`
