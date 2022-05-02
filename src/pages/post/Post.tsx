@@ -12,12 +12,12 @@ const Post = () => {
     <>
       <WrapperSt>
         <HeaderSt>
-          <Link to={AppRoute.FORUM}>{'к списку'}</Link>
+          <Link to={AppRoute.FORUM}>к списку</Link>
           <div>edit</div>
         </HeaderSt>
 
         <PostBodySt>
-          <Title h={2}>{'Название поста'}</Title>
+          <Title h={2}>Название поста</Title>
           <TextSt>
             В честь пятилетия телеканала Матч ТВ объявлен национальный конкурс
             молодых спортивных комментаторов! Победитель получит право вслух и
@@ -28,7 +28,7 @@ const Post = () => {
           </TextSt>
         </PostBodySt>
 
-        <Button>{'оставить комментарий'}</Button>
+        <Button>оставить комментарий</Button>
         <p>здесь список комментариев</p>
       </WrapperSt>
     </>
