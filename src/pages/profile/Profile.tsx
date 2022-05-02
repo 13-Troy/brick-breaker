@@ -57,14 +57,8 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           <DataLine title={'Ник'} value={user.display_name}></DataLine>
           <DataLine title={'Телефон'} value={user.phone}></DataLine>
         </InfoSt>
-        <ButtonSettings onClick={toggleVisible}>
-          {' '}
-          Изменить данные{' '}
-        </ButtonSettings>
-        <ButtonSettings onClick={toggleVisible}>
-          {' '}
-          Изменить пароль{' '}
-        </ButtonSettings>
+        <ButtonSettings onClick={toggleVisible}>Изменить данные</ButtonSettings>
+        <ButtonSettings onClick={toggleVisible}>Изменить пароль</ButtonSettings>
         <Modal
           isShown={isShown}
           hide={toggleVisible}
@@ -73,7 +67,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
           {contentModalTest}
         </Modal>
         <Button fullWidth={false} onClick={onSend}>
-          {'выход'}
+          выход
         </Button>
       </HardPopUpSt>
     </div>
