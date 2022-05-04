@@ -70,7 +70,7 @@ const Page = () => {
                 element={<Profile user={user} />}
               />
               <Route path={AppRoute.FORUM} element={<Forum />} />
-              <Route path="forum/:id" element={<Post />} />
+              <Route path={`${AppRoute.FORUM}/:id`} element={<Post />} />
               <Route path={AppRoute.RECORDS} element={<Records />} />
               <Route path={AppRoute.GAME} element={<Game />} />
             </>

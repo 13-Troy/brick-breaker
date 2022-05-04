@@ -4,6 +4,7 @@ export const AppRoute = {
   REGISTRATION: '/registration',
   PROFILE: '/profile',
   FORUM: '/forum',
+  FORUM_ID: '/forum/:id',
   RECORDS: '/records',
   GAME: '/game',
   POST: '/post',
