@@ -16,7 +16,6 @@ const Post = () => {
           <Link to={AppRoute.FORUM}>к списку</Link>
           <div>edit</div>
         </HeaderSt>
-
         <PostBodySt>
           <Title h={2}>Название поста {params.id}</Title>
           <TextSt>
@@ -28,12 +27,10 @@ const Post = () => {
             захотели сменить профессию, чтобы стать частью...
           </TextSt>
         </PostBodySt>
-
         <Button>оставить комментарий</Button>
         <p>здесь список комментариев</p>
       </WrapperSt>
     </>
   );
 };
-
 export default Post;

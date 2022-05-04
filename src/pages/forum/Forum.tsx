@@ -46,7 +46,6 @@ const Forum = () => {
     const { name, value } = e.target;
     setLogIn((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
-
   const colNames = ['Название', 'Автор', 'Ответы', ''];
 
   const contentModalTest = (
