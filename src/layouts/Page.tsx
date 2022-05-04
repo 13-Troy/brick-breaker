@@ -7,6 +7,7 @@ import About from '../pages/about';
 import Registration from '../pages/registration';
 import Profile from '../pages/profile';
 import Forum from '../pages/forum';
+import Post from '../pages/post';
 import Records from '../pages/records';
 import Game from '../pages/game';
 import NotFound from '../pages/404';
@@ -69,6 +70,7 @@ const Page = () => {
                 element={<Profile user={user} />}
               />
               <Route path={AppRoute.FORUM} element={<Forum />} />
+              <Route path="forum/:id" element={<Post />} />
               <Route path={AppRoute.RECORDS} element={<Records />} />
               <Route path={AppRoute.GAME} element={<Game />} />
             </>

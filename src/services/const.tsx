@@ -6,6 +6,7 @@ export const AppRoute = {
   FORUM: '/forum',
   RECORDS: '/records',
   GAME: '/game',
+  POST: '/post',
 };
 
 export const UrlSite = {

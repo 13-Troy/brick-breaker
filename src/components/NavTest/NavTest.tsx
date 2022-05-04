@@ -16,6 +16,8 @@ const NavTest = () => {
       <br />
       <Link to={'/forum'}>forum</Link>
       <br />
+      <Link to={'/post'}>post</Link>
+      <br />
       <Link to={'/records'}>records</Link>
       <br />
       <Link to={'/game'}>game</Link>
