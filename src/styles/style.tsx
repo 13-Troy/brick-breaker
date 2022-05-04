@@ -2,7 +2,6 @@ import { createGlobalStyle } from 'styled-components';
 import { Theme } from '../styles/variables';
 
 export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
-
   body {
     background-color: ${({ theme }) => theme.colors.bg};
     font-family: ${({ theme }) => theme.fonts.font_family};
@@ -23,7 +22,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     outline: none;
     text-decoration: none;
   }
-  
+
   :active, :hover, :focus {
     outline: 0;
     outline-offset: 0;

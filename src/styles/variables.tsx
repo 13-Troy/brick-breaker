@@ -43,6 +43,6 @@ export const baseTheme = {
 
   borderRadius: '6px',
   skillsStartAnim: '0.3s',
-};
+} as const;
 
 export type Theme = typeof baseTheme;

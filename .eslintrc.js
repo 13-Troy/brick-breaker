@@ -10,6 +10,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'prettier',
   ],
+  ignorePatterns: ['src/styles/styles.tsx'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
