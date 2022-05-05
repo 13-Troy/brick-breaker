@@ -12,11 +12,19 @@ import { useToggle } from '../../hooks/useToggle';
 import { WrapperSt, ButtonWrapperSt } from './style';
 
 const Forum = () => {
-  forumList.map((forum) => delete forum.content);
-  forumList.map((forum) => delete forum.user_id);
+  const filterForumData = (post: any) => {
+    return Object.keys(post)
+      .filter((key) => key !== 'content' && key !== 'user_id')
+      .reduce((obj, key) => {
+        return Object.assign(obj, {
+          [key]: post[key],
+        });
+      }, {});
+  };
+  const adaptPosts = forumList.map((post: object) => filterForumData(post));
 
   const [isShown, toggleVisible] = useToggle(false);
-  const [postList, setPostList] = useState(forumList);
+  const [postList, setPostList] = useState(adaptPosts);
   const [logIn, setLogIn] = useState({ name: '', content: '' });
 
   const addPost = () => {
@@ -27,10 +35,11 @@ const Forum = () => {
       user_id: 33,
       user_name: 'Семен',
       answer_count: 0,
-      answers: [],
     };
-
-    setPostList([...postList, newPost]);
+    const adaptPosts = [...postList, newPost].map((post: object) =>
+      filterForumData(post)
+    );
+    setPostList(adaptPosts);
   };
 
   const handleSubmit = () => {
