@@ -11,7 +11,7 @@ import { AppRoute, UrlSite } from '../../services/const';
 import { HardPopUpSt } from './style';
 
 interface HomeProps {
-  userId: number;
+  userId?: number;
 }
 
 const Home: FC<HomeProps> = ({ userId }) => {

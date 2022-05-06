@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Dispatch, FC, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // page
@@ -16,40 +16,24 @@ import ServerError from '../pages/500';
 import NavTest from '../components/NavTest';
 
 // constants
-import { AppRoute, UrlSite } from '../services/const';
+import { AppRoute } from '../services/const';
 
 // style
 import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
 import { baseTheme } from '../styles/variables';
+import { connect } from 'react-redux';
+import { userAction } from '../store/user/actions';
 
-const Page = () => {
-  const [user, setUser] = useState({
-    id: 0,
-    email: '',
-    first_name: '',
-    second_name: '',
-    display_name: '',
-    phone: '',
-    login: '',
-    avatar: '',
-  });
+interface PageProps {
+  userId?: number;
+  _userAction?: any;
+}
 
+const Page: FC<PageProps> = ({ userId, _userAction }) => {
   useEffect(() => {
-    fetch(`${UrlSite.URL}/auth/user`, {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        setUser(data);
-      });
+    _userAction();
   }, []);
 
   return (
@@ -58,16 +42,13 @@ const Page = () => {
       <BrowserRouter>
         <NavTest />
         <Routes>
-          <Route path={AppRoute.ROOT} element={<Home userId={user.id} />} />
+          <Route path={AppRoute.ROOT} element={<Home userId={userId} />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
           {/* @todo */}
-          {user.id && (
+          {userId && (
             <>
               <Route path={AppRoute.ABOUT} element={<About />} />
-              <Route
-                path={AppRoute.PROFILE}
-                element={<Profile user={user} />}
-              />
+              <Route path={AppRoute.PROFILE} element={<Profile />} />
               <Route path={AppRoute.FORUM} element={<Forum />} />
               <Route path={AppRoute.RECORDS} element={<Records />} />
               <Route path={AppRoute.GAME} element={<Game />} />
@@ -80,4 +61,18 @@ const Page = () => {
     </ThemeProvider>
   );
 };
-export default Page;
+
+const mapStateToProps = (store: any) => {
+  return {
+    testText: store.testReducer.testFromFunction,
+    userId: store.testReducer.user.id,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+  return {
+    _userAction: () => dispatch(userAction()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Page);

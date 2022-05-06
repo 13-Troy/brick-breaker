@@ -1,10 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { Dispatch, FC, useState } from 'react';
 
 import Title from '../Title';
 import Button from '../Button';
 import Input from '../Input';
 
-import { UrlSite } from '../../services/const';
+import { connect } from 'react-redux';
+import { changeDataAction } from '../../store/user/actions';
 
 interface ChangeProfileDataModalProps {
   user: {
@@ -16,9 +17,13 @@ interface ChangeProfileDataModalProps {
     display_name: string;
     phone: string;
   };
+  _changeDataAction?: any;
 }
 
-const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({ user }) => {
+const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({
+  user,
+  _changeDataAction,
+}) => {
   const [data, setData] = useState({
     first_name: user.first_name,
     second_name: user.second_name,
@@ -29,21 +34,12 @@ const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({ user }) => {
   });
 
   const changeData = () => {
-    fetch(`${UrlSite.URL}/user/profile`, {
-      credentials: 'include',
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then(() => {
-      location.reload();
-    });
+    _changeDataAction(data);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -99,4 +95,19 @@ const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({ user }) => {
   );
 };
 
-export default ChangeProfileDataModal;
+const mapStateToProps = (store: any) => {
+  return {
+    user: store.testReducer.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+  return {
+    _changeDataAction: (newData: any) => dispatch(changeDataAction(newData)),
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChangeProfileDataModal);

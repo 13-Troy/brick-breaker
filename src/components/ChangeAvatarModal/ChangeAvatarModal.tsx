@@ -1,10 +1,18 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, Dispatch, FC } from 'react';
 
 import Title from '../Title';
 import Button from '../Button';
 import Input from '../Input';
+import { connect } from 'react-redux';
+import { changeAvatarAction } from '../../store/user/actions';
 
-const ChangeAvatarModal = () => {
+interface ChangeAvatarModalProps {
+  _changeAvatarAction?: any;
+}
+
+const ChangeAvatarModal: FC<ChangeAvatarModalProps> = ({
+  _changeAvatarAction,
+}) => {
   const [avatar, setAvatar] = useState<File | null>(null);
 
   const changeAvatar = () => {
@@ -13,18 +21,10 @@ const ChangeAvatarModal = () => {
     }
 
     const formData = new FormData();
+
     formData.append('avatar', avatar);
 
-    fetch(`https://ya-praktikum.tech/api/v2/user/profile/avatar`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: {
-        accept: 'application/json',
-      },
-      body: formData,
-    }).then(() => {
-      location.reload();
-    });
+    _changeAvatarAction(formData);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,4 +50,11 @@ const ChangeAvatarModal = () => {
   );
 };
 
-export default ChangeAvatarModal;
+const mapDispatchToProps = (dispatch: Dispatch<any>) => {
+  return {
+    _changeAvatarAction: (newAvatar: any) =>
+      dispatch(changeAvatarAction(newAvatar)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ChangeAvatarModal);
