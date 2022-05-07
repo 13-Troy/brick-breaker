@@ -21,7 +21,9 @@ const Table: FC<TableProps> = ({ colNames, content }) => {
           <TableColSt key={index}>{obj[key]}</TableColSt>
         ))}
       <TableColSt>
-        <Button onClick={() => navigate(`${content[i].id}`)}>просмотр</Button>
+        <Button onClick={() => navigate(`post/${content[i].id}`)}>
+          просмотр
+        </Button>
       </TableColSt>
     </TableRowSt>
   ));
