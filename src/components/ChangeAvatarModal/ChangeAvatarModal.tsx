@@ -13,6 +13,7 @@ const ChangeAvatarModal = () => {
     }
 
     const formData = new FormData();
+
     formData.append('avatar', avatar);
 
     fetch(`https://ya-praktikum.tech/api/v2/user/profile/avatar`, {

@@ -6,17 +6,6 @@ export const TableSt = styled.table`
   margin-bottom: 40px;
 `;
 
-export const TableHeadSt = styled.thead`
-  border: none;
-  border-bottom: 1px solid ${({ theme }) => theme.allColors.purple_light};
-  tr {
-    &:hover {
-      background: none;
-      cursor: initial;
-    }
-  }
-`;
-
 export const TableBodySt = styled.tbody``;
 
 export const TableRowSt = styled.tr`

@@ -44,6 +44,7 @@ const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({ user }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 

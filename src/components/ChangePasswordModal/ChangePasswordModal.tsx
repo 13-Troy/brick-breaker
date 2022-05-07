@@ -30,6 +30,7 @@ const ChangePasswordModal = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setPassword((prevPassword) => ({ ...prevPassword, [name]: value }));
   };
 
