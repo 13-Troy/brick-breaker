@@ -1,23 +1,23 @@
-import { Position } from '../game.types';
 import { GameObject } from './gameObject';
 import { Game } from './game';
 
+const PADDLE_WIDTH = 150;
+const PADDLE_HEIGHT = 20;
 export class Paddle extends GameObject {
-  readonly gameWidth: number;
-  position: Position;
-  readonly width = 150;
-  readonly height = 20;
   readonly maxSpeed = 7;
   public speed = 0;
 
   constructor({ gameWidth, gameHeight }: Game) {
-    super();
-    this.gameWidth = gameWidth;
-
-    this.position = {
-      x: gameWidth / 2 - this.width / 2,
-      y: gameHeight - this.height - 10,
-    };
+    super({
+      gameWidth,
+      gameHeight,
+      width: PADDLE_WIDTH,
+      height: PADDLE_HEIGHT,
+      position: {
+        x: gameWidth / 2 - PADDLE_WIDTH / 2,
+        y: gameHeight - PADDLE_HEIGHT - 10,
+      },
+    });
   }
 
   draw(ctx: CanvasRenderingContext2D) {

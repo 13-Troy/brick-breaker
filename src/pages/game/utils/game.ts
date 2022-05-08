@@ -5,7 +5,7 @@ import { level1, buildLevels } from './levels';
 import { Brick } from './brick';
 import { GameObject } from './gameObject';
 
-interface IGame {
+interface GameOptions {
   canvasElement: HTMLCanvasElement;
   gameWidth: number;
   gameHeight: number;
@@ -22,7 +22,7 @@ export class Game {
 
   ctx: CanvasRenderingContext2D;
 
-  constructor({ canvasElement, gameWidth, gameHeight }: IGame) {
+  constructor({ canvasElement, gameWidth, gameHeight }: GameOptions) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
 

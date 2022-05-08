@@ -7,27 +7,24 @@ import { Paddle } from './paddle';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
-  readonly gameWidth: number;
-  readonly gameHeight: number;
-  readonly size = 16;
-
   public paddle: Paddle;
-
-  position: Position = {
-    x: 10,
-    y: 400,
-  };
-
   speed: Position = {
     x: 2,
     y: -2,
   };
 
   constructor({ gameWidth, gameHeight, paddle }: Game) {
-    super();
+    super({
+      gameWidth,
+      gameHeight,
+      height: 16,
+      width: 16,
+      position: {
+        x: 10,
+        y: 400,
+      },
+    });
     this.image = this.createImage();
-    this.gameWidth = gameWidth;
-    this.gameHeight = gameHeight;
     this.paddle = paddle;
   }
 
@@ -46,9 +43,11 @@ export class Ball extends GameObject {
       this.image as HTMLImageElement,
       this.position.x,
       this.position.y,
-      this.size,
-      this.size
+      this.width,
+      this.height
     );
+
+    this.emit('rendered', this);
   }
 
   update() {
@@ -56,18 +55,23 @@ export class Ball extends GameObject {
     this.position.y += this.speed.y;
 
     //collision detection on x axis
-    if (this.position.x < 0 || this.position.x + this.size > this.gameWidth) {
+    if (this.position.x < 0 || this.position.x + this.width > this.gameWidth) {
       this.speed.x = -this.speed.x;
     }
     //collision detection on y axis
 
-    if (this.position.y + this.size > this.gameHeight || this.position.y < 0) {
+    if (
+      this.position.y + this.height > this.gameHeight ||
+      this.position.y < 0
+    ) {
       this.speed.y = -this.speed.y;
     }
     //collision of ball with paddle
     if (detectCollision(this, this.paddle)) {
       this.speed.y = -this.speed.y;
-      this.position.y = this.paddle.position.y - this.size;
+      this.position.y = this.paddle.position.y - this.height;
     }
+
+    this.emit('updated', this);
   }
 }

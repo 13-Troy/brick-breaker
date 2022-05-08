@@ -12,7 +12,7 @@ type GameObject = {
 export function detectCollision(ball: Ball, gameObject: GameObject) {
   const topOfTheGameObject = gameObject.position.y;
   const bottomOfTheGameObject = gameObject.position.y + gameObject.height;
-  const bottomOfTheBall = ball.position.y + ball.size;
+  const bottomOfTheBall = ball.position.y + ball.height;
   const topOfTheBall = ball.position.y;
   const leftOfThePaddle = gameObject.position.x;
   const rightOfThePaddle = gameObject.position.x + gameObject.width;
@@ -21,6 +21,6 @@ export function detectCollision(ball: Ball, gameObject: GameObject) {
     bottomOfTheBall >= topOfTheGameObject &&
     topOfTheBall <= bottomOfTheGameObject &&
     ball.position.x >= leftOfThePaddle &&
-    ball.position.x + ball.size <= rightOfThePaddle
+    ball.position.x + ball.width <= rightOfThePaddle
   );
 }

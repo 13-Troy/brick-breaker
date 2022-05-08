@@ -3,17 +3,18 @@ import { Position } from '../game.types';
 import { Game } from './game';
 import { detectCollision } from './detectCollision';
 import { Ball } from './ball';
-import { GameObject } from './gameObject';
-
-export class Brick extends GameObject {
+export class Brick {
+  readonly width = 80;
+  readonly height = 24;
   readonly image: HTMLImageElement;
   public markForDeletion = false;
+
+  position: Position;
   ball: Ball;
 
-  constructor({ ball, gameHeight, gameWidth }: Game, position: Position) {
-    super({ width: 80, height: 24, position, gameHeight, gameWidth });
+  constructor({ ball }: Game, position: Position) {
     this.image = this.createImage();
-
+    this.position = position;
     this.ball = ball;
   }
 
