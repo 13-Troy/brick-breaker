@@ -1,10 +1,8 @@
 import ballImg from '../../../assets/img/ball.png';
 import { Position } from '../game.types';
 import { GameObject } from './gameObject';
-import { detectCollision } from './detectCollision';
 import { Game } from './game';
 import { Paddle } from './paddle';
-import { Brick } from './brick';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
@@ -33,12 +31,17 @@ export class Ball extends GameObject {
     this.on('collate:brick', this.onCollateWithBrick);
   }
 
-  onCollateWithPaddle(paddle: Paddle) {
-    console.log('collated with Paddle', paddle);
+  onCollateWithPaddle(gameObject: GameObject) {
+    console.log(`${this.name} collated with ${gameObject.name}`);
+
+    this.speed.y = -this.speed.y;
+    this.position.y = this.paddle.position.y - this.height;
   }
 
-  onCollateWithBrick(brick: Brick) {
-    console.log('collated with Brick', brick);
+  onCollateWithBrick(gameObject: GameObject) {
+    console.log(`${this.name} collated with ${gameObject.name}`);
+
+    this.speed.y = -this.speed.y;
   }
 
   createImage() {
@@ -72,30 +75,13 @@ export class Ball extends GameObject {
       this.speed.x = -this.speed.x;
     }
     //collision detection on y axis
-
     if (
       this.position.y + this.height > this.gameHeight ||
       this.position.y < 0
     ) {
       this.speed.y = -this.speed.y;
     }
-    //collision of ball with paddle
-    if (detectCollision(this, this.paddle)) {
-      this.speed.y = -this.speed.y;
-      this.position.y = this.paddle.position.y - this.height;
-    }
 
     this.emit('updated', this);
-  }
-  //TODO: REMOVE CURRENT METHOD
-  collateWith(obj: GameObject) {
-    if (obj instanceof Paddle) {
-      console.log('update collate with Paddle');
-    } else if (obj instanceof Brick) {
-      console.log('update collate with Brick');
-    }
-    // else if(obj instanceof 'Wall') {
-    //   console.log('update collate with Wall')
-    // }
   }
 }

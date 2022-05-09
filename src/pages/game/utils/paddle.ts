@@ -19,6 +19,12 @@ export class Paddle extends GameObject {
       },
       name: 'paddle',
     });
+
+    this.on('collate:ball', this.onBallCollision);
+  }
+
+  onBallCollision(object: GameObject) {
+    console.log(`paddle collated with ${object.name}`);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -36,6 +42,8 @@ export class Paddle extends GameObject {
     if (this.position.x + this.width > this.gameWidth) {
       this.position.x = this.gameWidth - this.width;
     }
+
+    this.emit('updated', this);
   }
 
   moveLeft() {

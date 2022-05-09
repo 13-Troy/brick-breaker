@@ -8,10 +8,7 @@ export class CollisionManager extends EventEmitter {
   constructor(game: Game) {
     super();
 
-    game.on('updated', this.calculate);
-
-    this.calculate = this.calculate.bind(this);
-    this.watch = this.watch.bind(this);
+    game.on('updated', this.calculate, this);
   }
 
   watch(object1: GameObject, object2: GameObject) {
@@ -19,13 +16,10 @@ export class CollisionManager extends EventEmitter {
   }
 
   calculate() {
-    console.log('watched objects', this.watchedObjects);
     this.watchedObjects.forEach(([object1, object2]) => {
       if (detectCollision(object1, object2)) {
         object1.emit(`collate:${object2.name}`, object2);
-
-        // object1.collateWith(object2);
-        // object2.collateWith(object1);
+        object2.emit(`collate:${object1.name}`, object1);
       }
     });
   }
