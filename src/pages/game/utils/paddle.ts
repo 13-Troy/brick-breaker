@@ -17,6 +17,7 @@ export class Paddle extends GameObject {
         x: gameWidth / 2 - PADDLE_WIDTH / 2,
         y: gameHeight - PADDLE_HEIGHT - 10,
       },
+      name: 'paddle',
     });
   }
 

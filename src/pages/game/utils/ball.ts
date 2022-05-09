@@ -4,6 +4,7 @@ import { GameObject } from './gameObject';
 import { detectCollision } from './detectCollision';
 import { Game } from './game';
 import { Paddle } from './paddle';
+import { Brick } from './brick';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
@@ -23,9 +24,21 @@ export class Ball extends GameObject {
         x: 10,
         y: 400,
       },
+      name: 'ball',
     });
     this.image = this.createImage();
     this.paddle = paddle;
+
+    this.on('collate:paddle', this.onCollateWithPaddle);
+    this.on('collate:brick', this.onCollateWithBrick);
+  }
+
+  onCollateWithPaddle(paddle: Paddle) {
+    console.log('collated with Paddle', paddle);
+  }
+
+  onCollateWithBrick(brick: Brick) {
+    console.log('collated with Brick', brick);
   }
 
   createImage() {
@@ -73,5 +86,16 @@ export class Ball extends GameObject {
     }
 
     this.emit('updated', this);
+  }
+  //TODO: REMOVE CURRENT METHOD
+  collateWith(obj: GameObject) {
+    if (obj instanceof Paddle) {
+      console.log('update collate with Paddle');
+    } else if (obj instanceof Brick) {
+      console.log('update collate with Brick');
+    }
+    // else if(obj instanceof 'Wall') {
+    //   console.log('update collate with Wall')
+    // }
   }
 }

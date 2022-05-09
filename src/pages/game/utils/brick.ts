@@ -11,10 +11,19 @@ export class Brick extends GameObject {
   ball: Ball;
 
   constructor({ ball, gameHeight, gameWidth }: Game, position: Position) {
-    super({ width: 80, height: 24, position, gameHeight, gameWidth });
+    super({
+      width: 80,
+      height: 24,
+      position,
+      gameHeight,
+      gameWidth,
+      name: 'brick',
+    });
     this.image = this.createImage();
 
     this.ball = ball;
+
+    this.on('collate:ball', () => this.destroy());
   }
 
   createImage() {
@@ -33,6 +42,10 @@ export class Brick extends GameObject {
       this.ball.speed.y = -this.ball.speed.y;
       this.markForDeletion = true;
     }
+  }
+
+  destroy() {
+    console.log('brick is destroyed');
   }
 
   draw(ctx: CanvasRenderingContext2D) {

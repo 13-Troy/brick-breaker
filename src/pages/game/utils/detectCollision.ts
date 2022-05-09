@@ -1,5 +1,3 @@
-import { Ball } from './ball';
-
 type GameObject = {
   position: {
     x: number;
@@ -9,18 +7,18 @@ type GameObject = {
   height: number;
   width: number;
 };
-export function detectCollision(ball: Ball, gameObject: GameObject) {
-  const topOfTheGameObject = gameObject.position.y;
-  const bottomOfTheGameObject = gameObject.position.y + gameObject.height;
-  const bottomOfTheBall = ball.position.y + ball.height;
-  const topOfTheBall = ball.position.y;
-  const leftOfThePaddle = gameObject.position.x;
-  const rightOfThePaddle = gameObject.position.x + gameObject.width;
+export function detectCollision(object1: GameObject, object2: GameObject) {
+  const topOfTheObject2 = object2.position.y;
+  const bottomOfTheObject2 = object2.position.y + object2.height;
+  const bottomOfObject1 = object1.position.y + object1.height;
+  const topOfTheObject1 = object1.position.y;
+  const leftOfTheObject2 = object2.position.x;
+  const rightOfTheObject2 = object2.position.x + object2.width;
 
   return (
-    bottomOfTheBall >= topOfTheGameObject &&
-    topOfTheBall <= bottomOfTheGameObject &&
-    ball.position.x >= leftOfThePaddle &&
-    ball.position.x + ball.width <= rightOfThePaddle
+    bottomOfObject1 >= topOfTheObject2 &&
+    topOfTheObject1 <= bottomOfTheObject2 &&
+    object1.position.x >= leftOfTheObject2 &&
+    object1.position.x + object1.width <= rightOfTheObject2
   );
 }

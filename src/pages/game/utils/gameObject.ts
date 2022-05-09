@@ -7,6 +7,7 @@ interface IGameObject {
   width: number;
   height: number;
   position: Position;
+  name: string;
 }
 
 export abstract class GameObject extends EventEmitter {
@@ -15,6 +16,7 @@ export abstract class GameObject extends EventEmitter {
   public height: number;
   public width: number;
   public position: Position;
+  public name: string;
 
   protected constructor({
     gameWidth,
@@ -22,6 +24,7 @@ export abstract class GameObject extends EventEmitter {
     width,
     height,
     position,
+    name,
   }: IGameObject) {
     super();
     this.gameWidth = gameWidth;
@@ -29,6 +32,7 @@ export abstract class GameObject extends EventEmitter {
     this.height = height;
     this.width = width;
     this.position = position;
+    this.name = name;
   }
 
   abstract draw(ctx: CanvasRenderingContext2D): void;
