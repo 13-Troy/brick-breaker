@@ -34,7 +34,7 @@ interface PageProps {
 const Page: FC<PageProps> = ({ userId, _userAction }) => {
   useEffect(() => {
     _userAction();
-  }, []);
+  }, [_userAction]);
 
   return (
     <ThemeProvider theme={baseTheme}>
