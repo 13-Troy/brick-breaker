@@ -1,16 +1,24 @@
 import { Paddle } from './paddle';
+import EventEmitter from 'eventemitter3';
+import { InputManager } from './InputManager';
 
-export class InputHandler {
+export class InputHandler extends EventEmitter {
+  inputManager: InputManager;
   constructor(paddle: Paddle) {
+    super();
+
+    this.inputManager = new InputManager();
+    this.inputManager.watch(paddle);
+
     document.addEventListener('keydown', (event) => {
       switch (event.code) {
         case 'ArrowLeft': {
-          paddle.moveLeft();
+          this.inputManager.emit('keydown', 'keydown:ArrowLeft');
           break;
         }
 
         case 'ArrowRight': {
-          paddle.moveRight();
+          this.inputManager.emit('keydown', 'keydown:ArrowRight');
           break;
         }
 
@@ -30,12 +38,12 @@ export class InputHandler {
     document.addEventListener('keyup', (event) => {
       switch (event.code) {
         case 'ArrowLeft': {
-          if (paddle.speed < 0) paddle.stop();
+          this.inputManager.emit('keyup', 'keyup:ArrowLeft');
           break;
         }
 
         case 'ArrowRight': {
-          if (paddle.speed > 0) paddle.stop();
+          this.inputManager.emit('keyup', 'keyup:ArrowRight');
           break;
         }
 
