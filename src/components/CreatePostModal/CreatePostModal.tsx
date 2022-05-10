@@ -13,7 +13,7 @@ interface ModalProps {
   handleChange?: any;
 }
 
-const EditProfileModal: FC<ModalProps> = ({
+const CreatePostModal: FC<ModalProps> = ({
   isShown,
   toggleVisible,
   headerText,
@@ -41,4 +41,4 @@ const EditProfileModal: FC<ModalProps> = ({
     </Modal>
   );
 };
-export default EditProfileModal;
+export default CreatePostModal;

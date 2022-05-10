@@ -1,4 +1,4 @@
-import React, { useState, memo, useCallback } from 'react';
+import React, { useState } from 'react';
 import Button from '../../components/Button';
 import CreatePostModal from '../../components/CreatePostModal';
 import Table from '../../components/Table';
@@ -20,20 +20,17 @@ const Forum = () => {
 
   const colNames = ['Название', 'Автор', 'Ответы', ''];
 
-  const handleChange = useCallback(
-    (
-      e:
-        | React.ChangeEvent<HTMLInputElement>
-        | React.ChangeEvent<HTMLTextAreaElement>
-    ) => {
-      const { name, value } = e.target;
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
 
-      setPost((prevPost) => ({ ...prevPost, [name]: value }));
-    },
-    []
-  );
+    setPost((prevPost) => ({ ...prevPost, [name]: value }));
+  };
 
-  const handleAdd = useCallback(() => {
+  const handleAdd = () => {
     const newPost = {
       id: postList.length + 1,
       content: post.content,
@@ -46,7 +43,7 @@ const Forum = () => {
 
     setPostList(adaptPosts);
     toggleVisible();
-  }, [post, postList]);
+  };
 
   return (
     <WrapperSt>
@@ -66,4 +63,4 @@ const Forum = () => {
   );
 };
 
-export default memo(Forum);
+export default Forum;
