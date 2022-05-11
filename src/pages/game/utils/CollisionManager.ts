@@ -16,11 +16,16 @@ export class CollisionManager extends EventEmitter {
   }
 
   calculate() {
-    this.watchedObjects.forEach(([object1, object2]) => {
+    this.watchedObjects = this.watchedObjects.filter(([object1, object2]) => {
+      if (object1.markForDeletion || object2.markForDeletion) {
+        return false;
+      }
       if (detectCollision(object1, object2)) {
         object1.emit(`collate:${object2.name}`, object2);
         object2.emit(`collate:${object1.name}`, object1);
       }
+
+      return true;
     });
   }
 }
