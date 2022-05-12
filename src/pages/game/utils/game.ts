@@ -31,6 +31,7 @@ export class Game extends EventEmitter {
   readonly gameWidth: number;
   readonly gameHeight: number;
   private gameState: GameState;
+  public lives: number;
 
   paddle: Paddle;
   ball: Ball;
@@ -45,6 +46,7 @@ export class Game extends EventEmitter {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.gameState = GAME_STATE.MENU;
+    this.lives = 2;
 
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
@@ -63,6 +65,7 @@ export class Game extends EventEmitter {
 
     this.on('Escape', this.togglePause);
     this.on('Space', this.start);
+    this.on('hit_bottom', this.decreaseLives);
   }
 
   start() {
@@ -87,9 +90,14 @@ export class Game extends EventEmitter {
   }
 
   update() {
+    if (this.lives === 0) {
+      this.gameState = GAME_STATE.GAMEOVER;
+    }
+
     if (
       this.gameState === GAME_STATE.PAUSED ||
-      this.gameState === GAME_STATE.MENU
+      this.gameState === GAME_STATE.MENU ||
+      this.gameState === GAME_STATE.GAMEOVER
     ) {
       return;
     }
@@ -112,6 +120,10 @@ export class Game extends EventEmitter {
     if (this.gameState === GAME_STATE.MENU) {
       this.drawScreen(ctx, 'rgba(0,0,0,1)', 'Press SPACEBAR to start');
     }
+
+    if (this.gameState === GAME_STATE.GAMEOVER) {
+      this.drawScreen(ctx, 'rgba(0,0,0,1)', 'GAME OVER');
+    }
   }
 
   drawScreen(ctx: CanvasRenderingContext2D, bgColor: string, text: string) {
@@ -131,5 +143,9 @@ export class Game extends EventEmitter {
     } else {
       this.gameState = GAME_STATE.RUNNING;
     }
+  }
+
+  decreaseLives() {
+    this.lives--;
   }
 }

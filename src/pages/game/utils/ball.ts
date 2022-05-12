@@ -7,12 +7,16 @@ import { Paddle } from './paddle';
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
   public paddle: Paddle;
+  private game: Game;
+
   speed: Position = {
     x: 2,
     y: -2,
   };
 
-  constructor({ gameWidth, gameHeight, paddle }: Game) {
+  constructor(game: Game) {
+    const { gameWidth, gameHeight, paddle } = game;
+
     super({
       gameWidth,
       gameHeight,
@@ -26,9 +30,24 @@ export class Ball extends GameObject {
     });
     this.image = this.createImage();
     this.paddle = paddle;
+    this.game = game;
 
     this.on('collate:paddle', this.onCollateWithPaddle);
     this.on('collate:brick', this.onCollateWithBrick);
+
+    this.reset();
+  }
+
+  reset() {
+    this.speed = {
+      x: 2,
+      y: -2,
+    };
+
+    this.position = {
+      x: 10,
+      y: 400,
+    };
   }
 
   onCollateWithPaddle(gameObject: GameObject) {
@@ -40,7 +59,6 @@ export class Ball extends GameObject {
 
   onCollateWithBrick(gameObject: GameObject) {
     console.log(`${this.name} collated with ${gameObject.name}`);
-
     this.speed.y = -this.speed.y;
   }
 
@@ -74,12 +92,15 @@ export class Ball extends GameObject {
     if (this.position.x < 0 || this.position.x + this.width > this.gameWidth) {
       this.speed.x = -this.speed.x;
     }
-    //collision detection on y axis
-    if (
-      this.position.y + this.height > this.gameHeight ||
-      this.position.y < 0
-    ) {
+    //collision detection on top
+    if (this.position.y < 0) {
       this.speed.y = -this.speed.y;
+    }
+
+    //collision detection on bottom
+    if (this.position.y + this.height > this.gameHeight) {
+      this.game.emit('hit_bottom');
+      this.reset();
     }
 
     this.emit('updated', this);
