@@ -21,9 +21,11 @@ export class Paddle extends GameObject {
     });
 
     this.on('collate:ball', this.onBallCollision);
+
     this.on(`${this.name}:keydown:ArrowLeft`, () => {
       this.moveLeft();
     });
+
     this.on(`${this.name}:keydown:ArrowRight`, () => {
       this.moveRight();
     });
@@ -31,6 +33,7 @@ export class Paddle extends GameObject {
     this.on(`${this.name}:keyup:ArrowLeft`, () => {
       if (this.speed < 0) this.stop();
     });
+
     this.on(`${this.name}:keyup:ArrowRight`, () => {
       if (this.speed > 0) this.stop();
     });

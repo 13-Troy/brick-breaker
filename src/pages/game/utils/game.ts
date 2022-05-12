@@ -50,9 +50,7 @@ export class Game extends EventEmitter {
 
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
-    new InputHandler(this.paddle, this);
     this.collManager = new CollisionManager(this);
-
     this.gameObjects = [this.ball, this.paddle];
     this.bricks = buildLevels(this, level1);
 
@@ -66,6 +64,8 @@ export class Game extends EventEmitter {
     this.on('Escape', this.togglePause);
     this.on('Space', this.start);
     this.on('hit_bottom', this.decreaseLives);
+
+    new InputHandler(this.paddle, this);
   }
 
   start() {

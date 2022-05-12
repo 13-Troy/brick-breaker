@@ -22,6 +22,7 @@ export class InputManager extends EventEmitter {
     this.watchedObjects.forEach((object) => {
       object.emit(`${object.name}:${event}`);
     });
+
     this.game.emit(event);
   }
 }

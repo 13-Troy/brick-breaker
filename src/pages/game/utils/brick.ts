@@ -16,6 +16,7 @@ export class Brick extends GameObject {
       gameWidth,
       name: 'brick',
     });
+
     this.image = this.createImage();
 
     this.on('collate:ball', this.destroy);
@@ -38,10 +39,12 @@ export class Brick extends GameObject {
     // this.isMarkedForDeletion = true;
     // }
     // this.destroy()
+    //TODO: REMOVE THIS METHOD. NOW IT IS CAUSING TYPE ERROR WHEN REMOVE THIS METHOD
   }
 
   destroy(gameObject: GameObject) {
     console.log(`brick collated with ${gameObject.name}`);
+
     this.isMarkedForDeletion = true;
   }
 

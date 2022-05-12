@@ -28,6 +28,7 @@ export class Ball extends GameObject {
       },
       name: 'ball',
     });
+
     this.image = this.createImage();
     this.paddle = paddle;
     this.game = game;
@@ -59,6 +60,7 @@ export class Ball extends GameObject {
 
   onCollateWithBrick(gameObject: GameObject) {
     console.log(`${this.name} collated with ${gameObject.name}`);
+
     this.speed.y = -this.speed.y;
   }
 
@@ -92,6 +94,7 @@ export class Ball extends GameObject {
     if (this.position.x < 0 || this.position.x + this.width > this.gameWidth) {
       this.speed.x = -this.speed.x;
     }
+
     //collision detection on top
     if (this.position.y < 0) {
       this.speed.y = -this.speed.y;
