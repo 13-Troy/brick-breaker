@@ -29,6 +29,7 @@ export class InputHandler extends EventEmitter {
         }
 
         case 'Space': {
+          this.inputManager.emit('keydown', 'Space');
           break;
         }
 

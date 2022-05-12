@@ -15,7 +15,7 @@ const GamePage = () => {
         gameWidth: GAME_WIDTH,
         gameHeight: GAME_HEIGHT,
       });
-      game.current?.start();
+      game.current?.drawInitialScreen();
     }
   }, []);
 

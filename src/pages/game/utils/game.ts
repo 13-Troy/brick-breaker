@@ -44,7 +44,7 @@ export class Game extends EventEmitter {
     super();
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.gameState = GAME_STATE.PAUSED;
+    this.gameState = GAME_STATE.MENU;
 
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
@@ -62,11 +62,18 @@ export class Game extends EventEmitter {
     this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
 
     this.on('Escape', this.togglePause);
+    this.on('Space', this.start);
   }
 
   start() {
+    if (this.gameState !== GAME_STATE.MENU) return;
+
     this.gameState = GAME_STATE.RUNNING;
     requestAnimationFrame(this.animate);
+  }
+
+  drawInitialScreen() {
+    this.draw(this.ctx);
   }
 
   animate() {
@@ -80,7 +87,12 @@ export class Game extends EventEmitter {
   }
 
   update() {
-    if (this.gameState === GAME_STATE.PAUSED) return;
+    if (
+      this.gameState === GAME_STATE.PAUSED ||
+      this.gameState === GAME_STATE.MENU
+    ) {
+      return;
+    }
 
     this.gameObjects.forEach((gameObject) => gameObject.update());
     this.bricks.forEach((gameObject) => gameObject.update());
@@ -90,23 +102,27 @@ export class Game extends EventEmitter {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    if (this.gameState === GAME_STATE.PAUSED) {
-      this.drawPauseScreen(ctx);
-    }
-
     this.gameObjects.forEach((gameObject) => gameObject.draw(ctx));
     this.bricks.forEach((gameObject) => gameObject.draw(ctx));
+
+    if (this.gameState === GAME_STATE.PAUSED) {
+      this.drawScreen(ctx, 'rgba(0,0,0,.5)', 'Paused');
+    }
+
+    if (this.gameState === GAME_STATE.MENU) {
+      this.drawScreen(ctx, 'rgba(0,0,0,1)', 'Press SPACEBAR to start');
+    }
   }
 
-  drawPauseScreen(ctx: CanvasRenderingContext2D) {
+  drawScreen(ctx: CanvasRenderingContext2D, bgColor: string, text: string) {
     ctx.rect(0, 0, this.gameWidth, this.gameHeight);
-    ctx.fillStyle = 'rgba(0,0,0,.5)';
+    ctx.fillStyle = bgColor;
     ctx.fill();
 
     ctx.font = '50px Arial';
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
-    ctx.fillText('Paused', this.gameWidth / 2, this.gameHeight / 2);
+    ctx.fillText(text, this.gameWidth / 2, this.gameHeight / 2);
   }
 
   togglePause() {
