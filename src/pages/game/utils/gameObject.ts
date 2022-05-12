@@ -17,7 +17,7 @@ export abstract class GameObject extends EventEmitter {
   public width: number;
   public position: Position;
   public name: string;
-  public markForDeletion = false;
+  public isMarkedForDeletion = false;
   protected constructor({
     gameWidth,
     gameHeight,

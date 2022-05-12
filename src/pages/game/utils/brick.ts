@@ -5,7 +5,7 @@ import { GameObject } from './gameObject';
 
 export class Brick extends GameObject {
   readonly image: HTMLImageElement;
-  public markForDeletion = false;
+  public isMarkedForDeletion = false;
 
   constructor({ gameHeight, gameWidth }: Game, position: Position) {
     super({
@@ -35,14 +35,14 @@ export class Brick extends GameObject {
   update() {
     // if (detectCollision(this.ball, this)) {
     // this.ball.speed.y = -this.ball.speed.y;
-    // this.markForDeletion = true;
+    // this.isMarkedForDeletion = true;
     // }
     // this.destroy()
   }
 
   destroy(gameObject: GameObject) {
     console.log(`brick collated with ${gameObject.name}`);
-    this.markForDeletion = true;
+    this.isMarkedForDeletion = true;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

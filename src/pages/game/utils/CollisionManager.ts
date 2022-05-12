@@ -5,6 +5,7 @@ import { detectCollision } from './detectCollision';
 
 export class CollisionManager extends EventEmitter {
   private watchedObjects: [GameObject, GameObject][] = [];
+
   constructor(game: Game) {
     super();
 
@@ -17,9 +18,10 @@ export class CollisionManager extends EventEmitter {
 
   calculate() {
     this.watchedObjects = this.watchedObjects.filter(([object1, object2]) => {
-      if (object1.markForDeletion || object2.markForDeletion) {
+      if (object1.isMarkedForDeletion || object2.isMarkedForDeletion) {
         return false;
       }
+
       if (detectCollision(object1, object2)) {
         object1.emit(`collate:${object2.name}`, object2);
         object2.emit(`collate:${object1.name}`, object1);

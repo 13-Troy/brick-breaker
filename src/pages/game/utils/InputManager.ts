@@ -1,10 +1,14 @@
 import EventEmitter from 'eventemitter3';
 import { GameObject } from 'pages/game/utils/gameObject';
+import { Game } from './game';
 
 export class InputManager extends EventEmitter {
   private watchedObjects: GameObject[] = [];
-  constructor() {
+  private game: Game;
+  constructor(game: Game) {
     super();
+
+    this.game = game;
 
     this.on('keydown', this.watchForInputEvents, this);
     this.on('keyup', this.watchForInputEvents, this);
@@ -18,5 +22,6 @@ export class InputManager extends EventEmitter {
     this.watchedObjects.forEach((object) => {
       object.emit(`${object.name}:${event}`);
     });
+    this.game.emit(event);
   }
 }

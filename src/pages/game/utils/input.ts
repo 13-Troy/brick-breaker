@@ -1,13 +1,14 @@
 import { Paddle } from './paddle';
 import EventEmitter from 'eventemitter3';
 import { InputManager } from './InputManager';
+import { Game } from './game';
 
 export class InputHandler extends EventEmitter {
   inputManager: InputManager;
-  constructor(paddle: Paddle) {
+  constructor(paddle: Paddle, game: Game) {
     super();
 
-    this.inputManager = new InputManager();
+    this.inputManager = new InputManager(game);
     this.inputManager.watch(paddle);
 
     document.addEventListener('keydown', (event) => {
@@ -23,6 +24,7 @@ export class InputHandler extends EventEmitter {
         }
 
         case 'Escape': {
+          this.inputManager.emit('keydown', 'Escape');
           break;
         }
 
