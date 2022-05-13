@@ -1,7 +1,16 @@
 import { Brick } from './brick';
 import { Game } from './game';
 
-export const level1 = [
+export type Level = number[][];
+
+export const level1: Level = [
+  // [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+  // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+];
+
+export const level2: Level = [
   [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],

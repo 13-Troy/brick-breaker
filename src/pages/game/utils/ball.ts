@@ -35,6 +35,7 @@ export class Ball extends GameObject {
 
     this.on('collate:paddle', this.onCollateWithPaddle);
     this.on('collate:brick', this.onCollateWithBrick);
+    this.on('reset', this.reset);
 
     this.reset();
   }
@@ -103,7 +104,7 @@ export class Ball extends GameObject {
     //collision detection on bottom
     if (this.position.y + this.height > this.gameHeight) {
       this.game.emit('hit_bottom');
-      this.reset();
+      this.emit('reset');
     }
 
     this.emit('updated', this);

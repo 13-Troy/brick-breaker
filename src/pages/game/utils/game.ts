@@ -1,7 +1,8 @@
 import { Paddle } from './paddle';
 import { InputHandler } from './input';
 import { Ball } from './ball';
-import { level1, buildLevels } from './levels';
+import { level1, level2, buildLevels } from './levels';
+import type { Level } from './levels';
 import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
@@ -18,6 +19,7 @@ const GAME_STATE = {
   RUNNING: 1,
   MENU: 2,
   GAMEOVER: 3,
+  NEWLEVEL: 4,
 };
 
 enum GameState {
@@ -25,12 +27,15 @@ enum GameState {
   RUNNING,
   MENU,
   GAMEOVER,
+  NEWLEVEL,
 }
 
 export class Game extends EventEmitter {
   readonly gameWidth: number;
   readonly gameHeight: number;
   private gameState: GameState;
+  private currentLevel = 0;
+  private levels: Level[] = [level1, level2];
   public lives: number;
 
   paddle: Paddle;
@@ -69,7 +74,17 @@ export class Game extends EventEmitter {
   }
 
   start() {
-    if (this.gameState !== GAME_STATE.MENU) return;
+    if (
+      this.gameState !== GAME_STATE.MENU &&
+      this.gameState !== GAME_STATE.NEWLEVEL
+    )
+      return;
+
+    if (this.gameState === GAME_STATE.NEWLEVEL) {
+      this.bricks = buildLevels(this, this.levels[this.currentLevel]);
+      this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
+      this.ball.emit('reset');
+    }
 
     this.gameState = GAME_STATE.RUNNING;
     requestAnimationFrame(this.animate);
@@ -102,8 +117,14 @@ export class Game extends EventEmitter {
       return;
     }
 
+    if (this.bricks.length === 0) {
+      this.currentLevel++;
+      this.gameState = GAME_STATE.NEWLEVEL;
+      this.start();
+    }
+
     this.gameObjects.forEach((gameObject) => gameObject.update());
-    this.bricks.forEach((gameObject) => gameObject.update());
+    this.bricks.forEach((brick) => brick.update());
     this.bricks = this.bricks.filter((brick) => !brick.isMarkedForDeletion);
 
     this.emit('updated');
