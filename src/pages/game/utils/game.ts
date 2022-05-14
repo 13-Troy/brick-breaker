@@ -12,6 +12,7 @@ interface GameOptions {
   canvasElement: HTMLCanvasElement;
   gameWidth: number;
   gameHeight: number;
+  gameScoreHandler: (score: number) => void;
 }
 
 const GAME_STATE = {
@@ -35,11 +36,12 @@ let requestId: any;
 export class Game extends EventEmitter {
   readonly gameWidth: number;
   readonly gameHeight: number;
-  private gameState: GameState;
+  public gameState: GameState;
   private currentLevel = 0;
   private score = 0;
   private levels: Level[] = [level1, level2, level3];
   public lives: number;
+  readonly gameScoreHandler: (score: number) => void;
 
   paddle: Paddle;
   ball: Ball;
@@ -49,11 +51,17 @@ export class Game extends EventEmitter {
 
   ctx: CanvasRenderingContext2D;
 
-  constructor({ canvasElement, gameWidth, gameHeight }: GameOptions) {
+  constructor({
+    canvasElement,
+    gameWidth,
+    gameHeight,
+    gameScoreHandler,
+  }: GameOptions) {
     super();
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.gameState = GAME_STATE.MENU;
+    this.gameScoreHandler = gameScoreHandler;
     this.lives = 3;
 
     this.paddle = new Paddle(this);
@@ -158,6 +166,7 @@ export class Game extends EventEmitter {
 
     if (this.gameState === GAME_STATE.GAMEOVER) {
       this.drawScreen(ctx, 'rgba(0,0,0,1)', 'GAME OVER');
+      this.gameScoreHandler(this.score);
     }
   }
 
