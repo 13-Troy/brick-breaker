@@ -1,7 +1,7 @@
 import { Paddle } from './paddle';
 import { InputHandler } from './input';
 import { Ball } from './ball';
-import { level1, level2, buildLevels } from './levels';
+import { level1, level2, level3, buildLevels } from './levels';
 import type { Level } from './levels';
 import { Brick } from './brick';
 import { GameObject } from './gameObject';
@@ -30,12 +30,15 @@ enum GameState {
   NEWLEVEL,
 }
 
+let requestId: any;
+
 export class Game extends EventEmitter {
   readonly gameWidth: number;
   readonly gameHeight: number;
   private gameState: GameState;
   private currentLevel = 0;
-  private levels: Level[] = [level1, level2];
+  private score = 0;
+  private levels: Level[] = [level1, level2, level3];
   public lives: number;
 
   paddle: Paddle;
@@ -51,7 +54,7 @@ export class Game extends EventEmitter {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.gameState = GAME_STATE.MENU;
-    this.lives = 2;
+    this.lives = 3;
 
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
@@ -69,8 +72,10 @@ export class Game extends EventEmitter {
     this.on('Escape', this.togglePause);
     this.on('Space', this.start);
     this.on('hit_bottom', this.decreaseLives);
+    this.on('on_ball_collate', this.increaseScore);
 
     new InputHandler(this.paddle, this);
+    this.drawScore(this.ctx);
   }
 
   start() {
@@ -81,13 +86,18 @@ export class Game extends EventEmitter {
       return;
 
     if (this.gameState === GAME_STATE.NEWLEVEL) {
+      // cancelAnimationFrame(requestId);
       this.bricks = buildLevels(this, this.levels[this.currentLevel]);
       this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
       this.ball.emit('reset');
     }
 
     this.gameState = GAME_STATE.RUNNING;
-    requestAnimationFrame(this.animate);
+    if (!requestId) this.animate();
+  }
+
+  increaseScore() {
+    this.score += 100;
   }
 
   drawInitialScreen() {
@@ -101,7 +111,9 @@ export class Game extends EventEmitter {
       this.update();
       this.draw(this.ctx);
     }
-    requestAnimationFrame(this.animate);
+
+    // if(this.gameState === GAME_STATE.NEWLEVEL) return;
+    requestId = requestAnimationFrame(this.animate);
   }
 
   update() {
@@ -126,6 +138,8 @@ export class Game extends EventEmitter {
     this.gameObjects.forEach((gameObject) => gameObject.update());
     this.bricks.forEach((brick) => brick.update());
     this.bricks = this.bricks.filter((brick) => !brick.isMarkedForDeletion);
+
+    this.drawScore(this.ctx);
 
     this.emit('updated');
   }
@@ -156,6 +170,19 @@ export class Game extends EventEmitter {
     ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
     ctx.fillText(text, this.gameWidth / 2, this.gameHeight / 2);
+  }
+
+  drawScore(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.rect(10, 10, 150, 30);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+
+    ctx.font = `20px Arial`;
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+    ctx.beginPath();
+    ctx.fillText(`Score: ${this.score}`, 80, 32);
   }
 
   togglePause() {

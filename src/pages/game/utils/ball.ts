@@ -61,7 +61,7 @@ export class Ball extends GameObject {
 
   onCollateWithBrick(gameObject: GameObject) {
     console.log(`${this.name} collated with ${gameObject.name}`);
-
+    this.game.emit('on_ball_collate');
     this.speed.y = -this.speed.y;
   }
 
