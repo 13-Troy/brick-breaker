@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // page
@@ -23,18 +23,16 @@ import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
 import { baseTheme } from '../styles/variables';
-import { connect } from 'react-redux';
-import { userAction } from '../store/user/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../store/user/actions';
 
-interface PageProps {
-  userId?: number;
-  _userAction?: any;
-}
+const Page = () => {
+  const userId = useSelector((state: any) => state.testReducer.user.id);
+  const dispatch = useDispatch();
 
-const Page: FC<PageProps> = ({ userId, _userAction }) => {
   useEffect(() => {
-    _userAction();
-  }, [_userAction]);
+    getProfile()(dispatch);
+  });
 
   return (
     <ThemeProvider theme={baseTheme}>
@@ -62,17 +60,4 @@ const Page: FC<PageProps> = ({ userId, _userAction }) => {
   );
 };
 
-const mapStateToProps = (store: any) => {
-  return {
-    testText: store.testReducer.testFromFunction,
-    userId: store.testReducer.user.id,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
-  return {
-    _userAction: () => dispatch(userAction()),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Page);
+export default Page;

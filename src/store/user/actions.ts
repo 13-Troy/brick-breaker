@@ -3,7 +3,7 @@ import { Dispatch } from 'react';
 import { USER } from '../types';
 import { UrlSite } from '../../services/const';
 
-export const userAction = () => {
+export const getProfile = () => {
   return (dispatch: Dispatch<any>) => {
     fetch(`${UrlSite.URL}/auth/user`, {
       credentials: 'include',
@@ -24,7 +24,7 @@ export const userAction = () => {
   };
 };
 
-export const changeDataAction = (newData: any) => {
+export const updateProfileData = (newData: any) => {
   return (dispatch: Dispatch<any>) => {
     fetch(`${UrlSite.URL}/user/profile`, {
       credentials: 'include',
@@ -47,7 +47,7 @@ export const changeDataAction = (newData: any) => {
   };
 };
 
-export const changeAvatarAction = (newAvatar: any) => {
+export const updateProfileAvatar = (newAvatar: any) => {
   return (dispatch: Dispatch<any>) => {
     fetch(`https://ya-praktikum.tech/api/v2/user/profile/avatar`, {
       method: 'PUT',

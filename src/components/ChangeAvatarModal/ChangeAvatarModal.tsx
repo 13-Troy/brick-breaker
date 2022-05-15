@@ -1,18 +1,13 @@
-import React, { useState, ChangeEvent, Dispatch, FC } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 
 import Title from '../Title';
 import Button from '../Button';
 import Input from '../Input';
-import { connect } from 'react-redux';
-import { changeAvatarAction } from '../../store/user/actions';
+import { updateProfileAvatar } from '../../store/user/actions';
+import { useDispatch } from 'react-redux';
 
-interface ChangeAvatarModalProps {
-  _changeAvatarAction?: any;
-}
-
-const ChangeAvatarModal: FC<ChangeAvatarModalProps> = ({
-  _changeAvatarAction,
-}) => {
+const ChangeAvatarModal = () => {
+  const dispatch = useDispatch();
   const [avatar, setAvatar] = useState<File | null>(null);
 
   const changeAvatar = () => {
@@ -24,7 +19,7 @@ const ChangeAvatarModal: FC<ChangeAvatarModalProps> = ({
 
     formData.append('avatar', avatar);
 
-    _changeAvatarAction(formData);
+    updateProfileAvatar(formData)(dispatch);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,11 +45,4 @@ const ChangeAvatarModal: FC<ChangeAvatarModalProps> = ({
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => {
-  return {
-    _changeAvatarAction: (newAvatar: any) =>
-      dispatch(changeAvatarAction(newAvatar)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(ChangeAvatarModal);
+export default ChangeAvatarModal;
