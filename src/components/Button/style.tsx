@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 interface ButtonStProps {
-  fullWidth: boolean;
+  fullWidth?: boolean;
 }
 
 const Button = styled.button<ButtonStProps>`
