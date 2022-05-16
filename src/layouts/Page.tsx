@@ -25,13 +25,14 @@ import { ThemeProvider } from 'styled-components';
 import { baseTheme } from '../styles/variables';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../store/user/actions';
+import { ThunkDispatch } from 'redux-thunk';
 
 const Page = () => {
   const userId = useSelector((state: any) => state.userReducer.id);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
   useEffect(() => {
-    getProfile()(dispatch);
+    dispatch(getProfile());
   });
 
   return (

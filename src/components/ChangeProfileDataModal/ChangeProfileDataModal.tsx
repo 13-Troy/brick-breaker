@@ -6,10 +6,11 @@ import Input from '../Input';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { updateProfileData } from '../../store/user/actions';
+import { ThunkDispatch } from 'redux-thunk';
 
 const ChangeProfileDataModal = () => {
   const user = useSelector((state: any) => state.userReducer);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
   const [data, setData] = useState({
     first_name: user.first_name,
@@ -21,7 +22,7 @@ const ChangeProfileDataModal = () => {
   });
 
   const changeData = () => {
-    updateProfileData(data)(dispatch);
+    dispatch(updateProfileData(data));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

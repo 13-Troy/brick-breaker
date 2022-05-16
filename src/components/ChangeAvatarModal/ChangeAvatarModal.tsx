@@ -6,8 +6,10 @@ import Input from '../Input';
 import { updateProfileAvatar } from '../../store/user/actions';
 import { useDispatch } from 'react-redux';
 
+import { ThunkDispatch } from 'redux-thunk';
+
 const ChangeAvatarModal = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [avatar, setAvatar] = useState<File | null>(null);
 
   const changeAvatar = () => {
@@ -19,7 +21,7 @@ const ChangeAvatarModal = () => {
 
     formData.append('avatar', avatar);
 
-    updateProfileAvatar(formData)(dispatch);
+    dispatch(updateProfileAvatar(formData));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
