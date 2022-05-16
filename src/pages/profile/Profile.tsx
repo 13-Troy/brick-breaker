@@ -1,6 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Title from '../../components/Title';
 import DataLine from '../../components/DataLine';
@@ -17,11 +17,8 @@ import { useToggle } from '../../hooks/useToggle';
 
 import { HardPopUpSt, InfoSt } from './style';
 
-interface ProfileProps {
-  user?: any;
-}
-
-const Profile: FC<ProfileProps> = ({ user }) => {
+const Profile = () => {
+  const user = useSelector((state: any) => state.userReducer.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
 
@@ -81,10 +78,4 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   );
 };
 
-const mapStateToProps = (store: any) => {
-  return {
-    user: store.testReducer.user,
-  };
-};
-
-export default connect(mapStateToProps, null)(Profile);
+export default Profile;

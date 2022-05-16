@@ -13,7 +13,7 @@ const initialState = {
   },
 };
 
-export const testReducer = (state = initialState, action: any) => {
+export const reducer = (state = initialState, action: any) => {
   const { type, payload } = action;
 
   switch (type) {

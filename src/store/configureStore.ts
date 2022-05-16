@@ -5,11 +5,11 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-import { testReducer } from './user/reducer';
+import { reducer as userReducer } from './user/reducer';
 
 const store = createStore(
   combineReducers({
-    testReducer,
+    userReducer,
   }),
   applyMiddleware(thunk)
 );
