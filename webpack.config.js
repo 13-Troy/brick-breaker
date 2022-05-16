@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -24,7 +25,7 @@ module.exports = {
         errors: true,
         warnings: false,
       },
-    }
+    },
   },
   module: {
     rules: [
@@ -47,6 +48,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: './public/sw.js' }],
     }),
     new webpack.HotModuleReplacementPlugin(),
     new ESLintPlugin({

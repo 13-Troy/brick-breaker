@@ -19,7 +19,8 @@
     "paths": {
       "*": ["./src/*"]
     },
-    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
+    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
+    "allowJs": true
   },
   "include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
   "exclude": ["**/*.js"]
