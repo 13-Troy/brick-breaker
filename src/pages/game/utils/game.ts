@@ -31,7 +31,7 @@ enum GameState {
   NEWLEVEL,
 }
 
-let requestId: any;
+// let requestId: any;
 
 export class Game extends EventEmitter {
   readonly gameWidth: number;
@@ -93,15 +93,7 @@ export class Game extends EventEmitter {
     )
       return;
 
-    if (this.gameState === GAME_STATE.NEWLEVEL) {
-      // cancelAnimationFrame(requestId);
-      this.bricks = buildLevels(this, this.levels[this.currentLevel]);
-      this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
-      this.ball.emit('reset');
-    }
-
-    this.gameState = GAME_STATE.RUNNING;
-    if (!requestId) this.animate();
+    this.animate();
   }
 
   increaseScore() {
@@ -113,6 +105,14 @@ export class Game extends EventEmitter {
   }
 
   animate() {
+    if (this.gameState === GAME_STATE.NEWLEVEL) {
+      this.bricks = buildLevels(this, this.levels[this.currentLevel]);
+      this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
+      this.ball.emit('reset');
+    }
+
+    this.gameState = GAME_STATE.RUNNING;
+
     if (this?.ctx) {
       this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
 
@@ -120,8 +120,7 @@ export class Game extends EventEmitter {
       this.draw(this.ctx);
     }
 
-    // if(this.gameState === GAME_STATE.NEWLEVEL) return;
-    requestId = requestAnimationFrame(this.animate);
+    requestAnimationFrame(this.animate);
   }
 
   update() {
@@ -140,7 +139,6 @@ export class Game extends EventEmitter {
     if (this.bricks.length === 0) {
       this.currentLevel++;
       this.gameState = GAME_STATE.NEWLEVEL;
-      this.start();
     }
 
     this.gameObjects.forEach((gameObject) => gameObject.update());
