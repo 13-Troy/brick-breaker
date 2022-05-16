@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 
 const Page = () => {
-  const userId = useSelector((state: any) => state.userReducer.user.id);
+  const userId = useSelector((state: any) => state.userReducer.id);
   const dispatch = useDispatch();
 
   useEffect(() => {

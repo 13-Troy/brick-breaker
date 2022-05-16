@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateProfileData } from '../../store/user/actions';
 
 const ChangeProfileDataModal = () => {
-  const user = useSelector((state: any) => state.userReducer.user);
+  const user = useSelector((state: any) => state.userReducer);
   const dispatch = useDispatch();
 
   const [data, setData] = useState({

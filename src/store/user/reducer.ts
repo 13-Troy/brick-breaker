@@ -1,16 +1,14 @@
 import { USER } from '../types';
 
 const initialState = {
-  user: {
-    id: 0,
-    email: '',
-    first_name: '',
-    second_name: '',
-    display_name: '',
-    phone: '',
-    login: '',
-    avatar: '',
-  },
+  id: 0,
+  email: '',
+  first_name: '',
+  second_name: '',
+  display_name: '',
+  phone: '',
+  login: '',
+  avatar: '',
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -19,8 +17,7 @@ export const reducer = (state = initialState, action: any) => {
   switch (type) {
     case USER:
       return {
-        ...state,
-        user: payload,
+        ...payload,
       };
 
     default:

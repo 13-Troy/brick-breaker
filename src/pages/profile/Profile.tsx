@@ -18,7 +18,7 @@ import { useToggle } from '../../hooks/useToggle';
 import { HardPopUpSt, InfoSt } from './style';
 
 const Profile = () => {
-  const user = useSelector((state: any) => state.userReducer.user);
+  const user = useSelector((state: any) => state.userReducer);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
 
