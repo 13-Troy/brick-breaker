@@ -27,7 +27,7 @@ self.addEventListener('fetch', (e) => {
         const contentType = res.headers.get('content-type');
 
         //Make clone of response
-        console.log('res sw', contentType);
+        // console.log('res sw', contentType);
 
         if (
           contentType === 'image/png' ||
