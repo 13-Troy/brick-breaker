@@ -34,6 +34,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 
+interface ProtectedStartRouteProps {
+  user: boolean;
+  redirectPath?: any;
+}
+
+const ProtectedStartRouteProps: FC<ProtectedStartRouteProps> = ({
+  user,
+  redirectPath = AppRoute.PROFILE,
+}) => {
+  if (user) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return <Outlet />;
+};
+
 interface ProtectedRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -41,7 +57,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({
   user,
-  redirectPath = '/',
+  redirectPath = AppRoute.ROOT,
 }) => {
   if (!user) {
     return <Navigate to={redirectPath} replace />;
@@ -64,8 +80,11 @@ const Page = () => {
       <BrowserRouter>
         <NavTest />
         <Routes>
-          <Route path={AppRoute.ROOT} element={<Home userId={userId} />} />
-          <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+          <Route element={<ProtectedStartRouteProps user={userId} />}>
+            <Route path={AppRoute.ROOT} element={<Home />} />
+            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+          </Route>
+
           <Route element={<ProtectedRoute user={userId} />}>
             <Route path={AppRoute.PROFILE} element={<Profile />} />
             <Route path={AppRoute.FORUM} element={<Forum />} />
@@ -74,6 +93,7 @@ const Page = () => {
             <Route path={AppRoute.RECORDS} element={<Records />} />
             <Route path={AppRoute.GAME} element={<Game />} />
           </Route>
+
           <Route path={'*'} element={<NotFound />} />
           <Route path={'/500'} element={<ServerError />} />
         </Routes>
