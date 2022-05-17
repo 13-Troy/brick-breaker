@@ -1,6 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
+import Button from '../../components/Button';
+
 import { Game } from './utils/game';
+import { toggleFullscreen } from '../../services/fullscreen-api';
+import { WrapperSt } from './style';
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
 
@@ -19,13 +24,22 @@ const GamePage = () => {
     }
   }, []);
 
+  const toogleFullscreen = () => {
+    toggleFullscreen();
+  };
+
   return (
-    <canvas
-      ref={canvasRef}
-      width={800}
-      height={600}
-      style={{ outline: '1px solid red' }}
-    />
+    <WrapperSt>
+      <Button id="toggler" onClick={toogleFullscreen}>
+        toggle on
+      </Button>
+      <canvas
+        ref={canvasRef}
+        width={800}
+        height={600}
+        style={{ outline: '1px solid red' }}
+      />
+    </WrapperSt>
   );
 };
 
