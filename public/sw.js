@@ -1,4 +1,4 @@
-const cacheName = 'v1';
+const cacheName = 'v2';
 //Registering event
 self.addEventListener('install', () => {
   console.log('SW:installer');
@@ -24,15 +24,26 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     fetch(e.request)
       .then((res) => {
+        const contentType = res.headers.get('content-type');
+
         //Make clone of response
+        console.log('res sw', contentType);
 
-        const resClone = res.clone();
+        if (
+          contentType === 'image/png' ||
+          contentType === 'font/woff2' ||
+          contentType === 'text/html' ||
+          contentType === 'text/javascript' ||
+          contentType === 'text/plain'
+        ) {
+          const resClone = res.clone();
 
-        //Open cache
-        caches.open(cacheName).then((cache) => {
-          //Add response to cache
-          cache.put(e.request, resClone);
-        });
+          //Open cache
+          caches.open(cacheName).then((cache) => {
+            //Add response to cache
+            cache.put(e.request, resClone);
+          });
+        }
 
         return res;
       })

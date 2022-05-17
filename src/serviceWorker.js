@@ -2,7 +2,7 @@ export const serviceWorker = () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
       .register('/sw.js', { scope: '/' })
-      .then((reg) => console.log('registered', reg))
+      .then(() => console.log('registered'))
       .catch((error) => console.error('Service worker error', error));
   }
 };
