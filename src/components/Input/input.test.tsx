@@ -12,6 +12,7 @@ describe('Input', () => {
 
   it('should render with placeholder', () => {
     const placeholder = 'test';
+
     customRender(
       <Input name={'email'} type={'email'} placeholder={placeholder} />
     );
