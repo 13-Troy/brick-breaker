@@ -29,7 +29,7 @@ describe('Avatar', () => {
     );
 
     act(() => {
-      fireEvent.click(element.getByRole('avatar'));
+      fireEvent.click(element.getByRole('button'));
     });
 
     expect(callback).toHaveBeenCalled();

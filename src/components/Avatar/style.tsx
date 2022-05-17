@@ -9,7 +9,7 @@ interface AvatarProps {
 const Avatar = styled.div.attrs((props: AvatarProps) => ({
   backgroundImage: props.backgroundImage,
   size: props.size,
-  role: 'avatar',
+  role: 'button',
 }))`
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
