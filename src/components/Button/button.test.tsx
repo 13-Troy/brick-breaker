@@ -1,41 +1,23 @@
-import { render, fireEvent, act } from '@testing-library/react';
+import { fireEvent, act } from '@testing-library/react';
 import Button from '../../components/Button';
-import { ThemeProvider } from 'styled-components';
-import { baseTheme } from '../../styles/variables';
-
+import { customRender } from '../../services/test-utils';
 import React from 'react';
 
 describe('Button', () => {
   it('should render', () => {
-    render(
-      <ThemeProvider theme={baseTheme}>
-        <Button fullWidth>Test</Button>
-      </ThemeProvider>
-    );
+    customRender(<Button fullWidth>Test</Button>);
   });
+
   it('should render label', () => {
     const text = 'Button';
-    const button = render(
-      <ThemeProvider theme={baseTheme}>
-        <Button>{text}</Button>
-      </ThemeProvider>
-    );
+    const button = customRender(<Button>{text}</Button>);
 
     expect(button.getByText(text)).toBeInTheDocument();
   });
 
   it('should render different button if fullWidth is passed', () => {
-    const button1 = render(
-      <ThemeProvider theme={baseTheme}>
-        <Button fullWidth>Test</Button>
-      </ThemeProvider>
-    );
-
-    const button2 = render(
-      <ThemeProvider theme={baseTheme}>
-        <Button>Test</Button>
-      </ThemeProvider>
-    );
+    const button1 = customRender(<Button fullWidth>Test</Button>);
+    const button2 = customRender(<Button>Test</Button>);
 
     expect(button1.container.outerHTML).not.toEqual(
       button2.container.outerHTML
@@ -44,13 +26,10 @@ describe('Button', () => {
 
   it('should call callback on click', () => {
     const callback = jest.fn();
-
-    const button = render(
-      <ThemeProvider theme={baseTheme}>
-        <Button fullWidth onClick={callback}>
-          Test
-        </Button>
-      </ThemeProvider>
+    const button = customRender(
+      <Button fullWidth onClick={callback}>
+        Test
+      </Button>
     );
 
     act(() => {

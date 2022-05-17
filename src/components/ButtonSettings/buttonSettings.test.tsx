@@ -1,37 +1,24 @@
-import { render, fireEvent, act } from '@testing-library/react';
+import { fireEvent, act } from '@testing-library/react';
 import ButtonSettings from '../ButtonSettings';
-import { ThemeProvider } from 'styled-components';
-import { baseTheme } from '../../styles/variables';
-
+import { customRender } from '../../services/test-utils';
 import React from 'react';
 
 describe('ButtonSettings', () => {
   it('should render', () => {
-    render(
-      <ThemeProvider theme={baseTheme}>
-        <ButtonSettings>Test</ButtonSettings>
-      </ThemeProvider>
-    );
+    customRender(<ButtonSettings>Test</ButtonSettings>);
   });
 
   it('should render label', () => {
     const text = 'Button';
-    const button = render(
-      <ThemeProvider theme={baseTheme}>
-        <ButtonSettings>{text}</ButtonSettings>
-      </ThemeProvider>
-    );
+    const button = customRender(<ButtonSettings>{text}</ButtonSettings>);
 
     expect(button.getByText(text)).toBeInTheDocument();
   });
 
   it('should call callback on click', () => {
     const callback = jest.fn();
-
-    const button = render(
-      <ThemeProvider theme={baseTheme}>
-        <ButtonSettings onClick={callback}>Test</ButtonSettings>
-      </ThemeProvider>
+    const button = customRender(
+      <ButtonSettings onClick={callback}>Test</ButtonSettings>
     );
 
     act(() => {
