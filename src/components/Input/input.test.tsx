@@ -23,6 +23,7 @@ describe('Input', () => {
     const input = customRender(
       <Input name={'email'} type={'email'} placeholder={'test'} />
     );
+
     act(() => {
       fireEvent.change(input.getByPlaceholderText('test'), {
         target: { value: 'test@test.com' },
