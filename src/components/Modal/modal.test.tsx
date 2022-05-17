@@ -5,6 +5,7 @@ import React from 'react';
 
 describe('Modal', () => {
   const isShown = true;
+
   it('should render', () => {
     customRender(<Modal isShown={isShown} headerText={'Test'}></Modal>);
 

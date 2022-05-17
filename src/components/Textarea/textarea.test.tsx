@@ -11,6 +11,7 @@ describe('Textarea', () => {
 
   it('should render with placeholder', () => {
     const placeholder = 'test';
+
     customRender(<Textarea name={'content'} placeholder={placeholder} />);
     expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
   });
