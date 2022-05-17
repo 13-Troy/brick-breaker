@@ -1,5 +1,11 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from 'react-router-dom';
 
 // page
 import Home from '../pages/home';
@@ -28,6 +34,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 
+interface ProtectedRouteProps {
+  user: boolean;
+  redirectPath?: any;
+}
+
+const ProtectedRoute: FC<ProtectedRouteProps> = ({
+  user,
+  redirectPath = '/',
+}) => {
+  if (!user) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return <Outlet />;
+};
+
 const Page = () => {
   const userId = useSelector((state: any) => state.userReducer.id);
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
@@ -44,17 +66,14 @@ const Page = () => {
         <Routes>
           <Route path={AppRoute.ROOT} element={<Home userId={userId} />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-          {/* @todo */}
-          {userId && (
-            <>
-              <Route path={AppRoute.ABOUT} element={<About />} />
-              <Route path={AppRoute.PROFILE} element={<Profile />} />
-              <Route path={AppRoute.FORUM} element={<Forum />} />
-              <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
-              <Route path={AppRoute.RECORDS} element={<Records />} />
-              <Route path={AppRoute.GAME} element={<Game />} />
-            </>
-          )}
+          <Route element={<ProtectedRoute user={userId} />}>
+            <Route path={AppRoute.PROFILE} element={<Profile />} />
+            <Route path={AppRoute.FORUM} element={<Forum />} />
+            <Route path={AppRoute.ABOUT} element={<About />} />
+            <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
+            <Route path={AppRoute.RECORDS} element={<Records />} />
+            <Route path={AppRoute.GAME} element={<Game />} />
+          </Route>
           <Route path={'*'} element={<NotFound />} />
           <Route path={'/500'} element={<ServerError />} />
         </Routes>
