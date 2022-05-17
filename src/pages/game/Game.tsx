@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../components/Button';
 
@@ -10,6 +10,7 @@ const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
 
 const GamePage = () => {
+  const [toggler, setToggler] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const game = useRef<Game>();
 
@@ -24,14 +25,15 @@ const GamePage = () => {
     }
   }, []);
 
-  const toogleFullscreen = () => {
+  const handleToggleFullscreen = () => {
     toggleFullscreen();
+    setToggler(!toggler);
   };
 
   return (
     <WrapperSt>
-      <Button id="toggler" onClick={toogleFullscreen}>
-        toggle on
+      <Button id="toggler" onClick={handleToggleFullscreen}>
+        {toggler ? 'toggle off' : 'toggle on'}
       </Button>
       <canvas
         ref={canvasRef}

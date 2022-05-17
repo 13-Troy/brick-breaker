@@ -1,5 +1,6 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import Title from '../../components/Title';
 import DataLine from '../../components/DataLine';
@@ -16,19 +17,8 @@ import { useToggle } from '../../hooks/useToggle';
 
 import { HardPopUpSt, InfoSt } from './style';
 
-interface ProfileProps {
-  user: {
-    avatar: string;
-    email: string;
-    login: string;
-    first_name: string;
-    second_name: string;
-    display_name: string;
-    phone: string;
-  };
-}
-
-const Profile: FC<ProfileProps> = ({ user }) => {
+const Profile = () => {
+  const user = useSelector((state: any) => state.userReducer);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
 
@@ -77,9 +67,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         </ButtonSettings>
         <Modal isShown={isShown} hide={toggleVisible}>
           {changeProfile === 'changeAvatar' && <ChangeAvatarModal />}
-          {changeProfile === 'changeData' && (
-            <ChangeProfileDataModal user={user} />
-          )}
+          {changeProfile === 'changeData' && <ChangeProfileDataModal />}
           {changeProfile === 'changePassword' && <ChangePasswordModal />}
         </Modal>
         <Button fullWidth={false} onClick={onSend}>

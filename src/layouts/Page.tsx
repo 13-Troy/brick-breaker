@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // page
@@ -17,41 +17,24 @@ import ServerError from '../pages/500';
 import NavTest from '../components/NavTest';
 
 // constants
-import { AppRoute, UrlSite } from '../services/const';
+import { AppRoute } from '../services/const';
 
 // style
 import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
 import { baseTheme } from '../styles/variables';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfile } from '../store/user/actions';
+import { ThunkDispatch } from 'redux-thunk';
 
 const Page = () => {
-  const [user, setUser] = useState({
-    id: 0,
-    email: '',
-    first_name: '',
-    second_name: '',
-    display_name: '',
-    phone: '',
-    login: '',
-    avatar: '',
-  });
+  const userId = useSelector((state: any) => state.userReducer.id);
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
   useEffect(() => {
-    fetch(`${UrlSite.URL}/auth/user`, {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        setUser(data);
-      });
-  }, []);
+    dispatch(getProfile());
+  });
 
   return (
     <ThemeProvider theme={baseTheme}>
@@ -59,16 +42,13 @@ const Page = () => {
       <BrowserRouter>
         <NavTest />
         <Routes>
-          <Route path={AppRoute.ROOT} element={<Home userId={user.id} />} />
+          <Route path={AppRoute.ROOT} element={<Home userId={userId} />} />
           <Route path={AppRoute.REGISTRATION} element={<Registration />} />
           {/* @todo */}
-          {user.id && (
+          {userId && (
             <>
               <Route path={AppRoute.ABOUT} element={<About />} />
-              <Route
-                path={AppRoute.PROFILE}
-                element={<Profile user={user} />}
-              />
+              <Route path={AppRoute.PROFILE} element={<Profile />} />
               <Route path={AppRoute.FORUM} element={<Forum />} />
               <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
               <Route path={AppRoute.RECORDS} element={<Records />} />
@@ -82,4 +62,5 @@ const Page = () => {
     </ThemeProvider>
   );
 };
+
 export default Page;
