@@ -3,8 +3,13 @@ import React, { useState, ChangeEvent } from 'react';
 import Title from '../Title';
 import Button from '../Button';
 import Input from '../Input';
+import { updateProfileAvatar } from '../../store/user/actions';
+import { useDispatch } from 'react-redux';
+
+import { ThunkDispatch } from 'redux-thunk';
 
 const ChangeAvatarModal = () => {
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [avatar, setAvatar] = useState<File | null>(null);
 
   const changeAvatar = () => {
@@ -16,16 +21,7 @@ const ChangeAvatarModal = () => {
 
     formData.append('avatar', avatar);
 
-    fetch(`https://ya-praktikum.tech/api/v2/user/profile/avatar`, {
-      method: 'PUT',
-      credentials: 'include',
-      headers: {
-        accept: 'application/json',
-      },
-      body: formData,
-    }).then(() => {
-      location.reload();
-    });
+    dispatch(updateProfileAvatar(formData));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
