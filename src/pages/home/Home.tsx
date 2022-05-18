@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import Title from '../../components/Title';
 import Button from '../../components/Button';
@@ -11,8 +10,6 @@ import { AppRoute, UrlSite } from '../../services/const';
 import { HardPopUpSt } from './style';
 
 const Home = () => {
-  const navigate = useNavigate();
-
   const [logIn, setLogIn] = useState({ login: '', password: '' });
 
   const onSens = () => {
@@ -25,8 +22,10 @@ const Home = () => {
       },
       body: JSON.stringify(logIn),
     }).then((data) => {
-      if (data.ok) navigate(AppRoute.PROFILE);
-      location.reload();
+      if (data.ok) {
+        location.reload();
+        localStorage.setItem('user', 'true');
+      }
     });
   };
 

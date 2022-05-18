@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Title from '../../components/Title';
@@ -12,7 +11,7 @@ import ChangeAvatarModal from '../../components/ChangeAvatarModal';
 import ChangeProfileDataModal from '../../components/ChangeProfileDataModal';
 import ChangePasswordModal from '../../components/ChangePasswordModal';
 
-import { AppRoute, UrlSite } from '../../services/const';
+import { UrlSite } from '../../services/const';
 import { useToggle } from '../../hooks/useToggle';
 
 import { HardPopUpSt, InfoSt } from './style';
@@ -22,8 +21,6 @@ const Profile = () => {
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
 
-  const navigate = useNavigate();
-
   const onSend = () => {
     fetch(`${UrlSite.URL}/auth/logout`, {
       credentials: 'include',
@@ -32,7 +29,7 @@ const Profile = () => {
         Accept: 'application/json',
       },
     }).then(() => {
-      navigate(AppRoute.ROOT);
+      localStorage.removeItem('user');
       location.reload();
     });
   };

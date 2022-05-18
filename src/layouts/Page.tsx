@@ -30,7 +30,7 @@ import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
 import { baseTheme } from '../styles/variables';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -67,11 +67,11 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
 };
 
 const Page = () => {
-  const userId = useSelector((state: any) => state.userReducer.id);
+  const user: boolean = localStorage.getItem('user') === 'true';
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
   useEffect(() => {
-    dispatch(getProfile());
+    if (user) dispatch(getProfile());
   });
 
   return (
@@ -80,12 +80,12 @@ const Page = () => {
       <BrowserRouter>
         <NavTest />
         <Routes>
-          <Route element={<ProtectedStartRouteProps user={userId} />}>
+          <Route element={<ProtectedStartRouteProps user={user} />}>
             <Route path={AppRoute.ROOT} element={<Home />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
           </Route>
 
-          <Route element={<ProtectedRoute user={userId} />}>
+          <Route element={<ProtectedRoute user={user} />}>
             <Route path={AppRoute.PROFILE} element={<Profile />} />
             <Route path={AppRoute.FORUM} element={<Forum />} />
             <Route path={AppRoute.ABOUT} element={<About />} />
