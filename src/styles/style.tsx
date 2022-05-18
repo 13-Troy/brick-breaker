@@ -7,6 +7,8 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     font-family: ${({ theme }) => theme.fonts.font_family};
     color: ${({ theme }) => theme.colors.font};
   }
+
+ 
    
   * {
     margin: 0;
