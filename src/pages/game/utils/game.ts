@@ -92,6 +92,7 @@ export class Game extends EventEmitter {
 
     new InputHandler(this.paddle, this);
     this.drawScore(this.ctx);
+    this.drawLevel(this.ctx);
   }
 
   start() {
@@ -154,6 +155,7 @@ export class Game extends EventEmitter {
     this.bricks = this.bricks.filter((brick) => !brick.isMarkedForDeletion);
 
     this.drawScore(this.ctx);
+    this.drawLevel(this.ctx);
 
     this.emit('updated');
   }
@@ -189,6 +191,7 @@ export class Game extends EventEmitter {
 
   drawScore(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
+
     ctx.rect(10, 10, 150, 30);
     ctx.fillStyle = 'white';
     ctx.fill();
@@ -196,8 +199,23 @@ export class Game extends EventEmitter {
     ctx.font = `20px Arial`;
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
+
     ctx.beginPath();
     ctx.fillText(`Score: ${this.score}`, 80, 32);
+  }
+
+  drawLevel(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+
+    ctx.font = `20px Arial`;
+    ctx.fillStyle = 'black';
+    ctx.textAlign = 'center';
+
+    ctx.fillText(
+      `Level: ${this.currentLevel + 1} | Lives: ${this.lives}`,
+      this.gameWidth - 100,
+      32
+    );
   }
 
   togglePause() {
