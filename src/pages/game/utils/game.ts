@@ -7,11 +7,14 @@ import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
-const level1 = [[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]];
+const level1 = [[0, 0, 0, 0, 1, 1, 1, 0, 0, 0]];
 
-const level2 = [[0, 1, 0, 0, 0, 1, 0, 1, 0, 0]];
+const level2 = [[0, 1, 1, 1, 1, 1, 1, 1, 0, 0]];
 
-const level3 = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
+const level3 = [
+  [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+];
 
 interface GameOptions {
   canvasElement: HTMLCanvasElement;
@@ -241,7 +244,7 @@ export class Game extends EventEmitter {
     ctx.beginPath();
 
     ctx.font = `20px Arial`;
-    ctx.fillStyle = 'black';
+    ctx.fillStyle = 'white';
     ctx.textAlign = 'center';
 
     ctx.fillText(

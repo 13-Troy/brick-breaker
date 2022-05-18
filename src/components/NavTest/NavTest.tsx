@@ -16,9 +16,15 @@ const NavTest = () => {
       <br />
       <Link to={'/forum'}>forum</Link>
       <br />
+      <Link to={'/post'}>post</Link>
+      <br />
       <Link to={'/records'}>records</Link>
       <br />
       <Link to={'/game'}>game</Link>
+      <br />
+      <Link to={'/404'}>404</Link>
+      <br />
+      <Link to={'/500'}>500</Link>
     </NavTestWrapper>
   );
 };
