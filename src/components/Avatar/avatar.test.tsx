@@ -5,6 +5,7 @@ import React from 'react';
 
 describe('Avatar', () => {
   const backgroundImage = '/images/default_avatar.png';
+
   it('should render', () => {
     customRender(<Avatar size={130} backgroundImage={backgroundImage} />);
   });
