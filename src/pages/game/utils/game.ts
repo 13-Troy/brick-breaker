@@ -7,14 +7,11 @@ import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
-const level1 = [
-  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-  // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-];
+const level1 = [[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]];
 
-const level2 = [[0, 0, 0, 0, 1, 1, 0, 0, 0, 0]];
+const level2 = [[0, 1, 0, 0, 0, 1, 0, 1, 0, 0]];
 
-// const level3 = [[0, 0, 0, 1, 1, 1, 0, 0, 0, 0]];
+const level3 = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]];
 
 interface GameOptions {
   canvasElement: HTMLCanvasElement;
@@ -41,7 +38,7 @@ enum GameState {
   YOUWIN,
 }
 
-// let requestId: any;
+let requestId: any;
 
 export class Game extends EventEmitter {
   readonly gameWidth: number;
@@ -49,7 +46,7 @@ export class Game extends EventEmitter {
   public gameState: GameState;
   private currentLevel = 0;
   private score = 0;
-  private levels: Level[] = [level1, level2];
+  private levels: Level[] = [level1, level2, level3];
   public lives: number;
   readonly gameScoreHandler: (score: number) => void;
 
@@ -72,7 +69,7 @@ export class Game extends EventEmitter {
     this.gameHeight = gameHeight;
     this.gameState = GAME_STATE.MENU;
     this.gameScoreHandler = gameScoreHandler;
-    this.lives = 2;
+    this.lives = 3;
 
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
@@ -89,6 +86,7 @@ export class Game extends EventEmitter {
 
     this.on('Escape', this.togglePause);
     this.on('Space', this.start);
+    this.on('Enter', this.restart);
     this.on('hit_bottom', this.decreaseLives);
     this.on('on_ball_collate', this.increaseScore);
 
@@ -97,15 +95,36 @@ export class Game extends EventEmitter {
     this.drawLevel(this.ctx);
   }
 
+  init() {
+    this.lives = 3;
+    this.currentLevel = 0;
+    this.score = 0;
+    this.gameObjects = [this.ball, this.paddle];
+    this.bricks = buildLevels(this, this.levels[this.currentLevel]);
+    this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
+    this.ball.emit('reset');
+    this.gameState = GAME_STATE.RUNNING;
+  }
+
   start() {
     if (
       this.gameState !== GAME_STATE.MENU &&
-      this.gameState !== GAME_STATE.NEWLEVEL &&
-      this.gameState !== GAME_STATE.YOUWIN
-    )
+      this.gameState !== GAME_STATE.NEWLEVEL
+    ) {
       return;
-
+    }
+    this.init();
     this.animate();
+  }
+
+  restart() {
+    if (
+      this.gameState === GAME_STATE.GAMEOVER ||
+      this.gameState === GAME_STATE.YOUWIN
+    ) {
+      this.init();
+      this.animate();
+    }
   }
 
   increaseScore() {
@@ -117,13 +136,13 @@ export class Game extends EventEmitter {
   }
 
   animate() {
+    requestId = requestAnimationFrame(this.animate);
     if (this.gameState === GAME_STATE.NEWLEVEL) {
       this.bricks = buildLevels(this, this.levels[this.currentLevel]);
       this.bricks.forEach((brick) => this.collManager.watch(this.ball, brick));
       this.ball.emit('reset');
+      this.gameState = GAME_STATE.RUNNING;
     }
-
-    this.gameState = GAME_STATE.RUNNING;
 
     if (this?.ctx) {
       this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
@@ -131,21 +150,15 @@ export class Game extends EventEmitter {
       this.update();
       this.draw(this.ctx);
     }
-
-    requestAnimationFrame(this.animate);
   }
 
   update() {
-    if (this.lives === 0) {
-      this.gameState = GAME_STATE.GAMEOVER;
+    if (this.gameState === GAME_STATE.PAUSED) {
+      return;
     }
 
-    if (
-      this.gameState === GAME_STATE.PAUSED ||
-      this.gameState === GAME_STATE.MENU
-      // || this.gameState === GAME_STATE.GAMEOVER
-    ) {
-      return;
+    if (this.lives === 0) {
+      this.gameState = GAME_STATE.GAMEOVER;
     }
 
     if (this.bricks.length === 0) {
@@ -179,14 +192,23 @@ export class Game extends EventEmitter {
       this.drawScreen(ctx, 'rgba(0,0,0,1)', 'Press SPACEBAR to start');
     }
 
-    if (this.gameState === GAME_STATE.GAMEOVER) {
-      this.drawScreen(ctx, 'rgba(0,0,0,1)', 'GAME OVER');
-      this.gameScoreHandler(this.score);
+    if (
+      this.gameState === GAME_STATE.GAMEOVER ||
+      this.gameState === GAME_STATE.YOUWIN
+    ) {
+      this.drawGameEndScreen(ctx);
     }
+  }
 
-    if (this.gameState === GAME_STATE.YOUWIN) {
-      this.drawScreen(ctx, 'rgba(0,0,0,1)', 'YOU WIN');
-    }
+  drawGameEndScreen(ctx: CanvasRenderingContext2D) {
+    const endText =
+      this.gameState === GAME_STATE.GAMEOVER ? 'GAME OVER' : 'YOU WIN';
+
+    this.drawScreen(ctx, 'rgba(0,0,0,1)', endText);
+    this.drawGameEnding(ctx, `Total Score: ${this.score}`, -70);
+    this.drawGameEnding(ctx, 'Please press ENTER to restart', 50);
+    this.gameScoreHandler(this.score);
+    cancelAnimationFrame(requestId);
   }
 
   drawScreen(ctx: CanvasRenderingContext2D, bgColor: string, text: string) {
@@ -223,10 +245,18 @@ export class Game extends EventEmitter {
     ctx.textAlign = 'center';
 
     ctx.fillText(
-      `Level: ${this.currentLevel + 1} | Lives: ${this.lives}`,
+      `Level: ${this.currentLevel + 1} | Lives left: ${this.lives}`,
       this.gameWidth - 100,
       32
     );
+  }
+
+  drawGameEnding(ctx: CanvasRenderingContext2D, text: string, YOffset: number) {
+    ctx.beginPath();
+    ctx.font = '30px Arial';
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.fillText(text, this.gameWidth / 2, this.gameHeight / 2 + YOffset);
   }
 
   togglePause() {
