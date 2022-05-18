@@ -3,6 +3,7 @@ import { Position } from '../game.types';
 import { GameObject } from './gameObject';
 import { Game } from './game';
 import { Paddle } from './paddle';
+import { detectCollisionPaddle } from './detectCollisionWithPaddle';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
@@ -10,8 +11,8 @@ export class Ball extends GameObject {
   private game: Game;
 
   speed: Position = {
-    x: 2,
-    y: -2,
+    x: 5,
+    y: -7,
   };
 
   constructor(game: Game) {
@@ -42,8 +43,8 @@ export class Ball extends GameObject {
 
   reset() {
     this.speed = {
-      x: 2,
-      y: -2,
+      x: 4,
+      y: -4,
     };
 
     this.position = {
@@ -52,11 +53,66 @@ export class Ball extends GameObject {
     };
   }
 
-  onCollateWithPaddle(gameObject: GameObject) {
-    console.log(`${this.name} collated with ${gameObject.name}`);
+  onCollateWithPaddle(paddle: GameObject) {
+    console.log(`${this.name} collated with ${paddle.name}`);
+    const hitbox = detectCollisionPaddle(this, paddle);
 
-    this.speed.y = -this.speed.y;
-    this.position.y = this.paddle.position.y - this.height;
+    switch (hitbox) {
+      case 1:
+        this.speed.x = -9;
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 2:
+        if (this.speed.x < 0) {
+          this.speed.x = -6;
+        } else {
+          this.speed.x += -6;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 3:
+        if (this.speed.x < 0) {
+          this.speed.x = -4;
+        } else {
+          this.speed.x += -4;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 4:
+        if (this.speed.x > 0) {
+          this.speed.x = 4;
+        } else {
+          this.speed.x += 4;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 5:
+        if (this.speed.x > 0) {
+          this.speed.x = 6;
+        } else {
+          this.speed.x += 6;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 6:
+        this.speed.x = 9;
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      default:
+        return null;
+    }
   }
 
   onCollateWithBrick(gameObject: GameObject) {

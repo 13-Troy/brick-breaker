@@ -1,12 +1,20 @@
 import { Paddle } from './paddle';
 import { InputHandler } from './input';
 import { Ball } from './ball';
-import { level1, level2, level3, buildLevels } from './levels';
+import { /*level1, level2, level3,*/ buildLevels } from './levels';
 import type { Level } from './levels';
 import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
+const level1 = [
+  // [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+];
+
+const level2 = [[0, 0, 0, 0, 1, 1, 0, 0, 0, 0]];
+
+const level3 = [[0, 0, 0, 1, 1, 1, 0, 0, 0, 0]];
 
 interface GameOptions {
   canvasElement: HTMLCanvasElement;

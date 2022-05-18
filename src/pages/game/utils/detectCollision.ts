@@ -1,4 +1,4 @@
-type GameObject = {
+export type GameObject = {
   position: {
     x: number;
     y: number;
