@@ -163,7 +163,7 @@ export class Game extends EventEmitter {
 
     if (this.bricks.length === 0) {
       this.currentLevel++;
-      if (this.currentLevel > 1) {
+      if (this.currentLevel > 2) {
         this.gameState = GAME_STATE.YOUWIN;
       } else {
         this.gameState = GAME_STATE.NEWLEVEL;
