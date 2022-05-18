@@ -37,8 +37,8 @@ const GamePage = () => {
       </Button>
       <canvas
         ref={canvasRef}
-        width={GAME_WIDTH}
-        height={GAME_HEIGHT}
+        width={800}
+        height={600}
         style={{ background: '#663399' }}
       />
     </WrapperSt>
