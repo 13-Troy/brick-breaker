@@ -33,6 +33,11 @@ export class InputHandler extends EventEmitter {
           break;
         }
 
+        case 'Enter': {
+          this.inputManager.emit('keydown', 'Enter');
+          break;
+        }
+
         default:
           return true;
       }

@@ -8,13 +8,13 @@ import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
 const level1 = [
-  // [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+  // [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
 const level2 = [[0, 0, 0, 0, 1, 1, 0, 0, 0, 0]];
 
-const level3 = [[0, 0, 0, 1, 1, 1, 0, 0, 0, 0]];
+// const level3 = [[0, 0, 0, 1, 1, 1, 0, 0, 0, 0]];
 
 interface GameOptions {
   canvasElement: HTMLCanvasElement;
@@ -29,6 +29,7 @@ const GAME_STATE = {
   MENU: 2,
   GAMEOVER: 3,
   NEWLEVEL: 4,
+  YOUWIN: 5,
 };
 
 enum GameState {
@@ -37,6 +38,7 @@ enum GameState {
   MENU,
   GAMEOVER,
   NEWLEVEL,
+  YOUWIN,
 }
 
 // let requestId: any;
@@ -47,7 +49,7 @@ export class Game extends EventEmitter {
   public gameState: GameState;
   private currentLevel = 0;
   private score = 0;
-  private levels: Level[] = [level1, level2, level3];
+  private levels: Level[] = [level1, level2];
   public lives: number;
   readonly gameScoreHandler: (score: number) => void;
 
@@ -70,7 +72,7 @@ export class Game extends EventEmitter {
     this.gameHeight = gameHeight;
     this.gameState = GAME_STATE.MENU;
     this.gameScoreHandler = gameScoreHandler;
-    this.lives = 3;
+    this.lives = 2;
 
     this.paddle = new Paddle(this);
     this.ball = new Ball(this);
@@ -98,7 +100,8 @@ export class Game extends EventEmitter {
   start() {
     if (
       this.gameState !== GAME_STATE.MENU &&
-      this.gameState !== GAME_STATE.NEWLEVEL
+      this.gameState !== GAME_STATE.NEWLEVEL &&
+      this.gameState !== GAME_STATE.YOUWIN
     )
       return;
 
@@ -139,15 +142,19 @@ export class Game extends EventEmitter {
 
     if (
       this.gameState === GAME_STATE.PAUSED ||
-      this.gameState === GAME_STATE.MENU ||
-      this.gameState === GAME_STATE.GAMEOVER
+      this.gameState === GAME_STATE.MENU
+      // || this.gameState === GAME_STATE.GAMEOVER
     ) {
       return;
     }
 
     if (this.bricks.length === 0) {
       this.currentLevel++;
-      this.gameState = GAME_STATE.NEWLEVEL;
+      if (this.currentLevel > 1) {
+        this.gameState = GAME_STATE.YOUWIN;
+      } else {
+        this.gameState = GAME_STATE.NEWLEVEL;
+      }
     }
 
     this.gameObjects.forEach((gameObject) => gameObject.update());
@@ -175,6 +182,10 @@ export class Game extends EventEmitter {
     if (this.gameState === GAME_STATE.GAMEOVER) {
       this.drawScreen(ctx, 'rgba(0,0,0,1)', 'GAME OVER');
       this.gameScoreHandler(this.score);
+    }
+
+    if (this.gameState === GAME_STATE.YOUWIN) {
+      this.drawScreen(ctx, 'rgba(0,0,0,1)', 'YOU WIN');
     }
   }
 
