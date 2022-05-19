@@ -1,10 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import Button from '../../components/Button';
 
 import { Game } from './utils/game';
+import { toggleFullscreen } from '../../services/fullscreen-api';
+import { WrapperSt } from './style';
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
 
 const GamePage = () => {
+  const [toggler, setToggler] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const game = useRef<Game>();
 
@@ -19,13 +25,23 @@ const GamePage = () => {
     }
   }, []);
 
+  const handleToggleFullscreen = () => {
+    toggleFullscreen();
+    setToggler(!toggler);
+  };
+
   return (
-    <canvas
-      ref={canvasRef}
-      width={800}
-      height={600}
-      style={{ outline: '1px solid red' }}
-    />
+    <WrapperSt>
+      <Button id="toggler" onClick={handleToggleFullscreen}>
+        {toggler ? 'toggle off' : 'toggle on'}
+      </Button>
+      <canvas
+        ref={canvasRef}
+        width={800}
+        height={600}
+        style={{ background: '#663399' }}
+      />
+    </WrapperSt>
   );
 };
 

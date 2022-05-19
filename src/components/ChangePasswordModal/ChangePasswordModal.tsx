@@ -22,14 +22,13 @@ const ChangePasswordModal = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(password),
-      }).then(() => {
-        location.reload();
       });
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setPassword((prevPassword) => ({ ...prevPassword, [name]: value }));
   };
 

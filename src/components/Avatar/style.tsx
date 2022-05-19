@@ -3,9 +3,14 @@ import styled from 'styled-components';
 interface AvatarProps {
   backgroundImage: string;
   size: number;
+  role?: string;
 }
 
-const Avatar = styled.div<AvatarProps>`
+const Avatar = styled.div.attrs((props: AvatarProps) => ({
+  backgroundImage: props.backgroundImage,
+  size: props.size,
+  role: 'button',
+}))`
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
   margin: 0 auto 30px;

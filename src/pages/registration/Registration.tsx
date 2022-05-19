@@ -32,8 +32,10 @@ const Registration = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setSignUp((prevLogin) => ({ ...prevLogin, [name]: value }));
   };
+
   return (
     <HardPopUpSt>
       <Title h={2}>{'регистрация'}</Title>

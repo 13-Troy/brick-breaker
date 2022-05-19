@@ -19,8 +19,9 @@
     "paths": {
       "*": ["./src/*"]
     },
+    "allowJs": true,
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
-    "allowJs": true
+    "types": ["node", "jest", "@testing-library/jest-dom"]
   },
   "include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
   "exclude": ["**/*.js"]
