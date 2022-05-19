@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import Page from './layouts';
+import { serviceWorker } from './serviceWorker';
 
 import store from './store/configureStore';
 
@@ -15,3 +16,5 @@ root.render(
     <Page />
   </Provider>
 );
+
+serviceWorker();
