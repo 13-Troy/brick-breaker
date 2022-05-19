@@ -33,6 +33,7 @@ import { baseTheme } from '../styles/variables';
 import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
+import Menu from '../components/Menu';
 
 interface ProtectedStartRouteProps {
   user: boolean;
@@ -85,7 +86,14 @@ const Page = () => {
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
           </Route>
 
-          <Route element={<ProtectedRoute user={user} />}>
+          <Route
+            element={
+              <>
+                <Menu />
+                <ProtectedRoute user={user} />
+              </>
+            }
+          >
             <Route path={AppRoute.PROFILE} element={<Profile />} />
             <Route path={AppRoute.FORUM} element={<Forum />} />
             <Route path={AppRoute.ABOUT} element={<About />} />
