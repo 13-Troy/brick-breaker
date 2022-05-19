@@ -1,6 +1,10 @@
 import type { GameObject } from './detectCollision';
+import { PaddlesParts } from 'pages/game/utils/types';
 
-export function detectCollisionPaddle(ball: GameObject, paddle: GameObject) {
+export function detectCollisionPaddle(
+  ball: GameObject,
+  paddle: GameObject
+): PaddlesParts {
   const bottomOfBall = ball.position.y + ball.width;
   const leftOfBall = ball.position.x;
   let hitPosition = 0;
@@ -16,17 +20,19 @@ export function detectCollisionPaddle(ball: GameObject, paddle: GameObject) {
   ) {
     hitPosition = leftOfBall - leftSideOfObject;
     if (hitPosition <= 20) {
-      return 1;
+      return 0;
     } else if (hitPosition > 20 && hitPosition <= 50) {
-      return 2;
+      return 1;
     } else if (hitPosition > 50 && hitPosition <= 75) {
-      return 3;
+      return 2;
     } else if (hitPosition > 75 && hitPosition <= 100) {
-      return 4;
+      return 3;
     } else if (hitPosition > 100 && hitPosition <= 130) {
-      return 5;
+      return 4;
     } else if (hitPosition >= 130) {
-      return 6;
+      return 5;
     }
   }
+
+  return 0;
 }

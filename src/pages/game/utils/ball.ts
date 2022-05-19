@@ -56,15 +56,26 @@ export class Ball extends GameObject {
   onCollateWithPaddle(paddle: GameObject) {
     console.log(`${this.name} collated with ${paddle.name}`);
     const hitbox = detectCollisionPaddle(this, paddle);
+    /*
+    detectCollisionPaddle - делить каретку на 6 почти равные части
+        И возвращает порядковый номер части на который произошел столкновения с мячом
+        А case и внизу изменяет скорость и траекторию мяча исходя на каком части произошел столкновения.
+        Это позволяет обеспечить порулить полетом мяча тем самым направить мяча в конкретный участок кирпичной стены.
+
+        0 - Левый край который резко увеличивает скорость мяча направляя в левую сторону
+        1, 2 - всегда направляет в левую сторону, но разной скоростью исходя с какой стороны летит мяч
+        3, 4 - всегда направляет в правую сторону, но разной скоростью исходя с какой стороны летит мяч
+        5 - Правый край который резко увеличивает скорость мяча направляя в левую сторону
+     */
 
     switch (hitbox) {
-      case 1:
+      case 0:
         this.speed.x = -9;
         this.speed.y = -this.speed.y;
         this.position.y = paddle.position.y - this.height;
         break;
 
-      case 2:
+      case 1:
         if (this.speed.x < 0) {
           this.speed.x = -6;
         } else {
@@ -74,7 +85,7 @@ export class Ball extends GameObject {
         this.position.y = paddle.position.y - this.height;
         break;
 
-      case 3:
+      case 2:
         if (this.speed.x < 0) {
           this.speed.x = -4;
         } else {
@@ -84,7 +95,7 @@ export class Ball extends GameObject {
         this.position.y = paddle.position.y - this.height;
         break;
 
-      case 4:
+      case 3:
         if (this.speed.x > 0) {
           this.speed.x = 4;
         } else {
@@ -94,7 +105,7 @@ export class Ball extends GameObject {
         this.position.y = paddle.position.y - this.height;
         break;
 
-      case 5:
+      case 4:
         if (this.speed.x > 0) {
           this.speed.x = 6;
         } else {
@@ -104,7 +115,7 @@ export class Ball extends GameObject {
         this.position.y = paddle.position.y - this.height;
         break;
 
-      case 6:
+      case 5:
         this.speed.x = 9;
         this.speed.y = -this.speed.y;
         this.position.y = paddle.position.y - this.height;
