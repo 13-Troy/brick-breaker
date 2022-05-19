@@ -1,34 +1,135 @@
 import ballImg from '../../../assets/img/ball.png';
 import { Position } from '../game.types';
 import { GameObject } from './gameObject';
-import { detectCollision } from './detectCollision';
 import { Game } from './game';
 import { Paddle } from './paddle';
+import { detectCollisionPaddle } from './detectCollisionWithPaddle';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
-  readonly gameWidth: number;
-  readonly gameHeight: number;
-  readonly size = 16;
-
   public paddle: Paddle;
-
-  position: Position = {
-    x: 10,
-    y: 400,
-  };
+  private game: Game;
 
   speed: Position = {
-    x: 2,
-    y: -2,
+    x: 5,
+    y: -7,
   };
 
-  constructor({ gameWidth, gameHeight, paddle }: Game) {
-    super();
+  constructor(game: Game) {
+    const { gameWidth, gameHeight, paddle } = game;
+
+    super({
+      gameWidth,
+      gameHeight,
+      height: 16,
+      width: 16,
+      position: {
+        x: 10,
+        y: 400,
+      },
+      name: 'ball',
+    });
+
     this.image = this.createImage();
-    this.gameWidth = gameWidth;
-    this.gameHeight = gameHeight;
     this.paddle = paddle;
+    this.game = game;
+
+    this.on('collate:paddle', this.onCollateWithPaddle);
+    this.on('collate:brick', this.onCollateWithBrick);
+    this.on('reset', this.reset);
+
+    this.reset();
+  }
+
+  reset() {
+    this.speed = {
+      x: 4,
+      y: -4,
+    };
+
+    this.position = {
+      x: 10,
+      y: 400,
+    };
+  }
+
+  onCollateWithPaddle(paddle: GameObject) {
+    console.log(`${this.name} collated with ${paddle.name}`);
+    const hitbox = detectCollisionPaddle(this, paddle);
+    /*
+    detectCollisionPaddle - делить каретку на 6 почти равные части
+        И возвращает порядковый номер части на который произошел столкновения с мячом
+        А case и внизу изменяет скорость и траекторию мяча исходя на каком части произошел столкновения.
+        Это позволяет обеспечить порулить полетом мяча тем самым направить мяча в конкретный участок кирпичной стены.
+
+        0 - Левый край который резко увеличивает скорость мяча направляя в левую сторону
+        1, 2 - всегда направляет в левую сторону, но разной скоростью исходя с какой стороны летит мяч
+        3, 4 - всегда направляет в правую сторону, но разной скоростью исходя с какой стороны летит мяч
+        5 - Правый край который резко увеличивает скорость мяча направляя в левую сторону
+     */
+
+    switch (hitbox) {
+      case 0:
+        this.speed.x = -9;
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 1:
+        if (this.speed.x < 0) {
+          this.speed.x = -6;
+        } else {
+          this.speed.x += -6;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 2:
+        if (this.speed.x < 0) {
+          this.speed.x = -4;
+        } else {
+          this.speed.x += -4;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 3:
+        if (this.speed.x > 0) {
+          this.speed.x = 4;
+        } else {
+          this.speed.x += 4;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 4:
+        if (this.speed.x > 0) {
+          this.speed.x = 6;
+        } else {
+          this.speed.x += 6;
+        }
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      case 5:
+        this.speed.x = 9;
+        this.speed.y = -this.speed.y;
+        this.position.y = paddle.position.y - this.height;
+        break;
+
+      default:
+        return null;
+    }
+  }
+
+  onCollateWithBrick(gameObject: GameObject) {
+    console.log(`${this.name} collated with ${gameObject.name}`);
+    this.game.emit('on_ball_collate');
+    this.speed.y = -this.speed.y;
   }
 
   createImage() {
@@ -46,9 +147,11 @@ export class Ball extends GameObject {
       this.image as HTMLImageElement,
       this.position.x,
       this.position.y,
-      this.size,
-      this.size
+      this.width,
+      this.height
     );
+
+    this.emit('rendered', this);
   }
 
   update() {
@@ -56,18 +159,21 @@ export class Ball extends GameObject {
     this.position.y += this.speed.y;
 
     //collision detection on x axis
-    if (this.position.x < 0 || this.position.x + this.size > this.gameWidth) {
+    if (this.position.x < 0 || this.position.x + this.width > this.gameWidth) {
       this.speed.x = -this.speed.x;
     }
-    //collision detection on y axis
 
-    if (this.position.y + this.size > this.gameHeight || this.position.y < 0) {
+    //collision detection on top
+    if (this.position.y < 0) {
       this.speed.y = -this.speed.y;
     }
-    //collision of ball with paddle
-    if (detectCollision(this, this.paddle)) {
-      this.speed.y = -this.speed.y;
-      this.position.y = this.paddle.position.y - this.size;
+
+    //collision detection on bottom
+    if (this.position.y + this.height > this.gameHeight) {
+      this.game.emit('hit_bottom');
+      this.emit('reset');
     }
+
+    this.emit('updated', this);
   }
 }

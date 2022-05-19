@@ -13,6 +13,9 @@ const GamePage = () => {
   const [toggler, setToggler] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const game = useRef<Game>();
+  const [gameScore, setGameScore] = useState(0);
+
+  const gameScoreHandler = (score: number) => setGameScore(score);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -20,8 +23,9 @@ const GamePage = () => {
         canvasElement: canvasRef.current,
         gameWidth: GAME_WIDTH,
         gameHeight: GAME_HEIGHT,
+        gameScoreHandler,
       });
-      game.current?.start();
+      game.current?.drawInitialScreen();
     }
   }, []);
 
@@ -29,6 +33,12 @@ const GamePage = () => {
     toggleFullscreen();
     setToggler(!toggler);
   };
+
+  useEffect(() => {
+    if (gameScore > 0) {
+      console.log('total game score', gameScore);
+    }
+  }, [gameScore]);
 
   return (
     <WrapperSt>
