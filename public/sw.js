@@ -1,4 +1,4 @@
-const cacheName = 'v10';
+const cacheName = 'v1';
 //Registering event
 self.addEventListener('install', () => {
   console.log('SW:installer');
@@ -25,17 +25,18 @@ self.addEventListener('fetch', (e) => {
     fetch(e.request)
       .then((res) => {
         const contentType = res.headers.get('content-type');
-        console.log('res sw', contentType);
+
+        const requiredContentTypes = [
+          'application/javascript',
+          'text/html',
+          'text/css',
+          'image/png',
+          'font/woff2',
+          'text/plain',
+        ];
 
         //Make clone of response
-        if (
-          contentType === 'application/javascript; charset=utf-8' ||
-          contentType === 'text/html; charset=utf-8' ||
-          contentType === 'text/css; charset=utf-8' ||
-          contentType === 'image/png' ||
-          contentType === 'font/woff2' ||
-          contentType === 'text/plain'
-        ) {
+        if (requiredContentTypes.find((type) => contentType.includes(type))) {
           const resClone = res.clone();
           //Open cache
           caches.open(cacheName).then((cache) => {
