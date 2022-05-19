@@ -40,8 +40,7 @@ export function toggleFullscreen(elem?: any) {
       elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
     }
     document.body.style.backgroundColor = 'transparent';
-    elem.style.backgroundImage =
-      "url('https://img4.goodfon.ru/wallpaper/big/1/f8/8bit-8bit-grafika-les-retro-fon-pikseli-pxl.jpg')";
+    elem.style.backgroundImage = "url('/images/fullscreen_bg.jpeg')";
     elem.style.backgroundRepeat = 'no-repeat';
     elem.style.backgroundSize = 'cover';
     elem.style.height = '100vh';
