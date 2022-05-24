@@ -27,16 +27,16 @@ self.addEventListener('fetch', (e) => {
         const contentType = res.headers.get('content-type');
 
         const requiredContentTypes = [
-          'application/javascript',
-          'text/html',
-          'text/css',
-          'image/png',
-          'font/woff2',
-          'text/plain',
+          'javascript',
+          'html',
+          'css',
+          'image',
+          'font',
+          'text',
         ];
 
         //Make clone of response
-        if (requiredContentTypes.find((type) => contentType.includes(type))) {
+        if (requiredContentTypes.find((type) => contentType?.includes(type))) {
           const resClone = res.clone();
           //Open cache
           caches.open(cacheName).then((cache) => {
