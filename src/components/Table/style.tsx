@@ -26,3 +26,12 @@ export const TableColSt = styled.td`
   padding: 5px 10px;
   width: 150px;
 `;
+
+export const WrapperColSt = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const BlockUserSt = styled.div`
+  margin-left: 20px;
+`;

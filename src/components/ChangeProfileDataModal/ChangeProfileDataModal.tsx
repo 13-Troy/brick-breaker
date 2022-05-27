@@ -1,24 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import Title from '../Title';
 import Button from '../Button';
 import Input from '../Input';
 
-import { UrlSite } from '../../services/const';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateProfileData } from '../../store/user/actions';
+import { ThunkDispatch } from 'redux-thunk';
 
-interface ChangeProfileDataModalProps {
-  user: {
-    avatar: string;
-    email: string;
-    login: string;
-    first_name: string;
-    second_name: string;
-    display_name: string;
-    phone: string;
-  };
-}
+const ChangeProfileDataModal = () => {
+  const user = useSelector((state: any) => state.userReducer);
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
-const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({ user }) => {
   const [data, setData] = useState({
     first_name: user.first_name,
     second_name: user.second_name,
@@ -29,17 +22,7 @@ const ChangeProfileDataModal: FC<ChangeProfileDataModalProps> = ({ user }) => {
   });
 
   const changeData = () => {
-    fetch(`${UrlSite.URL}/user/profile`, {
-      credentials: 'include',
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    }).then(() => {
-      location.reload();
-    });
+    dispatch(updateProfileData(data));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

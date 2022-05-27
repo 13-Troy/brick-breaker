@@ -1,23 +1,46 @@
-import { Position } from '../game.types';
 import { GameObject } from './gameObject';
 import { Game } from './game';
 
+const PADDLE_WIDTH = 150;
+const PADDLE_HEIGHT = 20;
 export class Paddle extends GameObject {
-  readonly gameWidth: number;
-  position: Position;
-  readonly width = 150;
-  readonly height = 20;
   readonly maxSpeed = 7;
   public speed = 0;
 
   constructor({ gameWidth, gameHeight }: Game) {
-    super();
-    this.gameWidth = gameWidth;
+    super({
+      gameWidth,
+      gameHeight,
+      width: PADDLE_WIDTH,
+      height: PADDLE_HEIGHT,
+      position: {
+        x: gameWidth / 2 - PADDLE_WIDTH / 2,
+        y: gameHeight - PADDLE_HEIGHT - 10,
+      },
+      name: 'paddle',
+    });
 
-    this.position = {
-      x: gameWidth / 2 - this.width / 2,
-      y: gameHeight - this.height - 10,
-    };
+    this.on('collate:ball', this.onBallCollision);
+
+    this.on(`${this.name}:keydown:ArrowLeft`, () => {
+      this.moveLeft();
+    });
+
+    this.on(`${this.name}:keydown:ArrowRight`, () => {
+      this.moveRight();
+    });
+
+    this.on(`${this.name}:keyup:ArrowLeft`, () => {
+      if (this.speed < 0) this.stop();
+    });
+
+    this.on(`${this.name}:keyup:ArrowRight`, () => {
+      if (this.speed > 0) this.stop();
+    });
+  }
+
+  onBallCollision(object: GameObject) {
+    console.log(`paddle collated with ${object.name}`);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -35,6 +58,8 @@ export class Paddle extends GameObject {
     if (this.position.x + this.width > this.gameWidth) {
       this.position.x = this.gameWidth - this.width;
     }
+
+    this.emit('updated', this);
   }
 
   moveLeft() {

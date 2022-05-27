@@ -1,21 +1,25 @@
 import brickImg from '../../../assets/img/brick.png';
 import { Position } from '../game.types';
 import { Game } from './game';
-import { detectCollision } from './detectCollision';
-import { Ball } from './ball';
-export class Brick {
-  readonly width = 80;
-  readonly height = 24;
+import { GameObject } from './gameObject';
+
+export class Brick extends GameObject {
   readonly image: HTMLImageElement;
-  public markForDeletion = false;
+  public isMarkedForDeletion = false;
 
-  position: Position;
-  ball: Ball;
+  constructor({ gameHeight, gameWidth }: Game, position: Position) {
+    super({
+      width: 80,
+      height: 24,
+      position,
+      gameHeight,
+      gameWidth,
+      name: 'brick',
+    });
 
-  constructor({ ball }: Game, position: Position) {
     this.image = this.createImage();
-    this.position = position;
-    this.ball = ball;
+
+    this.on('collate:ball', this.destroy);
   }
 
   createImage() {
@@ -30,10 +34,18 @@ export class Brick {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   update() {
-    if (detectCollision(this.ball, this)) {
-      this.ball.speed.y = -this.ball.speed.y;
-      this.markForDeletion = true;
-    }
+    // if (detectCollision(this.ball, this)) {
+    // this.ball.speed.y = -this.ball.speed.y;
+    // this.isMarkedForDeletion = true;
+    // }
+    // this.destroy()
+    //TODO: REMOVE THIS METHOD. NOW IT IS CAUSING TYPE ERROR WHEN REMOVE THIS METHOD
+  }
+
+  destroy(gameObject: GameObject) {
+    console.log(`brick collated with ${gameObject.name}`);
+
+    this.isMarkedForDeletion = true;
   }
 
   draw(ctx: CanvasRenderingContext2D) {

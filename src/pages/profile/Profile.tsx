@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import Title from '../../components/Title';
 import DataLine from '../../components/DataLine';
@@ -11,28 +11,15 @@ import ChangeAvatarModal from '../../components/ChangeAvatarModal';
 import ChangeProfileDataModal from '../../components/ChangeProfileDataModal';
 import ChangePasswordModal from '../../components/ChangePasswordModal';
 
-import { AppRoute, UrlSite } from '../../services/const';
+import { UrlSite } from '../../services/const';
 import { useToggle } from '../../hooks/useToggle';
 
-import { HardPopUpSt, InfoSt } from './style';
+import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
 
-interface ProfileProps {
-  user: {
-    avatar: string;
-    email: string;
-    login: string;
-    first_name: string;
-    second_name: string;
-    display_name: string;
-    phone: string;
-  };
-}
-
-const Profile: FC<ProfileProps> = ({ user }) => {
+const Profile = () => {
+  const user = useSelector((state: any) => state.userReducer);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
-
-  const navigate = useNavigate();
 
   const onSend = () => {
     fetch(`${UrlSite.URL}/auth/logout`, {
@@ -42,7 +29,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         Accept: 'application/json',
       },
     }).then(() => {
-      navigate(AppRoute.ROOT);
+      localStorage.removeItem('user');
       location.reload();
     });
   };
@@ -55,11 +42,13 @@ const Profile: FC<ProfileProps> = ({ user }) => {
   return (
     <div>
       <HardPopUpSt>
-        <Avatar
-          backgroundImage={user.avatar}
-          size={130}
-          onClick={() => onCallModal('changeAvatar')}
-        />
+        <WrapperAvatarSt>
+          <Avatar
+            backgroundImage={user.avatar}
+            size={130}
+            onClick={() => onCallModal('changeAvatar')}
+          />
+        </WrapperAvatarSt>
         <Title h={4}>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>
@@ -77,9 +66,7 @@ const Profile: FC<ProfileProps> = ({ user }) => {
         </ButtonSettings>
         <Modal isShown={isShown} hide={toggleVisible}>
           {changeProfile === 'changeAvatar' && <ChangeAvatarModal />}
-          {changeProfile === 'changeData' && (
-            <ChangeProfileDataModal user={user} />
-          )}
+          {changeProfile === 'changeData' && <ChangeProfileDataModal />}
           {changeProfile === 'changePassword' && <ChangePasswordModal />}
         </Modal>
         <Button fullWidth={false} onClick={onSend}>
