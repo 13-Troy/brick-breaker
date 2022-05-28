@@ -1,30 +1,35 @@
-import { UrlSite } from '../services/const';
+import { HTTPTransport, parseQueryParams } from '../services';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export type YaOauthPayload = {
-  code: number;
+  code: string;
   redirect_uri: string;
 };
 
-export const useOauth = () => {
-  const getOathServiceId = async (redirect_uri: string) => {
-    const response = await fetch(
-      `${UrlSite.URL}/oauth/yandex/service-id?redirect_uri=${redirect_uri}`,
-      {
-        credentials: 'include',
-        method: 'GET',
-        headers: {
-          'content-type': 'application-json',
-        },
-      }
-    );
+const api = new HTTPTransport({});
 
-    const data = await response.json();
+export const useOauth = (redirect_uri: string) => {
+  const location = useLocation();
 
-    if (!response.ok) {
-      throw new Error(`${data.reason}: ${response.status}`);
+  useEffect(() => {
+    if (location.search.includes('code')) {
+      const params = parseQueryParams<{ code: string }>(location.search);
+
+      const getAppAccess = async () => {
+        await makeOauthSignInRequest({ code: params.code, redirect_uri });
+      };
+
+      getAppAccess().catch(console.error);
     }
+  }, [location.search, redirect_uri]);
 
-    return data;
+  const getOathServiceId = async <T>(redirect_uri: string) => {
+    return api.get<T>('/oauth/yandex/service-id', {
+      queryParams: {
+        redirect_uri,
+      },
+    });
   };
 
   const getOauthCodeRedirect = (serviceId: string, redirect_uri: string) => {
@@ -32,27 +37,29 @@ export const useOauth = () => {
   };
 
   const makeOauthSignInRequest = async (authData: YaOauthPayload) => {
-    const response = await fetch(`${UrlSite.URL}/oauth/yandex`, {
-      credentials: 'include',
-      method: 'POST',
-      headers: {
-        'content-type': 'application-json',
-      },
-      body: JSON.stringify(authData),
+    return api.post('/oauth/yandex', {
+      body: authData,
     });
+  };
 
-    const data = await response.json();
+  const handleOauthSignIn = async (redirect_uri: string) => {
+    try {
+      const oAuthServiceData = await getOathServiceId<{ service_id: string }>(
+        redirect_uri
+      );
 
-    if (!response.ok) {
-      throw new Error(`${data.reason}: ${response.status}`);
+      document.location.href = getOauthCodeRedirect(
+        oAuthServiceData.service_id,
+        redirect_uri
+      );
+
+      //TODO: then delete client_id:'40fc5f1e19dd4bd3bf52518444f9bec0'
+    } catch (e) {
+      console.log('error getting service id', e);
     }
-
-    return data;
   };
 
   return {
-    getOathServiceId,
-    makeOauthSignInRequest,
-    getOauthCodeRedirect,
+    handleOauthSignIn,
   };
 };
