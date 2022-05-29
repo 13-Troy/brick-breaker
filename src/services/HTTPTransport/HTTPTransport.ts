@@ -79,7 +79,7 @@ export class HTTPTransport {
       {
         method,
         body: body ? JSON.stringify(body) : null,
-        ...{ ...(this.noHeaders ? {} : headers) },
+        headers: this.noHeaders ? {} : headers,
       }
     );
     const data = (await response.json()) as Promise<T>;
