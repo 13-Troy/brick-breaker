@@ -37,6 +37,8 @@ const Forum = () => {
       name: post.name,
       user_id: 33,
       user_name: 'Семен',
+      user_avatar:
+        'https://ya-praktikum.tech/api/v2/resources/2722d38f-5f23-4fec-a538-5743e75f81ee/b41f82c7-9204-44b2-8fe1-b597493f0371_ava.png',
       answer_count: 0,
     };
     const adaptPosts = [...postList, newPost].map((post) => filterData(post));

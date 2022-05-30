@@ -14,7 +14,7 @@ import ChangePasswordModal from '../../components/ChangePasswordModal';
 import { UrlSite } from '../../services/const';
 import { useToggle } from '../../hooks/useToggle';
 
-import { HardPopUpSt, InfoSt } from './style';
+import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
 
 const Profile = () => {
   const user = useSelector((state: any) => state.userReducer);
@@ -42,11 +42,13 @@ const Profile = () => {
   return (
     <div>
       <HardPopUpSt>
-        <Avatar
-          backgroundImage={user.avatar}
-          size={130}
-          onClick={() => onCallModal('changeAvatar')}
-        />
+        <WrapperAvatarSt>
+          <Avatar
+            backgroundImage={user.avatar}
+            size={130}
+            onClick={() => onCallModal('changeAvatar')}
+          />
+        </WrapperAvatarSt>
         <Title h={4}>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>

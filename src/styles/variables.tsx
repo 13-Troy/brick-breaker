@@ -8,6 +8,8 @@ const allColors = {
   purple: '#5E5E5E',
   purple_medium: '#818CF8',
   purple_light: '#E0E7FF',
+  grey: '#efefef',
+  grey_light: '#f7f7f7',
 };
 
 export const baseTheme = {
@@ -21,6 +23,8 @@ export const baseTheme = {
     purple: '#5E5E5E',
     purple_medium: '#818CF8',
     purple_light: '#E0E7FF',
+    grey: '#efefef',
+    grey_light: '#f7f7f7',
   },
 
   colors: {

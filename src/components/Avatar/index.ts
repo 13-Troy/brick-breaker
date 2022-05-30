@@ -1,3 +1,3 @@
-import Avatar from './style';
+import Avatar from './Avatar';
 
 export default Avatar;

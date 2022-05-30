@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --mode development --hot ",
+    "server": " node ./server.js",
     "build": "webpack --mode production",
     "lint": "eslint --ignore-path .gitignore ./src",
     "lint:fix": "npm run lint -- --fix",
