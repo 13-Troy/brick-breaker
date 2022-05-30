@@ -9,6 +9,7 @@ import {
 
 // page
 import Home from '../pages/home';
+import Oauth from '../pages/Oauth';
 import About from '../pages/about';
 import Registration from '../pages/registration';
 import Profile from '../pages/profile';
@@ -83,6 +84,7 @@ const Page = () => {
         <Routes>
           <Route element={<ProtectedStartRouteProps user={user} />}>
             <Route path={AppRoute.ROOT} element={<Home />} />
+            <Route path={AppRoute.OAUTH} element={<Oauth />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
           </Route>
 

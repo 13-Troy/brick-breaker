@@ -1,5 +1,6 @@
 export const AppRoute = {
   ROOT: '/',
+  OAUTH: '/oauth',
   ABOUT: '/about',
   REGISTRATION: '/registration',
   PROFILE: '/profile',

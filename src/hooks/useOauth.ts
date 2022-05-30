@@ -48,9 +48,9 @@ export const useOauth = (redirect_uri: string) => {
         redirect_uri
       );
 
-      document.location.href = getOauthCodeRedirect(
-        oAuthServiceData.service_id,
-        redirect_uri
+      window.open(
+        getOauthCodeRedirect(oAuthServiceData.service_id, redirect_uri),
+        '_blank'
       );
 
       //TODO: then delete client_id:'40fc5f1e19dd4bd3bf52518444f9bec0'

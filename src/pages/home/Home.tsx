@@ -11,7 +11,7 @@ import { HardPopUpSt } from './style';
 import { useOauth } from '../../hooks';
 
 const Home = () => {
-  const redirect_uri = window.location.origin;
+  const redirect_uri = `${window.location.origin}/oauth`;
 
   const [logIn, setLogIn] = useState({ login: '', password: '' });
 

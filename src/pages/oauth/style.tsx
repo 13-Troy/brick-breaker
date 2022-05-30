@@ -9,18 +9,12 @@ export const CenterSt = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-`;
-
-type ContainerProps = {
-  noBtn: boolean;
-};
-
-export const ContainerTitleSt = styled.div<ContainerProps>`
-  display: flex;
-  justify-content: center;
-  flex-direction: ${(props) => (props.noBtn ? 'column' : 'row')};
-  align-items: center;
-  font-weight: bold;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+  }
 `;
 
 export const BigSt = styled.span`

@@ -8,22 +8,30 @@ import { CenterSt, BigSt, SmallSt, ContainerTitleSt } from './style';
 interface ErrorPageTemplateProps {
   title: string;
   subtitle: string;
+  noBtn?: boolean;
 }
 
-const ErrorPageTemplate: FC<ErrorPageTemplateProps> = ({ title, subtitle }) => {
+const ErrorPageTemplate: FC<ErrorPageTemplateProps> = ({
+  title,
+  subtitle,
+  noBtn = false,
+}) => {
   const navigate = useNavigate();
 
   const goBack = () => navigate(-1);
 
   return (
     <CenterSt>
-      <ContainerTitleSt>
+      <ContainerTitleSt noBtn={noBtn}>
         <BigSt>{title}</BigSt>
         <SmallSt>{subtitle}</SmallSt>
       </ContainerTitleSt>
-      <Button fullWidth={false} onClick={goBack}>
-        назад
-      </Button>
+
+      {!noBtn && (
+        <Button fullWidth={false} onClick={goBack}>
+          назад
+        </Button>
+      )}
     </CenterSt>
   );
 };
