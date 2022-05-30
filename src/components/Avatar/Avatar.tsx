@@ -3,8 +3,7 @@ import React from 'react';
 interface AvatarProps {
   backgroundImage?: string | undefined;
   size?: number;
-  role?: string;
-  onClick?: () => void;
+  onClick?: () => void | any;
 }
 
 import { AvatarSt, AvatarImgSt } from './style';
@@ -14,7 +13,7 @@ const Avatar = (props: AvatarProps) => {
     <AvatarSt
       size={props.size}
       onClick={props.onClick}
-      className={props.onClick ? 'photo-edit' : ''}
+      editable={!!props.onClick}
     >
       <AvatarImgSt backgroundImage={props.backgroundImage} />
     </AvatarSt>

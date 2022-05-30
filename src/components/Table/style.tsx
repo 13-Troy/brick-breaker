@@ -12,10 +12,10 @@ export const TableRowSt = styled.tr`
   cursor: pointer;
   transition: ${({ theme }) => theme.skillsStartAnim} all;
   &:nth-child(even) {
-    background: #f7f7f7;
+    background: ${({ theme }) => theme.allColors.grey_light};
   }
   &:nth-child(odd) {
-    background: #fff;
+    background: ${({ theme }) => theme.allColors.white};
   }
   &:hover {
     background: ${({ theme }) => theme.allColors.purple_light};
