@@ -7,6 +7,8 @@ import { StaticRouter } from 'react-router-dom/server';
 import { create } from '../../store';
 import { Provider } from 'react-redux';
 
+import { ServerStyleSheet } from 'styled-components';
+
 export default (req: Request, res: Response) => {
   const { devMiddleware } = res.locals.webpack;
   const jsonWebpackStats = devMiddleware.stats.toJson();
@@ -24,19 +26,29 @@ export default (req: Request, res: Response) => {
     },
   });
 
+  const sheet = new ServerStyleSheet();
+
   if (process.env.NODE_ENV === 'development') {
     delete require.cache[require.resolve('../../../bundle/ssr.client.js')];
   }
 
   const App = require('../../../bundle/ssr.client.js').default;
 
-  const reactHtml = ReactDOMServer.renderToString(
+  const reactHtml = ReactDOMServer.renderToString(sheet.collectStyles(
     <StaticRouter location={req.url}>
       <Provider store={store}>
         <App/>
       </Provider>
     </StaticRouter>
-  );
+  ));
+
+  const styleTags = sheet.getStyleTags();
+
+  html = html.replace(
+      `</head>`,
+  `${styleTags}
+      </head>`
+  )
 
   html = html.replace(
     '<div id="root"></div>',
