@@ -43,21 +43,21 @@ const Profile = () => {
     <div>
       <HardPopUpSt>
         <WrapperAvatarSt>
-          <Avatar
-            backgroundImage={user.avatar}
-            size={130}
-            onClick={() => onCallModal('changeAvatar')}
-          />
+      {/*    <Avatar*/}
+      {/*      backgroundImage={user.avatar}*/}
+      {/*      size={130}*/}
+      {/*      onClick={() => onCallModal('changeAvatar')}*/}
+      {/*    />*/}
         </WrapperAvatarSt>
-        <Title h={4}>{user.first_name}</Title>
-        <InfoSt>
-          <DataLine title={'Почта'} value={user.email}></DataLine>
-          <DataLine title={'Логин'} value={user.login}></DataLine>
-          <DataLine title={'Имя'} value={user.first_name}></DataLine>
-          <DataLine title={'Фамилия'} value={user.second_name}></DataLine>
-          <DataLine title={'Ник'} value={user.display_name}></DataLine>
-          <DataLine title={'Телефон'} value={user.phone}></DataLine>
-        </InfoSt>
+      {/*  <Title h={4}>{user.first_name}</Title>*/}
+      {/*  <InfoSt>*/}
+      {/*    <DataLine title={'Почта'} value={user.email}></DataLine>*/}
+      {/*    <DataLine title={'Логин'} value={user.login}></DataLine>*/}
+      {/*    <DataLine title={'Имя'} value={user.first_name}></DataLine>*/}
+      {/*    <DataLine title={'Фамилия'} value={user.second_name}></DataLine>*/}
+      {/*    <DataLine title={'Ник'} value={user.display_name}></DataLine>*/}
+      {/*    <DataLine title={'Телефон'} value={user.phone}></DataLine>*/}
+      {/*  </InfoSt>*/}
         <ButtonSettings onClick={() => onCallModal('changeData')}>
           {'Изменить данные'}
         </ButtonSettings>

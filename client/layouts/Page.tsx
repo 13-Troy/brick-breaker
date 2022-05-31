@@ -34,6 +34,8 @@ import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
+import HomePage from "../pages/Home";
+import ProfilePage from "../pages/Profile";
 
 interface ProtectedStartRouteProps {
   user: boolean;
@@ -68,19 +70,23 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
 };
 
 const Page = () => {
-  const user: boolean = localStorage.getItem('user') === 'true';
-  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
+  const user: boolean = true
+  // const user: boolean = localStorage.getItem('user') === 'true' ;
+  // const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
+  //
+  // useEffect(() => {
+  //   if (user) dispatch(getProfile());
+  // });
 
-  useEffect(() => {
-    if (user) dispatch(getProfile());
-  });
+
 
   return (
+<>
     <ThemeProvider theme={baseTheme}>
       <GlobalStyle />
-      <BrowserRouter>
         <NavTest />
         <Routes>
+
           <Route element={<ProtectedStartRouteProps user={user} />}>
             <Route path={AppRoute.ROOT} element={<Home />} />
             <Route path={AppRoute.REGISTRATION} element={<Registration />} />
@@ -99,14 +105,14 @@ const Page = () => {
             <Route path={AppRoute.ABOUT} element={<About />} />
             <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
             <Route path={AppRoute.RECORDS} element={<Records />} />
-            <Route path={AppRoute.GAME} element={<Game />} />
+            {/*<Route path={AppRoute.GAME} element={<Game />} />*/}
           </Route>
 
           <Route path={'*'} element={<NotFound />} />
           <Route path={'/500'} element={<ServerError />} />
         </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+     </ThemeProvider>
+  </>
   );
 };
 
