@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -70,13 +70,15 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
 };
 
 const Page = () => {
-  const user: boolean = true
-  // const user: boolean = localStorage.getItem('user') === 'true' ;
-  // const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
-  //
-  // useEffect(() => {
-  //   if (user) dispatch(getProfile());
-  // });
+
+  const [user, setUser] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUser(localStorage.getItem('user') === 'true')
+    }
+    // if (user) dispatch(getProfile());
+  });
 
 
 
