@@ -24,7 +24,6 @@ const GamePage = () => {
   const [gameScore, setGameScore] = useState(0);
 
   const gameScoreHandler = (score: number) => setGameScore(score);
-
   const user = useSelector<AppState, AppState['user']>((state) => state.user);
 
   useEffect(() => {
