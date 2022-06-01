@@ -20,7 +20,6 @@ const GamePage = () => {
   const [gameScore, setGameScore] = useState(0);
 
   const gameScoreHandler = (score: number) => setGameScore(score);
-
   useEffect(() => {
     if (canvasRef.current) {
       game.current = new Game({
