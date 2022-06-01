@@ -7,6 +7,15 @@ import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
+
+import gameStartAudio from '../../../assets/audio/game-start.mp3';
+import gameOverAudio from '../../../assets/audio/game-over.mp3';
+import gamePausedAudio from '../../../assets/audio/game-paused.mp3';
+import gameWinAudio from '../../../assets/audio/game-win.mp3';
+import newLevelAudio from '../../../assets/audio/new-level.mp3';
+import decreaseLivesAudio from '../../../assets/audio/decrease-lives.mp3';
+import { mediaApi } from '../../../services/media-api';
+
 const level1 = [[0, 0, 0, 0, 1, 1, 1, 0, 0, 0]];
 
 const level2 = [[0, 1, 1, 1, 1, 1, 1, 1, 0, 0]];
@@ -110,6 +119,7 @@ export class Game extends EventEmitter {
   }
 
   start() {
+    mediaApi(gameStartAudio);
     if (
       this.gameState !== GAME_STATE.MENU &&
       this.gameState !== GAME_STATE.NEWLEVEL
@@ -161,14 +171,17 @@ export class Game extends EventEmitter {
     }
 
     if (this.lives === 0) {
+      mediaApi(gameOverAudio);
       this.gameState = GAME_STATE.GAMEOVER;
     }
 
     if (this.bricks.length === 0) {
       this.currentLevel++;
       if (this.currentLevel > 2) {
+        mediaApi(gameWinAudio);
         this.gameState = GAME_STATE.YOUWIN;
       } else {
+        mediaApi(newLevelAudio);
         this.gameState = GAME_STATE.NEWLEVEL;
       }
     }
@@ -264,13 +277,16 @@ export class Game extends EventEmitter {
 
   togglePause() {
     if (this.gameState === GAME_STATE.RUNNING) {
+      mediaApi(gamePausedAudio, true);
       this.gameState = GAME_STATE.PAUSED;
     } else {
+      mediaApi(gameStartAudio, true);
       this.gameState = GAME_STATE.RUNNING;
     }
   }
 
   decreaseLives() {
+    mediaApi(decreaseLivesAudio);
     this.lives--;
   }
 }
