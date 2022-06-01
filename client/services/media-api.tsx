@@ -33,6 +33,7 @@ function fetchAudioAndPlay(
 
 export function mediaMuted(isMuted: boolean) {
   const media = document.querySelector('audio') as HTMLAudioElement;
+
   if (media) {
     isMuted ? (media.volume = 0) : (media.volume = 0.75);
   }
