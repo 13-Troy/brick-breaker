@@ -5,16 +5,13 @@ import Button from '../../components/Button';
 import Link from '../../components/Link';
 import Input from '../../components/Input';
 
-import { AppRoute, UrlSite } from '../../services/const';
+import { AppRoute, redirect_uri, UrlSite } from '../../services/const';
 
 import { HardPopUpSt } from './style';
 import { useOauth } from '../../hooks';
 
 const Home = () => {
-  const redirect_uri = `${window.location.origin}/oauth`;
-
   const [logIn, setLogIn] = useState({ login: '', password: '' });
-
   const { handleOauthSignIn } = useOauth(redirect_uri);
 
   const onSens = () => {

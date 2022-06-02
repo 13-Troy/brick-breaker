@@ -1,6 +1,6 @@
 import { HTTPTransport, parseQueryParams } from '../services';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export type YaOauthPayload = {
   code: string;
@@ -11,16 +11,19 @@ const api = new HTTPTransport({});
 
 export const useOauth = (redirect_uri: string) => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.search.includes('code')) {
       const params = parseQueryParams<{ code: string }>(location.search);
 
-      const getAppAccess = async () => {
-        await makeOauthSignInRequest({ code: params.code, redirect_uri });
-      };
+      navigate(`/oauth?code=${params.code}`);
 
-      getAppAccess().catch(console.error);
+      // const getAppAccess = async () => {
+      //   await makeOauthSignInRequest({ code: params.code, redirect_uri });
+      // };
+      //
+      // getAppAccess().catch(console.error);
     }
   }, [location.search, redirect_uri]);
 
@@ -33,7 +36,7 @@ export const useOauth = (redirect_uri: string) => {
   };
 
   const getOauthCodeRedirect = (serviceId: string, redirect_uri: string) => {
-    return `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${redirect_uri}`;
+    return `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}`;
   };
 
   const makeOauthSignInRequest = async (authData: YaOauthPayload) => {
@@ -61,5 +64,6 @@ export const useOauth = (redirect_uri: string) => {
 
   return {
     handleOauthSignIn,
+    makeOauthSignInRequest,
   };
 };

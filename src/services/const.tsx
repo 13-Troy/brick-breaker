@@ -14,3 +14,5 @@ export const AppRoute = {
 export const UrlSite = {
   URL: 'https://ya-praktikum.tech/api/v2',
 };
+
+export const redirect_uri = 'http://localhost:5000/oauth';
