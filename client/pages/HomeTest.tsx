@@ -8,8 +8,13 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(setUser({
-      username: 'johndoe',
+      first_name: 'johndoe',
+      second_name: 'johndoe-tesr',
       email: 'johndoe@mail.com',
+      login: 'testLogin',
+      phone: '3444444',
+      display_name: 'testLogin',
+      
     }));
   }, []);
 

@@ -16,8 +16,12 @@ import { useToggle } from '../../hooks/useToggle';
 
 import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
 
+import { AppState } from '../../store';
+
 const Profile = () => {
-  const user = useSelector((state: any) => state.userReducer);
+  // const user = useSelector((state: any) => state.userReducer);
+
+  const user = useSelector<AppState, AppState['user']>(state => state.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
 
@@ -49,15 +53,15 @@ const Profile = () => {
       {/*      onClick={() => onCallModal('changeAvatar')}*/}
       {/*    />*/}
         </WrapperAvatarSt>
-      {/*  <Title h={4}>{user.first_name}</Title>*/}
-      {/*  <InfoSt>*/}
-      {/*    <DataLine title={'Почта'} value={user.email}></DataLine>*/}
-      {/*    <DataLine title={'Логин'} value={user.login}></DataLine>*/}
-      {/*    <DataLine title={'Имя'} value={user.first_name}></DataLine>*/}
-      {/*    <DataLine title={'Фамилия'} value={user.second_name}></DataLine>*/}
-      {/*    <DataLine title={'Ник'} value={user.display_name}></DataLine>*/}
-      {/*    <DataLine title={'Телефон'} value={user.phone}></DataLine>*/}
-      {/*  </InfoSt>*/}
+       <Title h={4}>{user.first_name}</Title>
+       <InfoSt>
+         <DataLine title={'Почта'} value={user.email}></DataLine>
+         <DataLine title={'Логин'} value={user.login}></DataLine>
+         <DataLine title={'Имя'} value={user.first_name}></DataLine>
+         <DataLine title={'Фамилия'} value={user.second_name}></DataLine>
+         <DataLine title={'Ник'} value={user.display_name}></DataLine>
+         <DataLine title={'Телефон'} value={user.phone}></DataLine>
+      </InfoSt>
         <ButtonSettings onClick={() => onCallModal('changeData')}>
           {'Изменить данные'}
         </ButtonSettings>

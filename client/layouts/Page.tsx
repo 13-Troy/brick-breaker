@@ -35,7 +35,7 @@ import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
 import HomePage from "../pages/Home";
-import ProfilePage from "../pages/Profile";
+import ProfilePage from "../pages/ProfileTest";
 
 interface ProtectedStartRouteProps {
   user: boolean;
@@ -103,6 +103,7 @@ const Page = () => {
             }
           >
             <Route path={AppRoute.PROFILE} element={<Profile />} />
+            <Route path={AppRoute.PROFILETEST} element={<ProfilePage />} />
             <Route path={AppRoute.FORUM} element={<Forum />} />
             <Route path={AppRoute.ABOUT} element={<About />} />
             <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />

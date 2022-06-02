@@ -6,8 +6,11 @@ import * as ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { create } from '../../store';
 import { Provider } from 'react-redux';
-
 import { ServerStyleSheet } from 'styled-components';
+import fetch from 'cross-fetch';
+
+import { UrlSite } from '../../client/services/const';
+
 
 export default (req: Request, res: Response) => {
   const { devMiddleware } = res.locals.webpack;
@@ -19,10 +22,51 @@ export default (req: Request, res: Response) => {
     encoding: 'utf8',
   });
 
+
+ 
+
+   const getProfile = () => {
+   
+    const https = require('https')
+    // const url = `${UrlSite.URL}/auth/user`;
+    const url =  'https://randomuser.me/api/';
+  
+   
+  
+    https.get(url, res => {
+      let data = '';
+      res.on('data', chunk => {
+        data += chunk;
+      });
+      res.on('end', () => {
+        data = JSON.parse(data);
+        console.log(data);
+      })
+    }).on('error', err => {
+      console.log(err.message);
+    })
+
+    }
+
+
+    console.log('getProfile',getProfile());
+    
+    
+  
+  
+
+   
+
+ 
   const store = create({
     user: {
-      username: 'johndoe',
+      first_name: 'first_name',
+      second_name: 'johndoe-second_name',
       email: 'johndoe@mail.com',
+      login: 'test login',
+      phone: '3444444',
+      display_name: 'testLogin',
+      
     },
   });
 

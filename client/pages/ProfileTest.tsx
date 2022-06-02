@@ -12,14 +12,17 @@ function ProfilePage() {
     dispatch(clearUser());
   };
 
+  console.log('user',user)
   return (
     <>
       <h1>Profile page</h1>
       {user && (
         <div>
           Data:
-          Username: {user.username}<br />
+          first_name: {user.first_name}<br />
+        
           Email: {user.email}
+          login: {user.login}
         </div>
       )}
       <button onClick={clear}>Clear</button>

@@ -6,8 +6,12 @@ export enum UserActionType {
 }
 
 export interface User {
-  username: string;
+  first_name: string;
+  second_name: string;
   email: string;
+  login: string;
+  phone: string;
+  display_name: string;
 }
 
 export interface SetUserAction extends Action<UserActionType.Set> {
