@@ -7,12 +7,11 @@ import { StaticRouter } from 'react-router-dom/server';
 import { create } from '../../store';
 import { Provider } from 'react-redux';
 import { ServerStyleSheet } from 'styled-components';
-import fetch from 'cross-fetch';
-
-import { UrlSite } from '../../client/services/const';
 
 
-export default (req: Request, res: Response) => {
+import { getInitialState } from '../../store/getInitialState';
+
+export default async (req: Request, res: Response) => {
   const { devMiddleware } = res.locals.webpack;
   const jsonWebpackStats = devMiddleware.stats.toJson();
   const { assetsByChunkName } = jsonWebpackStats;
@@ -23,40 +22,9 @@ export default (req: Request, res: Response) => {
   });
 
 
- 
-
-   const getProfile = () => {
-   
-    const https = require('https')
-    // const url = `${UrlSite.URL}/auth/user`;
-    const url =  'https://randomuser.me/api/';
-  
-   
-  
-    https.get(url, res => {
-      let data = '';
-      res.on('data', chunk => {
-        data += chunk;
-      });
-      res.on('end', () => {
-        data = JSON.parse(data);
-        console.log(data);
-      })
-    }).on('error', err => {
-      console.log(err.message);
-    })
-
-    }
-
-
-    console.log('getProfile',getProfile());
+    console.log('getProfile', await  getInitialState());
     
     
-  
-  
-
-   
-
  
   const store = create({
     user: {

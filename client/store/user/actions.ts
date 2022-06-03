@@ -3,6 +3,8 @@ import { Dispatch } from 'react';
 import { USER } from '../types';
 import { UrlSite } from '../../services/const';
 
+
+
 export const getProfile = () => {
   return (dispatch: Dispatch<any>) => {
     fetch(`${UrlSite.URL}/auth/user`, {
