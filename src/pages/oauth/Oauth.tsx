@@ -15,6 +15,8 @@ const Oauth = () => {
 
       const getAppAccess = async () => {
         await makeOauthSignInRequest({ code: params.code, redirect_uri });
+        localStorage.setItem('user', 'true');
+        window.location.reload();
       };
 
       getAppAccess().catch(console.error);

@@ -18,12 +18,6 @@ export const useOauth = (redirect_uri: string) => {
       const params = parseQueryParams<{ code: string }>(location.search);
 
       navigate(`/oauth?code=${params.code}`);
-
-      // const getAppAccess = async () => {
-      //   await makeOauthSignInRequest({ code: params.code, redirect_uri });
-      // };
-      //
-      // getAppAccess().catch(console.error);
     }
   }, [location.search, redirect_uri]);
 

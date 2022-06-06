@@ -80,8 +80,14 @@ export class HTTPTransport {
         method,
         body: body ? JSON.stringify(body) : null,
         headers: this.noHeaders ? {} : headers,
+        credentials: options.credentials ?? defaultOptions.credentials,
       }
     );
+
+    if (!response.headers.get('Content-Type')?.includes('application/json')) {
+      return response as unknown as Promise<T>;
+    }
+
     const data = (await response.json()) as Promise<T>;
 
     if (!response.ok) {
