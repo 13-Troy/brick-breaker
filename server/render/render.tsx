@@ -8,8 +8,6 @@ import { Provider } from 'react-redux';
 import { ServerStyleSheet } from 'styled-components';
 import { configureStore } from '../../client/store/configureStore';
 
-// import { getInitialState } from '../../store/getInitialState';
-// import { create } from '../../store';
 
 export default async (req: Request, res: Response) => {
   const { devMiddleware } = res.locals.webpack;
@@ -23,20 +21,6 @@ export default async (req: Request, res: Response) => {
       encoding: 'utf8',
     }
   );
-
-  // console.log('getProfile', await  getInitialState());
-
-  // const store = create({
-  //   user: {
-  //     first_name: 'first_name',
-  //     second_name: 'johndoe-second_name',
-  //     email: 'johndoe@mail.com',
-  //     login: 'test login',
-  //     phone: '3444444',
-  //     display_name: 'testLogin',
-  //
-  //   },
-  // });
 
   const store = configureStore();
 
