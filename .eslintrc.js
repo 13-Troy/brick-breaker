@@ -45,6 +45,7 @@ module.exports = {
       },
       { blankLine: 'always', prev: ['case', 'default'], next: '*' },
     ],
+    "@typescript-eslint/ban-ts-comment": "off"
   },
   settings: {
     react: {
