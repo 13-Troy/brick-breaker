@@ -9,7 +9,7 @@ import { updateProfileData } from '../../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 
 const ChangeProfileDataModal = () => {
-  const user = useSelector((state: any) => state.userReducer);
+  const user = useSelector((state: any) => state.user);
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
   const [data, setData] = useState({

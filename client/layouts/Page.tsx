@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 import {
-  BrowserRouter,
   Routes,
   Route,
   Navigate,
@@ -15,7 +14,7 @@ import Profile from '../pages/profile';
 import Forum from '../pages/forum';
 import Post from '../pages/post';
 import Records from '../pages/records';
-import Game from '../pages/game';
+// import Game from '../pages/game';
 import NotFound from '../pages/404';
 import ServerError from '../pages/500';
 
@@ -34,9 +33,6 @@ import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
-import HomePage from "../pages/Home";
-import ProfilePage from "../pages/ProfileTest";
-
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -70,15 +66,21 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
 };
 
 const Page = () => {
-
+  // const user: boolean = localStorage.getItem('user') === 'true';
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [user, setUser] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (user) {
+      dispatch(getProfile());
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !user) {
       setUser(localStorage.getItem('user') === 'true')
     }
-    // if (user) dispatch(getProfile());
-  });
+  }, []);
 
 
 
@@ -103,12 +105,11 @@ const Page = () => {
             }
           >
             <Route path={AppRoute.PROFILE} element={<Profile />} />
-            <Route path={AppRoute.PROFILETEST} element={<ProfilePage />} />
             <Route path={AppRoute.FORUM} element={<Forum />} />
             <Route path={AppRoute.ABOUT} element={<About />} />
             <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
             <Route path={AppRoute.RECORDS} element={<Records />} />
-            {/*<Route path={AppRoute.GAME} element={<Game />} />*/}
+            {/* <Route path={AppRoute.GAME} element={<Game />} /> */}
           </Route>
 
           <Route path={'*'} element={<NotFound />} />

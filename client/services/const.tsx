@@ -3,7 +3,6 @@ export const AppRoute = {
   ABOUT: '/about',
   REGISTRATION: '/registration',
   PROFILE: '/profile',
-  PROFILETEST: '/profile-test',
   FORUM: '/forum',
   FORUM_ID: '/forum/:id',
   RECORDS: '/records',
