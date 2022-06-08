@@ -16,14 +16,13 @@ import { useToggle } from '../../hooks/useToggle';
 
 import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
 
-import { AppState } from '../../store';
+import { AppState } from '../../store/configureStore';
 
 const Profile = () => {
-  // const user = useSelector((state: any) => state.userReducer);
-
-  const user = useSelector<AppState, AppState['user']>(state => state.user);
+  const user = useSelector<AppState, AppState['user']>((state) => state.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
+  console.log('user', user);
 
   const onSend = () => {
     fetch(`${UrlSite.URL}/auth/logout`, {
@@ -47,21 +46,21 @@ const Profile = () => {
     <div>
       <HardPopUpSt>
         <WrapperAvatarSt>
-      {/*    <Avatar*/}
-      {/*      backgroundImage={user.avatar}*/}
-      {/*      size={130}*/}
-      {/*      onClick={() => onCallModal('changeAvatar')}*/}
-      {/*    />*/}
+          <Avatar
+            backgroundImage={user.avatar as string}
+            size={130}
+            onClick={() => onCallModal('changeAvatar')}
+          />
         </WrapperAvatarSt>
-       <Title h={4}>{user.first_name}</Title>
-       <InfoSt>
-         <DataLine title={'Почта'} value={user.email}></DataLine>
-         <DataLine title={'Логин'} value={user.login}></DataLine>
-         <DataLine title={'Имя'} value={user.first_name}></DataLine>
-         <DataLine title={'Фамилия'} value={user.second_name}></DataLine>
-         <DataLine title={'Ник'} value={user.display_name}></DataLine>
-         <DataLine title={'Телефон'} value={user.phone}></DataLine>
-      </InfoSt>
+        <Title h={4}>{user.first_name}</Title>
+        <InfoSt>
+          <DataLine title={'Почта'} value={user.email}></DataLine>
+          <DataLine title={'Логин'} value={user.login}></DataLine>
+          <DataLine title={'Имя'} value={user.first_name}></DataLine>
+          <DataLine title={'Фамилия'} value={user.second_name}></DataLine>
+          <DataLine title={'Ник'} value={user.display_name}></DataLine>
+          <DataLine title={'Телефон'} value={user.phone}></DataLine>
+        </InfoSt>
         <ButtonSettings onClick={() => onCallModal('changeData')}>
           {'Изменить данные'}
         </ButtonSettings>

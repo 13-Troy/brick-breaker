@@ -12,7 +12,8 @@ function ProfilePage() {
     dispatch(clearUser());
   };
 
-  console.log('user',user)
+  console.log('user',user);
+
   return (
     <>
       <h1>Profile page</h1>
