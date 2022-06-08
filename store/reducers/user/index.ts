@@ -3,6 +3,7 @@ import { Action } from 'redux';
 export enum UserActionType {
   Set = 'user/set',
   Clear = 'user/clear',
+  Test = 'user/clear',
 }
 
 export interface User {
@@ -17,6 +18,7 @@ export interface User {
 export interface SetUserAction extends Action<UserActionType.Set> {
   payload: User;
 }
+
 
 export interface ClearUserAction extends Action<UserActionType.Clear> {}
 

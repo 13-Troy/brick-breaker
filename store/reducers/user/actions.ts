@@ -5,6 +5,8 @@ export const setUser = (payload: User) => ({
   payload,
 });
 
+
+
 export const clearUser = () => ({
   type: UserActionType.Clear,
 });

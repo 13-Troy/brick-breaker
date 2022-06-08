@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
 import Title from '../../components/Title';
 import DataLine from '../../components/DataLine';
 import Button from '../../components/Button';
@@ -18,12 +17,20 @@ import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
 
 import { AppState } from '../../store';
 
+import { USER } from '../../store/types';
+import { Dispatch } from 'react';
+
+
+import { clearUser } from '../../../store/reducers/user/actions';
+
 const Profile = () => {
   // const user = useSelector((state: any) => state.userReducer);
 
   const user = useSelector<AppState, AppState['user']>(state => state.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
+
+  const dispatch = useDispatch();
 
   const onSend = () => {
     fetch(`${UrlSite.URL}/auth/logout`, {
@@ -37,6 +44,32 @@ const Profile = () => {
       location.reload();
     });
   };
+
+
+
+   
+
+ const getProfile = () => {
+   alert(1)
+  return (dispatch: Dispatch<any>) => {
+    fetch(`${UrlSite.URL}/auth/user`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        dispatch({
+          type: USER,
+          payload: data,
+        });
+      });
+  };
+};
 
   const onCallModal = (change: string) => {
     toggleVisible();
@@ -76,6 +109,8 @@ const Profile = () => {
         <Button fullWidth={false} onClick={onSend}>
           {'выход'}
         </Button>
+        <button onClick={getProfile}>Clear</button>
+
       </HardPopUpSt>
     </div>
   );
