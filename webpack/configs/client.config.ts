@@ -4,7 +4,6 @@ import webpack, { HotModuleReplacementPlugin } from 'webpack';
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 const isDev = process.env.NODE_ENV === 'development';
-console.log('__dirname',{dirname: __dirname, path: path.join(__dirname, '../../../client/index.tsx')})
 export default {
   ...common,
   entry: [
@@ -36,6 +35,7 @@ export default {
           },
         }
       },
+      
     ]
   },
   plugins: [

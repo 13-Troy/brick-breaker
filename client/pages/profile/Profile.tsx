@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Title from '../../components/Title';
 import DataLine from '../../components/DataLine';
 import Button from '../../components/Button';
@@ -17,19 +17,15 @@ import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
 
 import { AppState } from '../../store/configureStore';
 
-import { USER } from '../../store/types';
-import { Dispatch } from 'react';
-
-
-import { clearUser } from '../../../store/reducers/user/actions';
+// import { USER } from '../../store/types';
+// import { Dispatch } from 'react';
 
 const Profile = () => {
   const user = useSelector<AppState, AppState['user']>((state) => state.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
-  console.log('user', user);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const onSend = () => {
     fetch(`${UrlSite.URL}/auth/logout`, {
@@ -44,31 +40,27 @@ const Profile = () => {
     });
   };
 
-
-
-   
-
- const getProfile = () => {
-   alert(1)
-  return (dispatch: Dispatch<any>) => {
-    fetch(`${UrlSite.URL}/auth/user`, {
-      credentials: 'include',
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        dispatch({
-          type: USER,
-          payload: data,
-        });
-      });
-  };
-};
+//  const getProfile = () => {
+//    alert(1)
+//   return (dispatch: Dispatch<any>) => {
+//     fetch(`${UrlSite.URL}/auth/user`, {
+//       credentials: 'include',
+//       method: 'GET',
+//       headers: {
+//         Accept: 'application/json',
+//       },
+//     })
+//       .then((data) => {
+//         return data.json();
+//       })
+//       .then((data) => {
+//         dispatch({
+//           type: USER,
+//           payload: data,
+//         });
+//       });
+//   };
+// };
 
   const onCallModal = (change: string) => {
     toggleVisible();

@@ -14,7 +14,7 @@ import Profile from '../pages/profile';
 import Forum from '../pages/forum';
 import Post from '../pages/post';
 import Records from '../pages/records';
-// import Game from '../pages/game';
+import Game from '../pages/game';
 import NotFound from '../pages/404';
 import ServerError from '../pages/500';
 
@@ -109,7 +109,7 @@ const Page = () => {
             <Route path={AppRoute.ABOUT} element={<About />} />
             <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
             <Route path={AppRoute.RECORDS} element={<Records />} />
-            {/* <Route path={AppRoute.GAME} element={<Game />} /> */}
+             <Route path={AppRoute.GAME} element={<Game />} />
           </Route>
 
           <Route path={'*'} element={<NotFound />} />

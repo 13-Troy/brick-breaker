@@ -1,4 +1,5 @@
-// const isDev = process.env.NODE_ENV === 'development';
+const imageExtensions = /\.(bmp|gif|jpg|jpeg|png)$/;
+const audioExtensions = /\.(mp3|wav|ogg)$/;
 
 export default {
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
@@ -21,10 +22,14 @@ export default {
           },
         }
       },
-      // {
-      //   test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif|mp3)$/i,
-      //   type: 'asset',
-      // },
+      {
+        test: imageExtensions,
+        type: 'asset/resource',
+      },
+      {
+        test: audioExtensions,
+        type: 'asset/resource',
+      }
     ]
   },
 }
