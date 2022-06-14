@@ -18,10 +18,10 @@ declare global {
   }
 }
 
-const Element_Copy = Element;
+// const Element_Copy = Element;
 
 export function toggleFullscreen(elem?: any) {
-  const Element: any = Element_Copy;
+  // const Element: any = Element_Copy;
 
   elem = elem || document.documentElement;
   if (
@@ -36,9 +36,9 @@ export function toggleFullscreen(elem?: any) {
       elem.msRequestFullscreen();
     } else if (elem.mozRequestFullScreen) {
       elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
+    } /*else if (elem.webkitRequestFullscreen) {
       elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    }
+    }*/
     document.body.style.backgroundColor = 'transparent';
     elem.style.backgroundImage = "url('/images/fullscreen_bg.jpeg')";
     elem.style.backgroundRepeat = 'no-repeat';

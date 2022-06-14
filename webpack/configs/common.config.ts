@@ -24,7 +24,7 @@ export default {
       },
       {
         test: imageExtensions,
-        type: 'asset/inline',
+        type: 'asset/resource',
       },
       {
         test: audioExtensions,
