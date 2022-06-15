@@ -1,4 +1,4 @@
-import { HTTPTransport, parseQueryParams } from '../services';
+import { HTTPTransport } from '../services';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -15,10 +15,12 @@ export const useOauth = (redirect_uri: string) => {
 
   useEffect(() => {
     if (location.search.includes('code')) {
-      const params = parseQueryParams<{ code: string }>(location.search);
+      const params = new URLSearchParams(location.search);
+      const code = params.get('code');
 
-      navigate(`/oauth?code=${params.code}`);
+      navigate(`/oauth?code=${code}`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search, redirect_uri]);
 
   const getOathServiceId = async <T>(redirect_uri: string) => {

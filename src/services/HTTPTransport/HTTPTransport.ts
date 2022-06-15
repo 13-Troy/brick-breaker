@@ -85,7 +85,7 @@ export class HTTPTransport {
     );
 
     if (!response.headers.get('Content-Type')?.includes('application/json')) {
-      return response as unknown as Promise<T>;
+      return (await response.text()) as unknown as Promise<T>;
     }
 
     const data = (await response.json()) as Promise<T>;
