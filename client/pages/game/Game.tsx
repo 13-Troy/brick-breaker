@@ -43,7 +43,7 @@ const GamePage = () => {
   return (
     <WrapperSt>
       <Button id="toggler" onClick={handleToggleFullscreen}>
-        {toggler ? 'toggle off' : 'toggle on'}
+        {toggler ? 'Exit fullscreen' : 'fullscreen'}
       </Button>
       <canvas
         ref={canvasRef}
