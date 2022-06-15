@@ -1,3 +1,5 @@
+import fullscreenBg from '../assets/img/fullscreen_bg.jpeg';
+
 type ExitFullscreen = typeof document.exitFullscreen;
 type RequestFullscreen = typeof document.documentElement.requestFullscreen;
 
@@ -18,11 +20,7 @@ declare global {
   }
 }
 
-// const Element_Copy = Element;
-
 export function toggleFullscreen(elem?: any) {
-  // const Element: any = Element_Copy;
-
   elem = elem || document.documentElement;
   if (
     !document.fullscreenElement &&
@@ -36,11 +34,11 @@ export function toggleFullscreen(elem?: any) {
       elem.msRequestFullscreen();
     } else if (elem.mozRequestFullScreen) {
       elem.mozRequestFullScreen();
-    } /*else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-    }*/
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(elem.ALLOW_KEYBOARD_INPUT);
+    }
     document.body.style.backgroundColor = 'transparent';
-    elem.style.backgroundImage = "url('/images/fullscreen_bg.jpeg')";
+    elem.style.backgroundImage = `url(${fullscreenBg})`
     elem.style.backgroundRepeat = 'no-repeat';
     elem.style.backgroundSize = 'cover';
     elem.style.height = '100vh';

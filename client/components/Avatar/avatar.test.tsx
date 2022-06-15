@@ -3,8 +3,10 @@ import Avatar from '../../components/Avatar';
 import { customRender } from '../../services/test-utils';
 import React from 'react';
 
+import defaultAvatar from '../../assets/img/default_avatar.png';
+
 describe('Avatar', () => {
-  const backgroundImage = '/images/default_avatar.png';
+  const backgroundImage = defaultAvatar;
 
   it('should render', () => {
     customRender(<Avatar size={130} backgroundImage={backgroundImage} />);

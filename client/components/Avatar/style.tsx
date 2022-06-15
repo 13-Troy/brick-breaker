@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-
+import defaultAvatar from '../../assets/img/default_avatar.png';
 interface AvatarProps {
   size: number;
   editable?: boolean;
@@ -52,7 +52,7 @@ export const AvatarSt = styled.div.attrs((props: AvatarProps) => ({
 export const AvatarImgSt = styled.img.attrs((props: ImgProps) => ({
   src: props.backgroundImage
     ? `https://ya-praktikum.tech/api/v2/resources${props.backgroundImage}`
-    : '/images/default_avatar.png',
+    :  defaultAvatar,
 }))<ImgProps>`
   border-radius: 50%;
   height: 100%;
