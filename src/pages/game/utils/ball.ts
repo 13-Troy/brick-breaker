@@ -4,12 +4,14 @@ import { GameObject } from './gameObject';
 import { Game } from './game';
 import { Paddle } from './paddle';
 import { detectCollisionPaddle } from './detectCollisionWithPaddle';
+import { AudioManager } from '../../../services/media-api';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
   public paddle: Paddle;
   private game: Game;
 
+  audioManager: AudioManager;
   speed: Position = {
     x: 5,
     y: -7,
@@ -33,7 +35,7 @@ export class Ball extends GameObject {
     this.image = this.createImage();
     this.paddle = paddle;
     this.game = game;
-
+    this.audioManager = new AudioManager();
     this.on('collate:paddle', this.onCollateWithPaddle);
     this.on('collate:brick', this.onCollateWithBrick);
     this.on('reset', this.reset);
@@ -56,6 +58,8 @@ export class Ball extends GameObject {
   onCollateWithPaddle(paddle: GameObject) {
     console.log(`${this.name} collated with ${paddle.name}`);
     const hitbox = detectCollisionPaddle(this, paddle);
+
+    this.audioManager.beat();
     /*
     detectCollisionPaddle - делить каретку на 6 почти равные части
         И возвращает порядковый номер части на который произошел столкновения с мячом
@@ -128,6 +132,7 @@ export class Ball extends GameObject {
 
   onCollateWithBrick(gameObject: GameObject) {
     console.log(`${this.name} collated with ${gameObject.name}`);
+    this.audioManager.collect();
     this.game.emit('on_ball_collate');
     this.speed.y = -this.speed.y;
   }

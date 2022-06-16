@@ -7,6 +7,9 @@ import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
+
+import { AudioManager } from '../../../services/media-api';
+
 const level1 = [[0, 0, 0, 0, 1, 1, 1, 0, 0, 0]];
 
 const level2 = [[0, 1, 1, 1, 1, 1, 1, 1, 0, 0]];
@@ -55,6 +58,7 @@ export class Game extends EventEmitter {
 
   paddle: Paddle;
   ball: Ball;
+  audioManager: AudioManager;
   gameObjects: GameObject[];
   bricks: Brick[];
   collManager: CollisionManager;
@@ -96,6 +100,7 @@ export class Game extends EventEmitter {
     new InputHandler(this.paddle, this);
     this.drawScore(this.ctx);
     this.drawLevel(this.ctx);
+    this.audioManager = new AudioManager();
   }
 
   init() {
@@ -110,6 +115,8 @@ export class Game extends EventEmitter {
   }
 
   start() {
+    this.audioManager.start();
+
     if (
       this.gameState !== GAME_STATE.MENU &&
       this.gameState !== GAME_STATE.NEWLEVEL
@@ -161,14 +168,17 @@ export class Game extends EventEmitter {
     }
 
     if (this.lives === 0) {
+      this.audioManager.gameOver();
       this.gameState = GAME_STATE.GAMEOVER;
     }
 
     if (this.bricks.length === 0) {
       this.currentLevel++;
       if (this.currentLevel > 2) {
+        this.audioManager.win();
         this.gameState = GAME_STATE.YOUWIN;
       } else {
+        this.audioManager.newLevel();
         this.gameState = GAME_STATE.NEWLEVEL;
       }
     }
@@ -264,13 +274,17 @@ export class Game extends EventEmitter {
 
   togglePause() {
     if (this.gameState === GAME_STATE.RUNNING) {
+      this.audioManager.pause();
+
       this.gameState = GAME_STATE.PAUSED;
     } else {
+      this.audioManager.start();
       this.gameState = GAME_STATE.RUNNING;
     }
   }
 
   decreaseLives() {
+    this.audioManager.decreaseLives();
     this.lives--;
   }
 }
