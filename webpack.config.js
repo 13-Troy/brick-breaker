@@ -26,6 +26,7 @@ module.exports = {
         warnings: false,
       },
     },
+    port: 5000,
   },
   module: {
     rules: [

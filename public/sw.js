@@ -1,4 +1,4 @@
-const cacheName = 'v1';
+const cacheName = 'v2';
 //Registering event
 self.addEventListener('install', () => {
   console.log('SW:installer');
@@ -21,6 +21,7 @@ self.addEventListener('activate', (e) => {
 
 //Registering event
 self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
   e.respondWith(
     fetch(e.request)
       .then((res) => {

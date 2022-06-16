@@ -5,12 +5,14 @@ import Button from '../../components/Button';
 import Link from '../../components/Link';
 import Input from '../../components/Input';
 
-import { AppRoute, UrlSite } from '../../services/const';
+import { AppRoute, redirect_uri, UrlSite } from '../../services/const';
 
 import { HardPopUpSt } from './style';
+import { useOauth } from '../../hooks';
 
 const Home = () => {
   const [logIn, setLogIn] = useState({ login: '', password: '' });
+  const { handleOauthSignIn } = useOauth(redirect_uri);
 
   const onSens = () => {
     fetch(`${UrlSite.URL}/auth/signin`, {
@@ -54,6 +56,11 @@ const Home = () => {
       <Button fullWidth onClick={onSens}>
         {'вход'}
       </Button>
+      <div style={{ marginTop: '20px' }}>
+        <Button fullWidth onClick={() => handleOauthSignIn(redirect_uri)}>
+          Вход через Яндекс
+        </Button>
+      </div>
     </HardPopUpSt>
   );
 };
