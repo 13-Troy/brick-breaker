@@ -20,6 +20,7 @@ interface TableProps {
 
 const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
   const navigate = useNavigate();
+  
   const tableRow = Object.values(content).map((obj, i) => (
     <TableRowSt key={i}>
       {Object.keys(obj)

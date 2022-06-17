@@ -86,7 +86,6 @@ const Page = () => {
 
 
   return (
-<>
     <ThemeProvider theme={baseTheme}>
       <GlobalStyle />
         <NavTest />
@@ -118,7 +117,6 @@ const Page = () => {
           <Route path={'/500'} element={<ServerError />} />
         </Routes>
      </ThemeProvider>
-  </>
   );
 };
 

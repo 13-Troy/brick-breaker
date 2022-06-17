@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Page from './layouts';
 import { BrowserRouter } from 'react-router-dom';
-// import { create } from '../store';
 import {configureStore} from '../client/store/configureStore'
 import { Provider } from 'react-redux';
 

@@ -40,28 +40,6 @@ const Profile = () => {
     });
   };
 
-//  const getProfile = () => {
-//    alert(1)
-//   return (dispatch: Dispatch<any>) => {
-//     fetch(`${UrlSite.URL}/auth/user`, {
-//       credentials: 'include',
-//       method: 'GET',
-//       headers: {
-//         Accept: 'application/json',
-//       },
-//     })
-//       .then((data) => {
-//         return data.json();
-//       })
-//       .then((data) => {
-//         dispatch({
-//           type: USER,
-//           payload: data,
-//         });
-//       });
-//   };
-// };
-
   const onCallModal = (change: string) => {
     toggleVisible();
     setChangeProfile(change);
