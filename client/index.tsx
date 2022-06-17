@@ -6,12 +6,10 @@ import {configureStore} from '../client/store/configureStore'
 import { Provider } from 'react-redux';
 
 // @ts-ignore
-// const store = create(window.__PRELOADED_STATE__);
+const store = configureStore(window.__PRELOADED_STATE__);
 
 // @ts-ignore
-// delete window.__PRELOADED_STATE__;
-
-const store = configureStore();
+delete window.__PRELOADED_STATE__;
 
 ReactDOM.hydrateRoot(
   document.getElementById('root')!,
