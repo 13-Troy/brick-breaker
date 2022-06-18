@@ -16,7 +16,10 @@
     "validate": "npm run lint",
     "prepare": "husky install",
     "test": "jest client",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "docker": "docker-compose up -d brick-server-app",
+    "docker:build": "docker-compose build brick-server-app",
+    "docker:stop": "docker-compose stop"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",

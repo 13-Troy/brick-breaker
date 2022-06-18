@@ -1,8 +1,14 @@
 FROM node:16-alpine
 WORKDIR /var/www
-COPY package*.json ./
-RUN npm install 
+
+COPY package*.json .
+COPY utils/wait-for.sh wait-for.sh
+RUN chmod +x ./wait-for.sh
+RUN npm ci
+
 COPY . .
-RUN npm run build 
-EXPOSE 8080
-CMD node server.js
+
+#RUN npm run build
+ENV PORT 3000
+EXPOSE $PORT
+#CMD node server.js
