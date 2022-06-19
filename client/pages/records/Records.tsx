@@ -24,7 +24,7 @@ const Records = () => {
           body: JSON.stringify({
               "ratingFieldName": "score",
               "cursor": 0,
-              "limit": 4
+              "limit": 100
           })
       }).then((data) => {
           return data.json();

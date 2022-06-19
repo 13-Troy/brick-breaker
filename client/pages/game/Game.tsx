@@ -22,7 +22,6 @@ const GamePage = () => {
   const gameScoreHandler = (score: number) => setGameScore(score);
 
   const user = useSelector<AppState, AppState['user']>((state) => state.user);
-  console.log(user)
 
   useEffect(() => {
     if (canvasRef.current) {
