@@ -8,7 +8,7 @@ RUN npm ci
 
 COPY . .
 
-#RUN npm run build
-ENV PORT 3000
+RUN npm run build
+ENV PORT 8080
 EXPOSE $PORT
-#CMD node server.js
+CMD node server.js
