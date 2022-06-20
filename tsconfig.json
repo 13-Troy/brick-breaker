@@ -23,7 +23,8 @@
     },
     "allowJs": true,
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"],
-    "types": ["node", "jest", "@testing-library/jest-dom"]
+    "types": ["node", "jest", "@testing-library/jest-dom"],
+    "emitDecoratorMetadata": true, 
   },
 //  "include": ["client", "typings/**/*.d.ts", "./node_modules/@types"],
   "exclude": ["**/*.js"]
