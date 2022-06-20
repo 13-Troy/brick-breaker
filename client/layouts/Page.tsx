@@ -8,7 +8,7 @@ import {
 
 // page
 import Home from '../pages/home';
-import Oauth from '../pages/Oauth';
+import Oauth from '../pages/oauth';
 import About from '../pages/about';
 import Registration from '../pages/registration';
 import Profile from '../pages/profile';

@@ -32,4 +32,7 @@ export default {
       }
     ]
   },
+  devServer: {
+    port:5000
+  }
 }
