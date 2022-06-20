@@ -5,6 +5,10 @@ import Button from '../../components/Button';
 import { Game } from './utils/game';
 import { toggleFullscreen } from '../../services/fullscreen-api';
 import { WrapperSt } from './style';
+import {useSelector} from "react-redux";
+import {AppState} from "../../store/configureStore";
+
+import { UrlSite } from '../../services/const';
 
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
@@ -16,6 +20,8 @@ const GamePage = () => {
   const [gameScore, setGameScore] = useState(0);
 
   const gameScoreHandler = (score: number) => setGameScore(score);
+
+  const user = useSelector<AppState, AppState['user']>((state) => state.user);
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -37,6 +43,21 @@ const GamePage = () => {
   useEffect(() => {
     if (gameScore > 0) {
       console.log('total game score', gameScore);
+
+      fetch(`${UrlSite.URL}/leaderboard`, {
+        credentials: 'include',
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "data": {"score": String(gameScore), "user_name": user.display_name, "user_avatar": user.avatar},
+          "ratingFieldName": "score",
+          "teamName": "troy"
+        })
+      })
+
     }
   }, [gameScore]);
 
