@@ -10,13 +10,22 @@ import { configureStore } from '../../client/store/configureStore';
 
 
 export default async (req: Request, res: Response) => {
-  const { devMiddleware } = res.locals.webpack;
-  const jsonWebpackStats = devMiddleware.stats.toJson();
-  const { assetsByChunkName } = jsonWebpackStats;
-  const script = assetsByChunkName.main[0];
+
+  let script:string;
+
+  if(process.env.NODE_ENV === 'development') {
+    const { devMiddleware } = res.locals.webpack;
+    const jsonWebpackStats = devMiddleware.stats.toJson();
+    const { assetsByChunkName } = jsonWebpackStats;
+
+    script = assetsByChunkName.main[0];
+  } else {
+    script = 'app.client.js'
+  }
+
 
   let html = fs.readFileSync(
-    path.resolve(__dirname, '../../../public/index.html'),
+    path.resolve(__dirname, '../../../assets/index.html'),
     {
       encoding: 'utf8',
     }
