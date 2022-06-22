@@ -1,6 +1,9 @@
 import express from 'express';
 import render from './render';
 import path from 'path';
+import { dbConnect } from './db';
+
+dbConnect();
 
 const PORT = process.env.PORT || 5000;
 const app = express();
