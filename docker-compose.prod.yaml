@@ -41,6 +41,7 @@ services:
     # находится в папке рядом с docker-compose.yaml
     build:
       context: .
+      dockerfile: Dockerfile.prod
     # Проброс порта так же, как в командной строке — на какой порт хоста какой порт контейнера
     ports:
       - "5000:5000"
