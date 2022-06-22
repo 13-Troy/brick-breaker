@@ -7,15 +7,17 @@ const imageExtensions = /\.(bmp|gif|jpg|jpeg|png)$/;
 const audioExtensions = /\.(mp3|wav|ogg)$/;
 
 const isDev = process.env.NODE_ENV === 'development';
+const ROOT_DIR = isDev ? path.resolve(__dirname, '../../../') : path.resolve(__dirname, '../../');
+
 export default {
   ...common,
   entry: [
     isDev && '@gatsbyjs/webpack-hot-middleware/client?path=/__webpack_hmr',
-    path.join(__dirname, '../../../client/index.tsx')
+    path.join(ROOT_DIR, './client/index.tsx')
   ].filter(Boolean),
   target: 'web',
   output: {
-    path: path.join(__dirname, '../public'),
+    path: path.join(ROOT_DIR, './public'),
     filename: 'app.client.js',
     publicPath: '/'
   },

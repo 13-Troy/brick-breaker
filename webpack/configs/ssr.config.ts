@@ -13,5 +13,6 @@ export default {
     publicPath: '/',
     libraryTarget: 'commonjs2'
   },
-  externals: [nodeExternals()]
+  externals: [nodeExternals()],
+  devServer: {}
 } as webpack.Configuration;

@@ -4,19 +4,25 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run build:server",
+    "build:prod": "npm run build:ssr && npm run build:client && npm run build:server",
     "start": "NODE_ENV=development concurrently \"npm run watch:ssr\" \"node ./dist/server/index.js\"",
+    "start:prod": "NODE_ENV=production node ./dist/server/index.js",
     "build:server": "tsc --project server",
+    "build:client": "webpack --config ./webpack/configs/client.config.ts",
     "build:ssr": "webpack --config ./webpack/configs/ssr.config.ts",
     "watch:ssr": "webpack --watch --config ./webpack/configs/ssr.config.ts",
     "lint": "eslint --ignore-path .gitignore ./client",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "prettier --ignore-path .gitignore  \"client/**/*.+(js|json|ts|tsx)\"",
+    "prettier": "pre ttier --ignore-path .gitignore  \"client/**/*.+(js|json|ts|tsx)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
     "validate": "npm run lint",
     "prepare": "husky install",
     "test": "jest client",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "docker": "docker-compose up -d main",
+    "docker:build": "docker-compose build main",
+    "docker:stop": "docker-compose stop"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
