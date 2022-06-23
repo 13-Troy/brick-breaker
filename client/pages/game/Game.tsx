@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../components/Button';
-
 import { Game } from './utils/game';
 import { toggleFullscreen } from '../../services/fullscreen-api';
 import { WrapperSt } from './style';
@@ -10,11 +9,16 @@ import {AppState} from "../../store/configureStore";
 
 import { UrlSite } from '../../services/const';
 
+import { useToggle } from '../../hooks/useToggle';
+
+import AudioManager from '../../../src/services/media-api';
+
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
 
 const GamePage = () => {
-  const [toggler, setToggler] = useState(false);
+  const [toggler, setTogglerScreen] = useToggle(false);
+  const [isMuted, setTogglerSound] = useToggle(true);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const game = useRef<Game>();
   const [gameScore, setGameScore] = useState(0);
@@ -37,7 +41,13 @@ const GamePage = () => {
 
   const handleToggleFullscreen = () => {
     toggleFullscreen();
-    setToggler(!toggler);
+    setTogglerScreen();
+  };
+
+  const handleMuted = () => {
+    setTogglerSound();
+    
+    AudioManager.muted(isMuted);
   };
 
   useEffect(() => {
@@ -63,6 +73,9 @@ const GamePage = () => {
 
   return (
     <WrapperSt>
+      <Button onClick={handleMuted}>
+        {isMuted ? 'выкл звук' : 'вкл звук'}
+      </Button>
       <Button id="toggler" onClick={handleToggleFullscreen}>
         {toggler ? 'Exit fullscreen' : 'fullscreen'}
       </Button>
