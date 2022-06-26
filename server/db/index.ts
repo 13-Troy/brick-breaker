@@ -3,9 +3,9 @@ import { DataType, Model, Table, Column, BelongsTo} from 'sequelize-typescript';
 
 export interface ITopic {
   topicId: number;
-  topicName: string;
-  topicText: string;
-  ownerId: number;
+  topicName?: string;
+  topicText?: string;
+  ownerId?: number;
 }
 
 export interface IComment {
@@ -19,11 +19,12 @@ export interface IComment {
 @Table(
   {
       tableName: "Topics",
-      timestamps: true
+      timestamps: true,
+      updatedAt: false
   }
 )
 
-class Topic extends Model implements ITopic  {
+export class Topic extends Model implements ITopic  {
 
   @AutoIncrement
   @PrimaryKey
@@ -49,10 +50,11 @@ class Topic extends Model implements ITopic  {
 @Table(
   {
       tableName: "Comments",
-      timestamps: true
+      timestamps: true,
+      updatedAt: false
   }
 )
-class Comment extends Model implements IComment  {
+export class Comment extends Model implements IComment  {
   
   @AutoIncrement
   @PrimaryKey
