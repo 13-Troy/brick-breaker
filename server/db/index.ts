@@ -1,5 +1,5 @@
 import { Sequelize, SequelizeOptions, AutoIncrement, PrimaryKey, AllowNull, NotEmpty } from 'sequelize-typescript';
-import { DataType, Model, Table, Column, BelongsTo} from 'sequelize-typescript';
+import { DataType, Model, Table, Column, BelongsTo,ForeignKey} from 'sequelize-typescript';
 
 export interface ITopic {
   topicId: number;
@@ -12,7 +12,6 @@ export interface IComment {
   commentId: number;
   commentText: string;
   ownerId: number;
-  date: number;
   topic: number;
 }
 
@@ -56,8 +55,10 @@ export class Topic extends Model implements ITopic  {
 )
 export class Comment extends Model implements IComment  {
   
+  
   @AutoIncrement
   @PrimaryKey
+  @ForeignKey(() => Topic)
   @Column(DataType.INTEGER)
   commentId: number;
 
@@ -71,24 +72,19 @@ export class Comment extends Model implements IComment  {
   @Column(DataType.INTEGER)
   ownerId: number; 
 
-  @AllowNull(false)
-  @NotEmpty
-  @Column(DataType.DATE)
-  date: number
-
   @BelongsTo(() => Topic, 'topicId')
   topic: number
 
 };
 
 const sequelizeOptions: SequelizeOptions = {
-  host: 'postgres',
+  host:  process.env.DB_HOST,
   port: 5432,
-  username: 'postgres',
-  password: 'newPassword',
-  database: 'brick-game-db',
+  username:  process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database:  process.env.DB_DATABASE,
   dialect: 'postgres',
-  models:[Topic, Comment]
+  models: [Topic, Comment]
 };
 
 // Создаем инстанс Sequelize
@@ -97,7 +93,8 @@ export const sequelize = new Sequelize(sequelizeOptions);
 export async function dbConnect() {
     try {
         await sequelize.authenticate(); // Проверка аутентификации в БД
-        await sequelize.sync({ force: true }); // Синхронизация базы данных
+        // await sequelize.sync({ force: true }); // Синхронизация базы данных
+        await sequelize.sync(); // Синхронизация базы данных
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);

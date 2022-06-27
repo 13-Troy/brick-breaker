@@ -3,24 +3,28 @@ import render from './render';
 import path from 'path';
 import { dbConnect } from './db';
 
-import { Topic } from './db/index';
 
-// Создание топика
-export async function createTopic(topicName: string, topicText: string, ownerId: number) {
-  return Topic.create({ topicName, topicText, ownerId });
-}
+import { createTopic, getTopics, createComment, getComment,  getTopicById} from '../controllers/forum';
 
-// Получение пользователей по ID
-export async function getTopicsByOwnerId(ownerId: number) {
-  return Topic.findAll({ where: { ownerId } });
-}
+
 
 // dbConnect()
 export function startApp() {
   dbConnect().then(async () => {
     try {
-      await createTopic('TestTopic99', 'TestTopicText', 12);
-      const topics = await getTopicsByOwnerId(12);
+
+      await createTopic('TestTopic', 'TestTopicText', 12);
+      const topics = await getTopics();
+
+      // Получаем id первого топика
+      console.log('topicsList', topics);
+          
+
+      await createComment('Testcomment', 12, 8 );
+
+      const comments = await getComment(1);
+
+      console.log('commentsList', comments);
 
       // Проверяем, найдены ли топики
       if (!topics.length) {
@@ -30,6 +34,7 @@ export function startApp() {
       // Получаем id первого топика
       console.log('topicstopics', topics);
       const { topicId } = topics[0];
+
       console.log('topicId', topicId);
     } catch (error) {
       console.log(error);
@@ -41,12 +46,59 @@ export function startApp() {
 
 const PORT = process.env.PORT || 5000;
 
-
 (async () => {
 
   startApp()
 
   const app = express();
+
+  app.get('/', (req, res) => {
+    res.status(200).send('Hello World!');
+  })
+
+  app.post('/api/topic', (req, res) => {
+    createTopic('test', 'TestTopicText', 13);
+    res.status(200).send('Hello World!');
+  })
+
+  app.get('/api/topics', (req, res) => {
+    getTopics()
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    })
+   
+  })
+
+  // app.delete('/api/topic/:id', async (req, res) => {
+  //   const  id = Number(req.params.id)
+
+  //   deleteTopicById(id)
+  //   .then(response => {
+  //     res.status(200).send(response);
+  //   })
+  //   .catch(error => {
+  //     res.status(500).send(error);
+  //   })
+   
+  // })
+
+  
+  app.get('/api/topic/:id', (req, res) => {
+    const  id = Number(req.params.id)
+
+    getTopicById(id)
+
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(error => {
+      res.status(500).send(error);
+    })
+  });
+
 
   app.use(express.static(path.join(__dirname, '../../public')));
   app.use(render());
