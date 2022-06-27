@@ -11,7 +11,7 @@ import { UrlSite } from '../../services/const';
 
 import { useToggle } from '../../hooks/useToggle';
 
-import { mediaMuted } from '../../services/media-api';
+import AudioManager from '../../../src/services/media-api';
 
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
@@ -46,7 +46,8 @@ const GamePage = () => {
 
   const handleMuted = () => {
     setTogglerSound();
-    mediaMuted(isMuted);
+
+    AudioManager.muted(isMuted);
   };
 
   useEffect(() => {
