@@ -5,9 +5,7 @@ import { Game } from './game';
 import { Paddle } from './paddle';
 import { detectCollisionPaddle } from './detectCollisionWithPaddle';
 
-import { mediaApi } from '../../../services/media-api';
-import collect from '../../../assets/audio/collect.mp3';
-import beat from '../../../assets/audio/beat.mp3';
+import AudioManager from '../../../../client/services/media-api';
 
 export class Ball extends GameObject {
   readonly image: HTMLImageElement;
@@ -61,7 +59,7 @@ export class Ball extends GameObject {
     console.log(`${this.name} collated with ${paddle.name}`);
     const hitbox = detectCollisionPaddle(this, paddle);
 
-    mediaApi(beat);
+    AudioManager.beat();
     /*
     detectCollisionPaddle - делить каретку на 6 почти равные части
         И возвращает порядковый номер части на который произошел столкновения с мячом
@@ -134,7 +132,7 @@ export class Ball extends GameObject {
 
   onCollateWithBrick(gameObject: GameObject) {
     console.log(`${this.name} collated with ${gameObject.name}`);
-    mediaApi(collect);
+    AudioManager.collect();
     this.game.emit('on_ball_collate');
     this.speed.y = -this.speed.y;
   }
