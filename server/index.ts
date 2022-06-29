@@ -65,20 +65,6 @@ const PORT = process.env.PORT || 5000;
 
   })
 
-  // app.delete('/api/topic/:id', async (req, res) => {
-  //   const  id = Number(req.params.id)
-
-  //   deleteTopicById(id)
-  //   .then(response => {
-  //     res.status(200).send(response);
-  //   })
-  //   .catch(error => {
-  //     res.status(500).send(error);
-  //   })
-
-  // })
-
-
   app.get('/api/topic/:id', (req, res) => {
     const id = Number(req.params.id)
 
