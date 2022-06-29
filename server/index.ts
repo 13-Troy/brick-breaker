@@ -4,7 +4,14 @@ import path from 'path';
 import { dbConnect } from './db';
 
 
-import { createTopic, getTopics, createComment, getComment,  getTopicById} from '../controllers/forum';
+import {
+  createTopic,
+  getTopics,
+  updateTopic,
+  createComment,
+  getComment,
+  getTopicById
+} from '../controllers/forum';
 
 
 
@@ -16,26 +23,22 @@ export function startApp() {
       await createTopic('TestTopic', 'TestTopicText', 12);
       const topics = await getTopics();
 
-      // Получаем id первого топика
-      console.log('topicsList', topics);
-          
+      console.log('topicsList comments', topics[0].comments);
 
-      await createComment('Testcomment', 12, 8 );
+      await createComment('qwwertyee', 12, 8);
 
-      const comments = await getComment(1);
-
-      console.log('commentsList', comments);
-
+      await getComment(8);
+      
       // Проверяем, найдены ли топики
       if (!topics.length) {
         throw 'Not found'
       }
 
-      // Получаем id первого топика
-      console.log('topicstopics', topics);
-      const { topicId } = topics[0];
-
-      console.log('topicId', topicId);
+      await updateTopic(35, {
+        topicId: 35,
+        topicName: 'UPD'
+      })
+      
     } catch (error) {
       console.log(error);
     }
@@ -63,13 +66,13 @@ const PORT = process.env.PORT || 5000;
 
   app.get('/api/topics', (req, res) => {
     getTopics()
-    .then(response => {
-      res.status(200).send(response);
-    })
-    .catch(error => {
-      res.status(500).send(error);
-    })
-   
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(error => {
+        res.status(500).send(error);
+      })
+
   })
 
   // app.delete('/api/topic/:id', async (req, res) => {
@@ -82,28 +85,28 @@ const PORT = process.env.PORT || 5000;
   //   .catch(error => {
   //     res.status(500).send(error);
   //   })
-   
+
   // })
 
-  
+
   app.get('/api/topic/:id', (req, res) => {
-    const  id = Number(req.params.id)
+    const id = Number(req.params.id)
 
     getTopicById(id)
 
-    .then(response => {
-      res.status(200).send(response);
-    })
-    .catch(error => {
-      res.status(500).send(error);
-    })
+      .then(response => {
+        res.status(200).send(response);
+      })
+      .catch(error => {
+        res.status(500).send(error);
+      })
   });
 
 
   app.use(express.static(path.join(__dirname, '../../public')));
   app.use(render());
 
-  
+
   app.listen(PORT, () => {
     console.log(`App started at ${PORT} port`);
   })

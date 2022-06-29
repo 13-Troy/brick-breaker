@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run build:server",
     "build:prod": "npm run build:ssr && npm run build:client && npm run build:server",
-    "start": "NODE_ENV=development concurrently \"npm run watch:ssr\" \"node ./dist/server/index.js\"",
+    "build:server:watch": "tsc --project server --watch",
+    "start": "NODE_ENV=development concurrently \"npm run watch:ssr\" \"nodemon ./dist/server/index.js\" --watch\"./dist\"",
     "start:prod": "NODE_ENV=production node ./dist/server/index.js",
     "build:server": "tsc --project server",
     "build:client": "webpack --config ./webpack/configs/client.config.ts",
@@ -65,6 +66,7 @@
     "jest-environment-jsdom": "^28.1.0",
     "jsdom": "^19.0.0",
     "lint-staged": "^12.4.0",
+    "nodemon": "^2.0.18",
     "path": "0.12.7",
     "prettier": "^2.6.2",
     "react-refresh": "^0.13.0",

@@ -1,4 +1,4 @@
-import { Topic, Comment} from '../server/db/index';
+import { Topic, ITopic, Comment} from '../server/db/index';
 
 // Создание топика
 export async function createTopic(topicName: string, topicText: string, ownerId: number) {
@@ -7,7 +7,7 @@ export async function createTopic(topicName: string, topicText: string, ownerId:
 
 // Получение списка топиков
 export async function getTopics() {
-  return Topic.findAll();
+  return Topic.findAll({ include: [{model: Comment}], });
 }
 
 
@@ -21,28 +21,22 @@ export async function deleteTopicById(topicId: number) {
   return Topic.destroy({ where: { topicId}});
 }
 
-// // Обновление топика
-// export async function updateTopic(id:number, data: ITopic) {
-//   return Topic.update(data, { where: { id }});
-// }
-
-
+// Обновление топика
+export async function updateTopic(topicId:number, data: ITopic) {
+  return Topic.update(data, { where: { topicId }});
+}
 
 // Создание комментария
 export async function createComment(commentText: string, ownerId: number, topicId: number, ) {
   return Comment.create({ commentText, ownerId, topicId, });
 }
 
-
 // Получение комментария по ID топика
 export async function getComment(topicId:number) {
-
-  return Comment.findAll();
-  
-  // return (
-  //   Topic.findAll({
-  //     include: [{ model: Comment, where: { topicId } }]
-  //   }))
+  return (
+    Comment.findAll({
+      where: { topicId }
+    }))
 }
 
 
