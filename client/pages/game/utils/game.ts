@@ -7,6 +7,9 @@ import { Brick } from './brick';
 import { GameObject } from './gameObject';
 import EventEmitter from 'eventemitter3';
 import { CollisionManager } from './CollisionManager';
+
+import AudioManager from '../../../../client/services/media-api';
+
 const level1 = [[0, 0, 0, 0, 1, 1, 1, 0, 0, 0]];
 
 const level2 = [[0, 1, 1, 1, 1, 1, 1, 1, 0, 0]];
@@ -110,6 +113,7 @@ export class Game extends EventEmitter {
   }
 
   start() {
+    AudioManager.start();
     if (
       this.gameState !== GAME_STATE.MENU &&
       this.gameState !== GAME_STATE.NEWLEVEL
@@ -161,14 +165,17 @@ export class Game extends EventEmitter {
     }
 
     if (this.lives === 0) {
+      AudioManager.gameOver();
       this.gameState = GAME_STATE.GAMEOVER;
     }
 
     if (this.bricks.length === 0) {
       this.currentLevel++;
       if (this.currentLevel > 2) {
+        AudioManager.win();
         this.gameState = GAME_STATE.YOUWIN;
       } else {
+        AudioManager.newLevel();
         this.gameState = GAME_STATE.NEWLEVEL;
       }
     }
@@ -264,13 +271,16 @@ export class Game extends EventEmitter {
 
   togglePause() {
     if (this.gameState === GAME_STATE.RUNNING) {
+      AudioManager.pause();
       this.gameState = GAME_STATE.PAUSED;
     } else {
+      AudioManager.start();
       this.gameState = GAME_STATE.RUNNING;
     }
   }
 
   decreaseLives() {
+    AudioManager.decreaseLives();
     this.lives--;
   }
 }
