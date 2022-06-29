@@ -4,40 +4,30 @@ import path from 'path';
 import { dbConnect } from './db';
 
 
-import {
-  createTopic,
-  getTopics,
-  updateTopic,
-  createComment,
-  getComment,
-  getTopicById
-} from '../controllers/forum';
+import TopicController  from './controllers/forum/topic';
 
-
+import CommentController  from './controllers/forum/comment';
 
 // dbConnect()
 export function startApp() {
   dbConnect().then(async () => {
     try {
 
-      await createTopic('TestTopic', 'TestTopicText', 12);
-      const topics = await getTopics();
+      await TopicController.create('TestTopic', 'TestTopicText', 15);
+      await TopicController.create('TestTopic', 'TestTopicText', 16);
 
-      console.log('topicsList comments', topics[0].comments);
 
-      await createComment('qwwertyee', 12, 8);
+      await CommentController.create('TestTopic', 2, 2);
 
-      await getComment(8);
-      
-      // Проверяем, найдены ли топики
-      if (!topics.length) {
-        throw 'Not found'
-      }
+      await TopicController.delete(1);
 
-      await updateTopic(35, {
-        topicId: 35,
-        topicName: 'UPD'
-      })
+
+      const topics = await TopicController.getAll();
+      const topicsId = await TopicController.getById(2);
+
+      console.log('topicstopicstopics',topics);
+      console.log('topicsIdtopicsIdtopicsIdtopicsId',topicsId);
+    
       
     } catch (error) {
       console.log(error);
@@ -60,12 +50,12 @@ const PORT = process.env.PORT || 5000;
   })
 
   app.post('/api/topic', (req, res) => {
-    createTopic('test', 'TestTopicText', 13);
+    TopicController.create('test', 'TestTopicText', 78);
     res.status(200).send('Hello World!');
   })
 
-  app.get('/api/topics', (req, res) => {
-    getTopics()
+  app.get('/api/topic', (req, res) => {
+    TopicController.getAll()
       .then(response => {
         res.status(200).send(response);
       })
@@ -92,7 +82,7 @@ const PORT = process.env.PORT || 5000;
   app.get('/api/topic/:id', (req, res) => {
     const id = Number(req.params.id)
 
-    getTopicById(id)
+    TopicController.getById(id)
 
       .then(response => {
         res.status(200).send(response);
