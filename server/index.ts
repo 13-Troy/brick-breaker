@@ -3,6 +3,7 @@ import render from './render';
 import path from 'path';
 import { dbConnect } from './db';
 
+import forumApi from './routers/forum'
 
 import TopicController  from './controllers/forum/topic';
 
@@ -45,38 +46,7 @@ const PORT = process.env.PORT || 5000;
 
   const app = express();
 
-  app.get('/', (req, res) => {
-    res.status(200).send('Hello World!');
-  })
-
-  app.post('/api/topic', (req, res) => {
-    TopicController.create('test', 'TestTopicText', 78);
-    res.status(200).send('Hello World!');
-  })
-
-  app.get('/api/topic', (req, res) => {
-    TopicController.getAll()
-      .then(response => {
-        res.status(200).send(response);
-      })
-      .catch(error => {
-        res.status(500).send(error);
-      })
-
-  })
-
-  app.get('/api/topic/:id', (req, res) => {
-    const id = Number(req.params.id)
-
-    TopicController.getById(id)
-
-      .then(response => {
-        res.status(200).send(response);
-      })
-      .catch(error => {
-        res.status(500).send(error);
-      })
-  });
+  app.use('/api/topic', forumApi )
 
 
   app.use(express.static(path.join(__dirname, '../../public')));
