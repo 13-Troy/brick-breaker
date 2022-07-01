@@ -7,7 +7,7 @@ import forumApi from './routers/forum'
 const PORT = process.env.PORT || 5000;
 
 (async () => {
-  dbConnect()
+  await dbConnect()
 
   const app = express();
 
