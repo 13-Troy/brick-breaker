@@ -10,4 +10,4 @@ app.use(render());
 
 app.listen(PORT, () => {
   console.log(`App started at ${PORT} port`);
-})
+});

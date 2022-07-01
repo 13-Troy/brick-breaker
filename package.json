@@ -22,6 +22,7 @@
     "test:watch": "npm run test -- --watch",
     "docker": "docker-compose up -d main",
     "docker:build": "docker-compose build main",
+    "docker:prod-build": "docker-compose -f docker-compose.prod.yaml build main",
     "docker:stop": "docker-compose stop"
   },
   "devDependencies": {
