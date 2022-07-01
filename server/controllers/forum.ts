@@ -1,5 +1,5 @@
-import { Topic, ITopic, Comment} from '../db/index';
-
+import { Comment} from '../models/comment';
+import { Topic, ITopic } from '../models/topic';
 
 class TopicController {
 
