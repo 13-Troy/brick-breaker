@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:server",
-    "build:prod": "npm run build:ssr && npm run build:client && npm run build:server",
+    "build": "npm run clean && npm run build:server",
+    "build:prod": "npm run clean && npm run build:ssr && npm run build:client && npm run build:server",
     "start": "NODE_ENV=development concurrently \"npm run watch:ssr\" \"node ./dist/server/index.js\"",
     "start:prod": "NODE_ENV=production node ./dist/server/index.js",
     "build:server": "tsc --project server",
@@ -23,7 +23,8 @@
     "docker": "docker-compose up -d main",
     "docker:build": "docker-compose build main",
     "docker:prod-build": "docker-compose -f docker-compose.prod.yaml build main",
-    "docker:stop": "docker-compose stop"
+    "docker:stop": "docker-compose stop",
+    "clean": "rm -rf dist/ && rm -rf bundle/"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
