@@ -1,5 +1,3 @@
-import CopyWebpackPlugin from 'copy-webpack-plugin';
-
 const imageExtensions = /\.(bmp|gif|jpg|jpeg|png)$/;
 const audioExtensions = /\.(mp3|wav|ogg)$/;
 
@@ -34,11 +32,6 @@ export default {
       },
     ],
   },
-  plugins: [
-    new CopyWebpackPlugin({
-      patterns: [{ from: './public/sw.js' }],
-    }),
-  ],
   devServer: {
     port: 3000,
   },
