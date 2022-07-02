@@ -1,5 +1,5 @@
-import { Topic, ITopic, Comment } from '../../db/index';
-
+import { Topic, ITopic } from '../../../server/models/topic';
+import { Comment } from '../../../server/models/comment';
 class TopicController {
   create(topicName: string, topicText: string, ownerId: number) {
     return Topic.create({ topicName, topicText, ownerId });
