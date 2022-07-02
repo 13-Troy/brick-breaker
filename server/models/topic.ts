@@ -1,6 +1,7 @@
 import {
   DataType,
   Model,
+  Table,
   Column,
   AutoIncrement,
   PrimaryKey,
@@ -24,6 +25,14 @@ export interface IComment {
   ownerId: number;
   topicId: number;
 }
+
+@Table(
+  {
+    tableName: "Topics",
+    timestamps: true,
+    updatedAt: false
+  }
+)
 
 export class Topic extends Model implements ITopic {
 

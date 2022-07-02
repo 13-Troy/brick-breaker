@@ -1,5 +1,4 @@
-import { Comment } from '../../db/index';
-
+import { Comment } from '../../../server/models/comment';
 class CommentController {
   create(commentText: string, ownerId: number, topicId: number) {
     return Comment.create({ commentText, ownerId, topicId });
