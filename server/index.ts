@@ -1,13 +1,25 @@
 import express from 'express';
 import render from './render';
 import path from 'path';
+import {dbConnect} from './db';
+import forumApi from './routers/forum'
 
 const PORT = process.env.PORT || 5000;
-const app = express();
 
-app.use(express.static(path.join(__dirname, '../../public')));
-app.use(render());
+(async () => {
+  await dbConnect()
 
-app.listen(PORT, () => {
-  console.log(`App started at ${PORT} port`);
-});
+  const app = express();
+
+  app.use('/api/topic', forumApi)
+
+
+  app.use(express.static(path.join(__dirname, '../../public')));
+  app.use(render());
+
+
+  app.listen(PORT, () => {
+    console.log(`App started at ${PORT} port`);
+  })
+
+})();
