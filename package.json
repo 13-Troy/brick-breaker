@@ -13,7 +13,7 @@
     "watch:ssr": "webpack --watch --config ./webpack/configs/ssr.config.ts",
     "lint": "eslint --ignore-path .gitignore ./client",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "pre ttier --ignore-path .gitignore  \"client/**/*.+(js|json|ts|tsx)\"",
+    "prettier": "prettier --ignore-path .gitignore  \"client/**/*.+(js|json|ts|tsx)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
     "validate": "npm run lint",

@@ -3,5 +3,4 @@ Dockerfile
 Dockerfile.prod
 docker-compose.yaml
 docker-compose.prod.yaml
-/dist
 
