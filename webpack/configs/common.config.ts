@@ -4,7 +4,7 @@ const audioExtensions = /\.(mp3|wav|ogg)$/;
 export default {
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   module: {
     rules: [
@@ -17,10 +17,10 @@ export default {
             presets: [
               '@babel/preset-env',
               '@babel/preset-typescript',
-              "@babel/preset-react"
-            ]
+              '@babel/preset-react',
+            ],
           },
-        }
+        },
       },
       {
         test: imageExtensions,
@@ -29,10 +29,10 @@ export default {
       {
         test: audioExtensions,
         type: 'asset/resource',
-      }
-    ]
+      },
+    ],
   },
   devServer: {
-    port:3000
-  }
-}
+    port: 3000,
+  },
+};

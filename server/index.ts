@@ -1,7 +1,7 @@
 import express from 'express';
 import render from './render';
 import path from 'path';
-import { dbConnect } from './db';
+import {dbConnect} from './db';
 import forumApi from './routers/forum'
 
 const PORT = process.env.PORT || 5000;
