@@ -40,4 +40,4 @@ jobs:
           username: ${{ secrets.GAME_SSH_NAME }}
           key: ${{ secrets.GAME_SSH_PRIVATE_KEY }}
           port: ${{ secrets.GAME_SSH_PORT }}
-          script: cd /web/game/ && docker pull parnasmi/brick-breaker:latest && docker-compose down && docker-compose up -d --build
+          script: cd /web/game/ && docker pull parnasmi/brick-breaker:latest && docker-compose down && docker-compose -f docker-compose.prod.yaml build main
