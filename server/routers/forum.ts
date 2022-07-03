@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   // const { topicName, topicText, ownerId } = req.body
   try {
-    // const response = await TopicController.create(req.body)
-    const response = await TopicController.create({topicName:'ForumTest', topicText:'ForumTest', ownerId:77})
+    const response = await TopicController.create(req.body)
+    // const response = await TopicController.create({topicName:'ForumTest', topicText:'ForumTest', ownerId:77})
     res.status(200).send(response);
   } catch (error) {
     res.status(500).send(error);

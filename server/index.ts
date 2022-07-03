@@ -19,9 +19,6 @@ export function startApp() {
       await TopicController.create({topicName: 'TestTopic11111' , topicText: 'TestTopicText', ownerId: 16});
       await TopicController.create({topicName:'TestTopic2222' , topicText: 'TestTopicText', ownerId: 15});
 
-      // await TopicController.create('TestTopic', 'TestTopicText', 16);
-
-
       await CommentController.create('TestTopic', 2, 2);
 
       // await TopicController.delete(1);

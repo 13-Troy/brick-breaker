@@ -22,6 +22,12 @@ export const forumReducer = (state = initialState, action: any) => {
           ...state,
           loading: false,
         };
+        case ActionType.GET_TOPIC_BY_ID: 
+        return {
+          ...state,
+          topic: action.payload,
+          loading: false,
+        };
     default:
     return state;
   }
