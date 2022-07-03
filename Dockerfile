@@ -9,4 +9,5 @@ RUN npm ci
 COPY . .
 
 RUN npm run build
+RUN ls -l
 CMD npm run start
