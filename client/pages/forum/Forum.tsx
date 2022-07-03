@@ -17,6 +17,7 @@ import { WrapperSt, ButtonWrapperSt } from './style';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTopics, deleteTopic, addTopic, getTopicById} from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
+import { useNavigate } from 'react-router-dom';
 
 const adaptPosts = forumList.map(filterData);
 
@@ -83,7 +84,6 @@ const Forum = () => {
 
 
 const handleTopicAdd  = (id:number) => {
-  alert(1)
   if(! post.content || ! post.name) {
     console.log('заполите все поля')
   } else {
@@ -105,7 +105,7 @@ const handleEditPost = (id:number) => {
 }
 
 
-
+const navigate = useNavigate();
 
 
 // const handleTopicAdd  = (id:number) => {
@@ -136,6 +136,11 @@ const handleEditPost = (id:number) => {
           <div>
             {item.topicText}
           </div>
+
+
+          <Button onClick={() => navigate(`post/${item.topicId}`)}>
+            просмотр
+          </Button>
 
           <ButtonWrapperSt>
             <Button  onClick={() =>handleEditPost(item.topicId)}>редактировать пост</Button>
