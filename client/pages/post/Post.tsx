@@ -1,34 +1,40 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { WrapperSt, HeaderSt, TextSt, PostBodySt } from './style';
+import { WrapperSt, HeaderSt, TextSt, PostBodySt, CommentsBlockSt, CommentBlockSt } from './style';
 import Link from '../../components/Link';
 import Title from '../../components/Title';
 import Button from '../../components/Button';
-
+import ChangePostModal from '../../components/ChangePostModal';
 import { AppRoute } from '../../services/const';
 
 
-
+import { useToggle } from '../../hooks/useToggle';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTopicById} from '../../store/forum/actions';
+import { getTopicById, updateTopic, addComment } from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
+import Textarea from '../../components/Textarea';
+
 
 const Post = () => {
-  const params = useParams();
+  const [isShownChangeModal, toggleVisible] = useToggle(false);
+
+  const [isShownCommentField, toggleVisibleField] = useToggle(false);
 
   let { id } = useParams();
-  const [state, setState] = useState ({
+  const [state, setState] = useState({
     topicName: "",
     topicText: "",
-    ownerId:  ""
+    ownerId: ""
   })
 
-   const [loaded, setLoaded] = useState(false)
+  const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
-  const {topic } = useSelector((state: any) => state.forum)
+  const { topic } = useSelector((state: any) => state.forum)
+  const user = useSelector((state: any) => state.user);
 
+  const [post, setPost] = useState({ name: '', content: '', comment: '' });
 
 
   useEffect(() => {
@@ -39,25 +45,97 @@ const Post = () => {
 
 
   useEffect(() => {
-    if (topic) { 
+    if (topic) {
       setState({ ...topic })
     }
   }, [topic])
+
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setPost((prevPost) => ({ ...prevPost, [name]: value }));
+  };
+
+
+  const handleAddComments = () => {
+    if (!post.comment) {
+      console.log('заполите текст комментария')
+    } else {
+      const commentData = {
+        commentText: post.comment,
+        ownerId: user.id,
+        topicId: topic.topicId,
+      }
+      dispatch(addComment(topic.topicId, commentData))
+      toggleVisibleField();
+    }
+  }
+
+  const comments = topic.comments;
+
+  const handleTopicEdit = () => {
+    const test = {
+      topicName: post.name,
+      topicText: post.content,
+      ownerId: user.id,
+    }
+    dispatch(updateTopic(topic.topicId, test))
+    toggleVisible();
+  }
 
   return (
     <WrapperSt>
       <HeaderSt>
         <Link to={AppRoute.FORUM}>к списку</Link>
-        <div>edit</div>
+        <div onClick={toggleVisible} >edit</div>
       </HeaderSt>
       <PostBodySt>
         <Title h={2}> {topic.topicName}</Title>
         <TextSt>
-        {topic.topicText}
+          {topic.topicText}
         </TextSt>
       </PostBodySt>
-      <Button>оставить комментарий</Button>
-      <p>здесь список комментариев</p>
+
+      <Title h={4}>Комментарии</Title>
+      <CommentsBlockSt>
+        {comments && comments.map((item: any) => (
+          <CommentBlockSt>
+            <div>
+              {item.commentText}
+            </div>
+            <div>
+              Автор {item.ownerId}
+            </div>
+          </CommentBlockSt>
+        ))}
+      </CommentsBlockSt>
+
+
+      <Button onClick={() => toggleVisibleField()}>оставить комментарий</Button>
+
+
+      {isShownCommentField ?
+        <>
+          <Textarea
+            name={'comment'}
+            placeholder={'текст комментария'}
+            onChange={handleChange}
+          />
+          <Button onClick={handleAddComments}>сохранить</Button>
+        </>
+        : ""
+      }
+
+      <ChangePostModal
+        isShown={isShownChangeModal}
+        toggleVisible={toggleVisible}
+        headerText="Редактирование топика"
+        handleEdit={handleTopicEdit}
+        handleChange={handleChange}
+      />
     </WrapperSt>
   );
 };

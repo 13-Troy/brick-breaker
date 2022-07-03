@@ -18,11 +18,12 @@ export const forumReducer = (state = initialState, action: any) => {
       };
       case ActionType.DELETE_TOPIC:
       case ActionType.ADD_TOPIC:
+      case ActionType.UPDATE_TOPIC:
         return {
           ...state,
           loading: false,
         };
-        case ActionType.GET_TOPIC_BY_ID: 
+      case ActionType.GET_TOPIC_BY_ID: 
         return {
           ...state,
           topic: action.payload,

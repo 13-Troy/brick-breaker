@@ -15,7 +15,7 @@ class TopicController {
   }
 
   getById(topicId: number) {
-    return Topic.findOne({ where: { topicId } });
+    return Topic.findOne({ where: { topicId}, include: [{model: Comment}]});
   }
 
   delete(topicId: number) {

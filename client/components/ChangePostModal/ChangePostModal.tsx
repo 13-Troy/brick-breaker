@@ -5,25 +5,21 @@ import Input from '../../components/Input';
 import Textarea from '../../components/Textarea';
 import Button from '../../components/Button';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getTopicById} from '../../store/forum/actions';
-import { ThunkDispatch } from 'redux-thunk';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 interface ModalProps {
   isShown?: boolean;
   toggleVisible?: () => void;
   headerText?: string;
-  handleAdd?: () => void;
+  handleEdit?: () => void;
   handleChange?: any;
-  topic: any;
 }
 
 const ChangePostModal: FC<ModalProps> = ({
   isShown,
   toggleVisible,
   headerText,
-  handleAdd,
+  handleEdit,
   handleChange,
 }) => {
   if (!isShown) {
@@ -31,22 +27,7 @@ const ChangePostModal: FC<ModalProps> = ({
   }
 
 
-  const [state, setState] = useState ({
-    topicName: "",
-    topicText: "",
-    ownerId:  ""
-  })
-  // let { id } = useParams();
-
-  // const [loaded, setLoaded] = useState(false)
-  // const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
-
-  // useEffect(() => {
-  //   if (loaded) return;
-  //   dispatch(getTopicById(id))
-  //   setLoaded(true)
-  // }, [loaded])
-  
+  const [state, setState] = useState ()
   const {topic } = useSelector((state: any) => state.forum)
 
   useEffect(() => {
@@ -59,19 +40,17 @@ const ChangePostModal: FC<ModalProps> = ({
   return (
     <Modal isShown={isShown} hide={toggleVisible} headerText={headerText}>
       <Input
-        name={'name'}
+        name={'topic_name'}
         type={'text'}
-        placeholder={'название'}
-        value ={topic.topicName}
         onChange={handleChange}
-      />
+        value={topic.topicName ? topic.topicName : ''}
+      />  
       <Textarea
         name={'content'}
-        value = {topic.topicText}
-        placeholder={'текст поста'}
         onChange={handleChange}
+        value={topic.topicText ? topic.topicName : ''}
       />
-      <Button onClick={handleAdd}>сохранить</Button>
+      <Button onClick={handleEdit}>сохранить</Button>
     </Modal>
   );
 };

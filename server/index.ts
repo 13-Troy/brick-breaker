@@ -20,10 +20,11 @@ export function startApp() {
       await TopicController.create({topicName:'TestTopic2222' , topicText: 'TestTopicText', ownerId: 15});
 
       await CommentController.create('TestTopic', 2, 2);
-
+       await TopicController.update(1, {
+        topicId: 1,
+        topicName: 'UPD'
+      })
       // await TopicController.delete(1);
-
-
       const topics = await TopicController.getAll();
       const topicsId = await TopicController.getById(2);
 

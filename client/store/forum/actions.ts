@@ -8,10 +8,8 @@ export const ActionType = {
   DELETE_TOPIC: 'DELETE_TOPIC',
   ADD_TOPIC: 'ADD_TOPIC',
   GET_TOPIC_BY_ID: 'GET_TOPIC_BY_ID',
-
   UPDATE_TOPIC: 'UPDATE_TOPIC',
-  LOAD_COMMENTS: 'LOAD_COMMENTS',
-  ADD_COMMENTS: 'CREATE_COMMENTS',
+  ADD_COMMENTS: 'ADD_COMMENTS', 
 };
 
 
@@ -35,6 +33,15 @@ const topicDeleted = () => ({
 
 const topicAdded = () => ({
   type: ActionType.ADD_TOPIC,
+});
+
+const commentAdded = (comment:any) => ({
+  type: ActionType.ADD_COMMENTS,
+  payload: comment,
+});
+
+const topicUpdated = () => ({
+  type: ActionType.UPDATE_TOPIC,
 });
 
 
@@ -79,17 +86,33 @@ export const getTopicById = (id: number) => {
 }
 
 
+export const updateTopic = (id: number, topic: any) => {
+  console.log('ididid',id)
+  console.log('topictopictopic',topic)
+  return async (dispatch: Dispatch<any>) => {
+    axios.put(`${REACT_APP_API}/${id}`, topic)
+      .then(response => {
+        console.log('response', response.data)
+        dispatch(topicUpdated());
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}
+
+
 export const addTopic = (topic: any) => {
   return async (dispatch: Dispatch<any>) => {
     await axios.post(`${REACT_APP_API}`,
       topic,
-      {
-        withCredentials: true,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      }
+      // {
+      //   withCredentials: true,
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json'
+      //   }
+      // }
 
     )
       .then(response => {
@@ -104,6 +127,31 @@ export const addTopic = (topic: any) => {
 
 }
 
+
+export const addComment = (topicId: number, comment: any) => {
+  return async (dispatch: Dispatch<any>) => {
+    await axios.post(`${REACT_APP_API}/${topicId}/comment`,
+      comment,
+      // {
+      //   withCredentials: true,
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json'
+      //   }
+      // }
+
+    )
+      .then(response => {
+        console.log('response', response.data)
+        dispatch(commentAdded(response.data));
+        dispatch(getTopicById(topicId));
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+}
 
 
 

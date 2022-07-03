@@ -1,39 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import CreatePostModal from '../../components/CreatePostModal';
-import ChangePostModal from '../../components/ChangePostModal';
-
-
-import Table from '../../components/Table';
-
-import { forumList } from '../../mocks/data';
-
-import { filterData } from '../../services/forum';
+import Title from '../../components/Title';
+import { WrapperSt, TopicBodySt, ButtonWrapperSt, ButtonInnerSt, RowSt} from './style';
 
 import { useToggle } from '../../hooks/useToggle';
 
-import { WrapperSt, ButtonWrapperSt } from './style';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { loadTopics, deleteTopic, addTopic, getTopicById} from '../../store/forum/actions';
+import { loadTopics, deleteTopic, addTopic } from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import { useNavigate } from 'react-router-dom';
 
-const adaptPosts = forumList.map(filterData);
-
 const Forum = () => {
+  const [loaded, setLoaded] = useState(false)
   const [isShown, toggleVisible] = useToggle(false);
-
-  const [isShownChangeModal, toggleVisibleChangeModal] = useToggle(false);
-
-  const [postList, setPostList] = useState(adaptPosts);
   const [post, setPost] = useState({ name: '', content: '' });
 
-  const { topics, topic, loading } = useSelector((state: any) => state.forum)
+  const { topics, loading } = useSelector((state: any) => state.forum)
+  const user = useSelector((state: any) => state.user);
 
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
-
-  const [loaded, setLoaded] = useState(false)
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (loaded) return;
@@ -41,153 +28,69 @@ const Forum = () => {
     setLoaded(true)
   }, [loaded])
 
-
-  const colNames = ['Название', 'Автор', 'Ответы', ''];
-
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
     setPost((prevPost) => ({ ...prevPost, [name]: value }));
   };
 
-  const handleAdd = () => {
-    if(! post.content || ! post.name) {
-      console.log('заполите все поля')
-    }
-
-    const newPost = {
-      id: postList.length + 1,
-      content: post.content,
-      name: post.name,
-      user_id: 33,
-      user_name: 'Семен',
-      user_avatar:
-        'https://ya-praktikum.tech/api/v2/resources/2722d38f-5f23-4fec-a538-5743e75f81ee/b41f82c7-9204-44b2-8fe1-b597493f0371_ava.png',
-      answer_count: 0,
-    };
-    const adaptPosts = [...postList, newPost].map((post) => filterData(post));
-
-    setPostList(adaptPosts);
-    toggleVisible();
-  };
-
-
-  const handleDelete  = (id:number) => {
-    if(window.confirm("Действительно хотите удалить топик ?")) {
+  const handleDelete = (id: number) => {
+    if (window.confirm("Вы действительно хотите удалить топик ?")) {
       dispatch(deleteTopic(id))
+    }
   }
-}
 
-
-const handleTopicAdd  = (id:number) => {
-  if(! post.content || ! post.name) {
-    console.log('заполите все поля')
-  } else {
-    const test = {
-      topicName: post.name,
-      topicText: post.content,
-      ownerId: 33
-    } 
+  const handleTopicAdd = (id: number) => {
+    if (!post.content || !post.name) {
+      console.log('заполите все поля')
+    } else {
+      const test = {
+        topicName: post.name,
+        topicText: post.content,
+        ownerId: user.id,
+      }
       dispatch(addTopic(test))
       toggleVisible();
+    }
   }
-}
 
-
-const handleEditPost = (id:number) => {
-  alert(id)
-  dispatch(getTopicById(id))
-  toggleVisibleChangeModal();
-}
-
-
-const navigate = useNavigate();
-
-
-// const handleTopicAdd  = (id:number) => {
-//   alert(1)
-//   if(! post.content || ! post.name) {
-//     console.log('заполите все поля')
-//   } else {
-//     const test = {
-//       topicName: post.name,
-//       topicText: post.content,
-//       ownerId: 33
-//     } 
-//       dispatch(addTopic(test))
-//       toggleVisible();
-//   }
-// }
-
+  if (loading) {
+    return (
+      <div>
+        <Title h={3}>loading...</Title>
+      </div>
+    );
+  }
 
   return (
     <WrapperSt>
-  
-      {topics && topics.map((item: any) => (
-        <div>
-          <div>
-            {item.topicName}
-          </div>
-
-          <div>
-            {item.topicText}
-          </div>
-
-
-          <Button onClick={() => navigate(`post/${item.topicId}`)}>
-            просмотр
-          </Button>
-
-          <ButtonWrapperSt>
-            <Button  onClick={() =>handleEditPost(item.topicId)}>редактировать пост</Button>
-          </ButtonWrapperSt>
-     
-      <ButtonWrapperSt>
-        <Button onClick={() => handleDelete(item.topicId)}>удалить</Button>
-      </ButtonWrapperSt>
-
-        </div>
-      ))}
-
-
-      <Table colNames={colNames} content={postList} />
       <ButtonWrapperSt>
         <Button onClick={toggleVisible}>создать пост</Button>
       </ButtonWrapperSt>
 
+      {topics && topics.map((item: any) => (
+        <TopicBodySt onClick={() => navigate(`post/${item.topicId}`)}>
+          <Title h={3}> {item.topicName}</Title>
+          <Title h={3}> {item.topicText}</Title>
+          <RowSt>
+            Автор id&nbsp;<Title h={4}> {item.ownerId}</Title>
+          </RowSt>
+          <RowSt>
+            Ответов&nbsp;<Title h={4}> {item.comments.length}</Title>
+          </RowSt>
 
-{/* 
-      <Modal isShown={isShown} hide={toggleVisible}>
-          {changeProfile === 'changeAvatar' && 
-          
-          <ChangeAvatarModal />
-          
-          
-          }
-          {changeProfile === 'changeData' && <ChangeProfileDataModal />}
-          {changeProfile === 'changePassword' && <ChangePasswordModal />}
-        </Modal> */}
-
-
+          <ButtonInnerSt>
+            <Button onClick={() => handleDelete(item.topicId)}>удалить</Button>
+          </ButtonInnerSt>
+        </TopicBodySt>
+      ))}
       <CreatePostModal
         isShown={isShown}
         toggleVisible={toggleVisible}
         headerText="Создание топика"
-        // handleAdd={handleAdd}
-        handleAdd={handleTopicAdd}
-        handleChange={handleChange}
-      />
-
-
-      <ChangePostModal
-        isShown={isShownChangeModal}
-        toggleVisible={toggleVisibleChangeModal}
-        headerText="Редактирование топика"
-        // handleAdd={handleAdd}
         handleAdd={handleTopicAdd}
         handleChange={handleChange}
       />

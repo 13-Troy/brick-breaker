@@ -2,7 +2,7 @@ import { Router } from 'express'
 const router = Router();
 
 import TopicController from '../controllers/forum/topic';
-// import CommentController from '../controllers/forum/comment';
+import CommentController from '../controllers/forum/comment';
 
 router.get('/', async (req, res) => {
   try {
@@ -16,13 +16,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   // const { topicName, topicText, ownerId } = req.body
   try {
-    const response = await TopicController.create(req.body)
-    // const response = await TopicController.create({topicName:'ForumTest', topicText:'ForumTest', ownerId:77})
+    // const response = await TopicController.create(req.body)
+    const response = await TopicController.create({topicName:'ForumTest', topicText:'ForumTest', ownerId:77})
     res.status(200).send(response);
   } catch (error) {
     res.status(500).send(error);
   }
 })
+
 
 router.get('/:id', async (req, res) => {
   try {
@@ -38,8 +39,16 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const data = req.body;
-    const response = await TopicController.update(id, data)
+    // const data = req.body;
+    console.log(id)
+    const response =
+    await TopicController.update(1, {
+      topicId: 1,
+      topicName: 'UPD',
+      topicText: 'UPDtopicText'
+    })
+
+    // const response = await TopicController.update(id, data)
     res.status(200).send(response);
   } catch (error) {
     res.status(500).send(error);
@@ -56,6 +65,20 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+
+
+router.post('/:id/comment', async (req, res) => {
+  // const { topicName, topicText, ownerId } = req.body
+  try {
+   
+    // const response = await CommentController.create(req.body)
+    const response = await CommentController.create('Новый комментарий', 2, 2);
+    res.status(200).send(response);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 
 export default router;
