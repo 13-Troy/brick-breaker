@@ -36,7 +36,7 @@ services:
       - awesome
   main:
     env_file:
-      ./dev.env
+      ./prod.env
     # Этим ключом мы скажем docker-compose, чтобы он собирал докерфайл, который
     # находится в папке рядом с docker-compose.yaml
     build:
