@@ -2,19 +2,7 @@ import { Router } from 'express'
 const router = Router();
 
 import TopicController from '../controllers/forum/topic';
-
 // import CommentController from '../controllers/forum/comment';
-
-router.post('/', async (req, res) => {
-  try {
-    const { name, text, ownerId } = req.body;
-    const response = await TopicController.create(name, text, ownerId)
-    res.status(200).send(response);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-})
-
 
 router.get('/', async (req, res) => {
   try {
@@ -23,9 +11,18 @@ router.get('/', async (req, res) => {
   } catch (error) {
     res.status(500).send(error);
   }
-
 })
 
+router.post('/', async (req, res) => {
+  // const { topicName, topicText, ownerId } = req.body
+  try {
+    // const response = await TopicController.create(req.body)
+    const response = await TopicController.create({topicName:'ForumTest', topicText:'ForumTest', ownerId:77})
+    res.status(200).send(response);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 router.get('/:id', async (req, res) => {
   try {

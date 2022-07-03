@@ -1,7 +1,13 @@
 import { Topic, ITopic } from '../../../server/models/topic';
 import { Comment } from '../../../server/models/comment';
 class TopicController {
-  create(topicName: string, topicText: string, ownerId: number) {
+  create(body:any) {
+    const topicName = body.topicName
+    const topicText = body.topicText
+    const ownerId = body.ownerId
+  
+    console.log('body',body)
+
     return Topic.create({ topicName, topicText, ownerId });
   }
   getAll() {

@@ -1,4 +1,5 @@
 export const USER = 'USER';
+export const FORUM = 'FORUM';
 
 export interface User {
   first_name: string;
@@ -8,4 +9,12 @@ export interface User {
   phone: string;
   display_name: string;
   avatar: null | string;
+}
+
+export interface Forum {
+  topicId: number
+  topicName: string;
+  topicText: string;
+  ownerId: number
+  comments: any
 }
