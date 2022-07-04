@@ -1,41 +1,54 @@
-import React, { FC , useState, useEffect} from 'react';
+import React, { FC, useState } from 'react';
 
 import Modal from '../Modal';
 import Input from '../../components/Input';
 import Textarea from '../../components/Textarea';
 import Button from '../../components/Button';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTopic } from '../../store/forum/actions';
+import { ThunkDispatch } from 'redux-thunk';
 
 interface ModalProps {
   isShown?: boolean;
-  toggleVisible?: () => void;
+  toggleVisible?: (() => void) | any;
   headerText?: string;
-  handleEdit?: () => void;
-  handleChange?: any;
 }
 
-const ChangePostModal: FC<ModalProps> = ({
-  isShown,
-  toggleVisible,
-  headerText,
-  handleEdit,
-  handleChange,
-}) => {
+const ChangePostModal: FC<ModalProps> = ({isShown, toggleVisible, headerText}) => {
+  
   if (!isShown) {
     return null;
   }
 
+  const { topic } = useSelector((state: any) => state.forum)
+  const user = useSelector((state: any) => state.user)
 
-  const [state, setState] = useState ()
-  const {topic } = useSelector((state: any) => state.forum)
+  const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
 
-  useEffect(() => {
-    if (topic) { 
-      setState({ ...topic })
+  const [data, setData] = useState({
+    topic_name: topic.topicName,
+    topic_text: topic.topicText,
+  });
+
+  const handleTopicEdit = () => {
+    const topicDataNew = {
+      topicName: data.topic_name,
+      topicText: data.topic_text,
+      ownerId: user.id,
     }
-  }, [topic])
+    dispatch(updateTopic(topic.topicId, topicDataNew))
+    toggleVisible();
+  }
 
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setData((prevTopic) => ({ ...prevTopic, [name]: value }));
+  };
 
   return (
     <Modal isShown={isShown} hide={toggleVisible} headerText={headerText}>
@@ -43,14 +56,14 @@ const ChangePostModal: FC<ModalProps> = ({
         name={'topic_name'}
         type={'text'}
         onChange={handleChange}
-        value={topic.topicName ? topic.topicName : ''}
-      />  
-      <Textarea
-        name={'content'}
-        onChange={handleChange}
-        value={topic.topicText ? topic.topicName : ''}
+        value={data.topic_name}
       />
-      <Button onClick={handleEdit}>сохранить</Button>
+      <Textarea
+        name={'topic_text'}
+        onChange={handleChange}
+        value={data.topic_text}
+      />
+      <Button onClick={handleTopicEdit}>сохранить</Button>
     </Modal>
   );
 };

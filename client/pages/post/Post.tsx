@@ -11,31 +11,31 @@ import { AppRoute } from '../../services/const';
 
 import { useToggle } from '../../hooks/useToggle';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTopicById, updateTopic, addComment } from '../../store/forum/actions';
+import { getTopicById, addComment } from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Textarea from '../../components/Textarea';
 
 
 const Post = () => {
   const [isShownChangeModal, toggleVisible] = useToggle(false);
-
   const [isShownCommentField, toggleVisibleField] = useToggle(false);
+  const [loaded, setLoaded] = useState(false)
 
   let { id } = useParams();
+  
   const [state, setState] = useState({
     topicName: "",
     topicText: "",
     ownerId: ""
   })
 
-  const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
-
   const { topic } = useSelector((state: any) => state.forum)
   const user = useSelector((state: any) => state.user);
 
   const [post, setPost] = useState({ name: '', content: '', comment: '' });
 
+  const comments = topic.comments;
 
   useEffect(() => {
     if (loaded) return;
@@ -73,19 +73,7 @@ const Post = () => {
       toggleVisibleField();
     }
   }
-
-  const comments = topic.comments;
-
-  const handleTopicEdit = () => {
-    const test = {
-      topicName: post.name,
-      topicText: post.content,
-      ownerId: user.id,
-    }
-    dispatch(updateTopic(topic.topicId, test))
-    toggleVisible();
-  }
-
+  
   return (
     <WrapperSt>
       <HeaderSt>
@@ -133,8 +121,6 @@ const Post = () => {
         isShown={isShownChangeModal}
         toggleVisible={toggleVisible}
         headerText="Редактирование топика"
-        handleEdit={handleTopicEdit}
-        handleChange={handleChange}
       />
     </WrapperSt>
   );
