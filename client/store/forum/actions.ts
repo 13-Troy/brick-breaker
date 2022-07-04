@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { Dispatch } from 'react';
+import {adaptTopicData} from '../../../client/services/forum';
 
 export const ActionType = {
   GET_TOPICS: 'GET_TOPICS',
@@ -11,7 +12,6 @@ export const ActionType = {
   UPDATE_TOPIC: 'UPDATE_TOPIC',
   ADD_COMMENTS: 'ADD_COMMENTS', 
 };
-
 
 const REACT_APP_API = '/api/topic'
 
@@ -49,8 +49,8 @@ export const loadTopics = () => {
   return async (dispatch: Dispatch<any>) => {
     await axios.get(`${REACT_APP_API}`)
       .then(response => {
-        console.log('response', response.data)
-        dispatch(getTopics(response.data))
+        const adaptCommnents = response.data.map((topic:any) => adaptTopicData(topic));
+        dispatch(getTopics(adaptCommnents))
       })
       .catch(error => {
         console.log(error)

@@ -26,6 +26,21 @@ export const getProfile = () => {
   };
 };
 
+export const getUserById = (id:number) => {
+ 
+    fetch(`${UrlSite.URL}/user/${id}`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then((data) => {
+        console.log('data.json()data.json()data.json()',data.json())
+        return data.json();
+      })
+};
+
 export const updateProfileData = (newData: any) => {
   return (dispatch: Dispatch<any>) => {
     fetch(`${UrlSite.URL}/user/profile`, {

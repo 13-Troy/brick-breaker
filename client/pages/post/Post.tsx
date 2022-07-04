@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { WrapperSt, HeaderSt, TextSt, PostBodySt, CommentsBlockSt, CommentBlockSt } from './style';
+import { WrapperSt, HeaderSt, TextSt, PostBodySt} from './style';
 import Link from '../../components/Link';
 import Title from '../../components/Title';
 import Button from '../../components/Button';
 import ChangePostModal from '../../components/ChangePostModal';
+import Comments from '../../components/Comments';
+
 import { AppRoute } from '../../services/const';
 
 
@@ -22,7 +24,7 @@ const Post = () => {
   const [loaded, setLoaded] = useState(false)
 
   let { id } = useParams();
-  
+
   const [state, setState] = useState({
     topicName: "",
     topicText: "",
@@ -35,7 +37,7 @@ const Post = () => {
 
   const [post, setPost] = useState({ name: '', content: '', comment: '' });
 
-  const comments = topic.comments;
+  const commentsList = topic.comments;
 
   useEffect(() => {
     if (loaded) return;
@@ -73,7 +75,7 @@ const Post = () => {
       toggleVisibleField();
     }
   }
-  
+
   return (
     <WrapperSt>
       <HeaderSt>
@@ -86,25 +88,9 @@ const Post = () => {
           {topic.topicText}
         </TextSt>
       </PostBodySt>
-
-      <Title h={4}>Комментарии</Title>
-      <CommentsBlockSt>
-        {comments && comments.map((item: any) => (
-          <CommentBlockSt>
-            <div>
-              {item.commentText}
-            </div>
-            <div>
-              Автор {item.ownerId}
-            </div>
-          </CommentBlockSt>
-        ))}
-      </CommentsBlockSt>
-
+      <Comments comments={commentsList} />
 
       <Button onClick={() => toggleVisibleField()}>оставить комментарий</Button>
-
-
       {isShownCommentField ?
         <>
           <Textarea

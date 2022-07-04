@@ -76,12 +76,14 @@ const Forum = () => {
           <Title h={3}> {item.topicName}</Title>
           <Title h={3}> {item.topicText}</Title>
           <RowSt>
-            Автор id&nbsp;<Title h={4}> {item.ownerId}</Title>
+            Автор id&nbsp;<Title h={4}> {item.ownerName}</Title>
           </RowSt>
           <RowSt>
             Ответов&nbsp;<Title h={4}> {item.comments.length}</Title>
           </RowSt>
-
+          <RowSt>
+            Создан&nbsp;<Title h={4}> {item.date}</Title>
+          </RowSt>
           <ButtonInnerSt>
             <Button onClick={() => handleDelete(item.topicId)}>удалить</Button>
           </ButtonInnerSt>
