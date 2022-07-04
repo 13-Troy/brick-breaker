@@ -28,7 +28,6 @@ const getTopic = (topic: any) => ({
 
 const topicDeleted = () => ({
   type: ActionType.DELETE_TOPIC,
-
 });
 
 const topicAdded = () => ({
@@ -63,8 +62,8 @@ export const deleteTopic = (id: number) => {
     axios.delete(`${REACT_APP_API}/${id}`)
       .then(response => {
         console.log('response', response)
-        dispatch(topicDeleted());
-        dispatch(loadTopics());
+          dispatch(topicDeleted());
+          dispatch(loadTopics());
       })
       .catch(error => {
         console.log(error)

@@ -4,49 +4,15 @@ import path from 'path';
 import {dbConnect} from './db';
 import forumApi from './routers/forum'
 
-
-import TopicController  from './controllers/forum/topic';
-
-import CommentController  from './controllers/forum/comment';
-
 const PORT = process.env.PORT || 5000;
 
-
-export function startApp() {
-  dbConnect().then(async () => {
-    try {
-
-      await TopicController.create({topicName: 'TestTopic11111' , topicText: 'TestTopicText', ownerId: 16});
-      await TopicController.create({topicName:'TestTopic2222' , topicText: 'TestTopicText', ownerId: 15});
-
-      await CommentController.create('TestTopic', 2, 2);
-       await TopicController.update(1, {
-        topicId: 1,
-        topicName: 'UPD'
-      })
-      // await TopicController.delete(1);
-      const topics = await TopicController.getAll();
-      const topicsId = await TopicController.getById(2);
-
-      console.log('topicstopicstopics',topics);
-      console.log('topicsIdtopicsIdtopicsIdtopicsId',topicsId);
-    
-      
-    } catch (error) {
-      console.log(error);
-    }
-  });
-}
-
 (async () => {
-  // await dbConnect()
-
-  startApp()
+  await dbConnect()
 
   const app = express();
-
   app.use('/api/topic', forumApi)
 
+ 
 
   app.use(express.static(path.join(__dirname, '../../public')));
   app.use(render());

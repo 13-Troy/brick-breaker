@@ -17,13 +17,8 @@ export interface ITopic {
   topicName?: string;
   topicText?: string;
   ownerId?: number;
-}
-
-export interface IComment {
-  commentId: number;
-  commentText: string;
-  ownerId: number;
-  topicId: number;
+  ownerName?: string;
+  ownerAvatar: string;
 }
 
 @Table(
@@ -55,6 +50,15 @@ export class Topic extends Model implements ITopic {
   @NotEmpty
   @Column(DataType.INTEGER)
   ownerId: number
+
+  @AllowNull(false)
+  @NotEmpty
+  @Column(DataType.STRING)
+  ownerName: string;
+
+  @NotEmpty
+  @Column(DataType.STRING)
+  ownerAvatar: string;
 
   @HasMany(() => Comment, 'topicId')
   comments: Comment[];

@@ -3,6 +3,7 @@ const router = Router();
 
 import TopicController from '../controllers/forum/topic';
 import CommentController from '../controllers/forum/comment';
+import bodyParser from 'body-parser';
 
 router.get('/', async (req, res) => {
   try {
@@ -13,11 +14,20 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
-  // const { topicName, topicText, ownerId } = req.body
+
+const jsonParser = bodyParser.json()
+router.post('/', jsonParser, async (req, res) => {
+  const { topicName, topicText, ownerId, ownerName, ownerAvatar } = req.body
+
+  console.log('req.bodyreq.bodyreq.body',req.body)
   try {
-    // const response = await TopicController.create(req.body)
-    const response = await TopicController.create({topicName:'ForumTest', topicText:'ForumTest', ownerId:77})
+    const response = await TopicController.create({
+      topicName: topicName,
+      topicText: topicText,
+      ownerId: ownerId,
+      ownerName: ownerName,
+      ownerAvatar: ownerAvatar
+    })
     res.status(200).send(response);
   } catch (error) {
     res.status(500).send(error);
@@ -36,19 +46,11 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', jsonParser, async (req, res) => {
   try {
     const id = Number(req.params.id)
-    // const data = req.body;
-    console.log(id)
-    const response =
-    await TopicController.update(1, {
-      topicId: 1,
-      topicName: 'UPD',
-      topicText: 'UPDtopicText'
-    })
-
-    // const response = await TopicController.update(id, data)
+    const data = req.body;
+    const response = await TopicController.update(id, data)
     res.status(200).send(response);
   } catch (error) {
     res.status(500).send(error);
@@ -59,8 +61,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
-    const response = await TopicController.delete(id)
-    res.status(200).send(response);
+    await TopicController.delete(id)
+    res.status(200);
   } catch (error) {
     res.status(500).send(error);
   }
@@ -68,13 +70,18 @@ router.delete('/:id', async (req, res) => {
 
 
 
-router.post('/:id/comment', async (req, res) => {
-  // const { topicName, topicText, ownerId } = req.body
+router.post('/:id/comment', jsonParser,  async (req, res) => {
+  const { commentText, ownerId, ownerName, ownerAvatar, topicId} = req.body
   try {
-   
-    // const response = await CommentController.create(req.body)
-    const response = await CommentController.create('Новый комментарий', 2, 2);
+    const response = await CommentController.create({
+      commentText: commentText,
+      ownerId: ownerId,
+      ownerName: ownerName,
+      ownerAvatar: ownerAvatar,
+      topicId: topicId
+    })
     res.status(200).send(response);
+
   } catch (error) {
     res.status(500).send(error);
   }

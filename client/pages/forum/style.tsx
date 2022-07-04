@@ -33,7 +33,6 @@ export const TopicBodySt = styled.div`
   border: 1px solid ${({ theme }) => theme.allColors.blue};
   transition: ${({ theme }) => theme.skillsStartAnim} all;
   padding: 10px;
-  cursor: pointer;
   h3, h2, h4 {
     text-align: initial; 
     margin-bottom: 0;

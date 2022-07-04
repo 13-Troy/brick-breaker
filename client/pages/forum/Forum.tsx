@@ -43,14 +43,21 @@ const Forum = () => {
     }
   }
 
-  const handleTopicAdd = (id: number) => {
+  const handleTopicAdd = () => {
+
+    if (!user.id ) {
+      console.log('авторизуйтесь')
+    }
+
     if (!post.content || !post.name) {
-      console.log('заполите все поля')
+      console.log('заполните все поля')
     } else {
       const test = {
         topicName: post.name,
         topicText: post.content,
         ownerId: user.id,
+        ownerName: user.display_name,
+        ownerAvatar: user.avatar,
       }
       dispatch(addTopic(test))
       toggleVisible();
@@ -72,8 +79,10 @@ const Forum = () => {
       </ButtonWrapperSt>
 
       {topics && topics.map((item: any) => (
-        <TopicBodySt onClick={() => navigate(`post/${item.topicId}`)}>
-          <Title h={3}> {item.topicName}</Title>
+        <TopicBodySt>
+          <div  style={{ cursor: 'pointer' }} onClick={() => navigate(`post/${item.topicId}`)}>
+            <Title h={2}> {item.topicName}</Title>
+          </div>
           <Title h={3}> {item.topicText}</Title>
           <RowSt>
             Автор id&nbsp;<Title h={4}> {item.ownerName}</Title>

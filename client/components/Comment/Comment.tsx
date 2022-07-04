@@ -13,7 +13,7 @@ const Comment = (props: CommentsProps) => {
               {item.commentText}
             </div>
             <div>
-              Автор {item.ownerId}
+              Автор {item.ownerName}
             </div>
           </CommentBlockSt>
   );

@@ -69,6 +69,8 @@ const Post = () => {
       const commentData = {
         commentText: post.comment,
         ownerId: user.id,
+        ownerName: user.display_name,
+        ownerAvatar: user.avatar,
         topicId: topic.topicId,
       }
       dispatch(addComment(topic.topicId, commentData))
