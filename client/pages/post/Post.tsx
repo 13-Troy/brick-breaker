@@ -17,6 +17,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import Textarea from '../../components/Textarea';
 import { useNavigate } from 'react-router-dom';
 import { deleteTopic } from '../../store/forum/actions';
+import pencilIcon from '../../assets/img/pencil.png';
+import trashIcon from '../../assets/img/trash.png';
 
 const Post = () => {
   const [isShownChangeModal, toggleVisible] = useToggle(false);
@@ -95,14 +97,10 @@ const Post = () => {
           user.id === topic.ownerId &&
           <SettingsBlockSt>
             <div onClick={() => handleDelete(topic.topicId)}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 11V17M14 11V17M4 7H20M19 7L18.133 19.142C18.0971 19.6466 17.8713 20.1188 17.5011 20.4636C17.1309 20.8083 16.6439 21 16.138 21H7.862C7.35614 21 6.86907 20.8083 6.49889 20.4636C6.1287 20.1188 5.90292 19.6466 5.867 19.142L5 7H19ZM15 7V4C15 3.73478 14.8946 3.48043 14.7071 3.29289C14.5196 3.10536 14.2652 3 14 3H10C9.73478 3 9.48043 3.10536 9.29289 3.29289C9.10536 3.48043 9 3.73478 9 4V7H15Z" stroke="#231F20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <img src={trashIcon} />
             </div>
             <div onClick={toggleVisible}> 
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.232 5.23202L18.768 8.76802M16.732 3.73202C17.2009 3.26312 17.8369 2.99969 18.5 2.99969C19.1631 2.99969 19.7991 3.26312 20.268 3.73202C20.7369 4.20093 21.0003 4.8369 21.0003 5.50002C21.0003 6.16315 20.7369 6.79912 20.268 7.26802L6.5 21.036H3V17.464L16.732 3.73202Z" stroke="#231F20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <img src={pencilIcon} />
             </div>
           </SettingsBlockSt>
         }
