@@ -19,7 +19,17 @@ export const PostBodySt = styled.div`
 
 
 export const SettingsBlockSt = styled.div`
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  div{
+    margin-left: 20px;
+    cursor: pointer;
+    svg {
+      &:hover {
+        stroke: ${({ theme }) => theme.allColors.white};
+      }
+    }
+  }
 `;
 
 export const TextSt = styled.div`
@@ -33,4 +43,8 @@ export const CommentsBlockSt = styled.div`
 
 export const CommentBlockSt = styled.div`
   margin-bottom: 20px;
+`;
+
+export const CommentAddBlockSt = styled.div`
+  margin-top: 20px;
 `;

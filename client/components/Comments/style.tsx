@@ -23,3 +23,15 @@ export const CommentTextBlockST = styled.div`
     color:${({ theme }) => theme.allColors.white};
   }
 `;
+
+export const CommentTopBlockSt = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+export const CommentBottomBlockSt = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;

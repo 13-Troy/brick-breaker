@@ -18,6 +18,7 @@ export const AvatarSt = styled.div.attrs((props: AvatarProps) => ({
   border-radius: 50%;
   cursor: pointer;
   position: relative;
+  width: ${({ size }) => (size ? `${size}px` : '130px')};
   min-width: ${({ size }) => (size ? `${size}px` : '130px')};
   height: ${({ size }) => (size ? `${size}px` : '130px')};
 

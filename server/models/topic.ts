@@ -43,7 +43,7 @@ export class Topic extends Model implements ITopic {
 
   @AllowNull(false)
   @NotEmpty
-  @Column(DataType.STRING)
+  @Column(DataType.TEXT)
   topicText: string;
 
   @AllowNull(false)
