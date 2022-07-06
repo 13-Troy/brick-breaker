@@ -60,7 +60,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
     await TopicController.delete(id)
-    res.status(200);
+    res.status(200).send('OK');
   } catch (error) {
     res.status(500).send(error);
   }
@@ -89,7 +89,7 @@ router.delete('/:topicId/comment/:commentId', async (req, res) => {
   try {
     const id = Number(req.params.commentId)
     await CommentController.delete(id)
-    res.status(200);
+    res.status(200).send('OK');
   } catch (error) {
     res.status(500).send(error);
   }
