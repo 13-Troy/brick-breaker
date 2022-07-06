@@ -4,14 +4,12 @@ class CommentController {
     const { commentText, ownerId, ownerName, ownerAvatar, topicId } = body
     return Comment.create({ commentText, ownerId, ownerName, ownerAvatar, topicId });
   }
-
   getAll(topicId:number) {
     return (
       Comment.findAll({
         where: { topicId }
       }))
   }
-
   delete(commentId: number) {
     return Comment.destroy({ where: { commentId } });
   }

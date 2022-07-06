@@ -1,7 +1,6 @@
 
 import axios from 'axios';
 import { Dispatch } from 'react';
-import {adaptTopicData} from '../../../client/services/forum';
 
 export const ActionType = {
   GET_TOPICS: 'GET_TOPICS',
@@ -11,6 +10,7 @@ export const ActionType = {
   GET_TOPIC_BY_ID: 'GET_TOPIC_BY_ID',
   UPDATE_TOPIC: 'UPDATE_TOPIC',
   ADD_COMMENTS: 'ADD_COMMENTS', 
+  DELETE_COMMENT: 'DELETE_COMMENT', 
 };
 
 const REACT_APP_API = '/api/topic'
@@ -43,13 +43,15 @@ const topicUpdated = () => ({
   type: ActionType.UPDATE_TOPIC,
 });
 
+const commentDeleted = () => ({
+  type: ActionType.DELETE_COMMENT,
+});
 
 export const loadTopics = () => {
   return async (dispatch: Dispatch<any>) => {
     await axios.get(`${REACT_APP_API}`)
       .then(response => {
-        const adaptCommnents = response.data.map((topic:any) => adaptTopicData(topic));
-        dispatch(getTopics(adaptCommnents))
+        dispatch(getTopics(response.data))
       })
       .catch(error => {
         console.log(error)
@@ -84,15 +86,13 @@ export const getTopicById = (id: number) => {
   }
 }
 
-
 export const updateTopic = (id: number, topic: any) => {
-  console.log('ididid',id)
-  console.log('topictopictopic',topic)
   return async (dispatch: Dispatch<any>) => {
     axios.put(`${REACT_APP_API}/${id}`, topic)
       .then(response => {
         console.log('response', response.data)
         dispatch(topicUpdated());
+        dispatch(getTopicById(id));
       })
       .catch(error => {
         console.log(error)
@@ -100,19 +100,10 @@ export const updateTopic = (id: number, topic: any) => {
   }
 }
 
-
 export const addTopic = (topic: any) => {
   return async (dispatch: Dispatch<any>) => {
     await axios.post(`${REACT_APP_API}`,
       topic,
-      // {
-      //   withCredentials: true,
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json'
-      //   }
-      // }
-
     )
       .then(response => {
         console.log('response', response.data)
@@ -123,22 +114,12 @@ export const addTopic = (topic: any) => {
         console.log(error)
       })
   }
-
 }
-
 
 export const addComment = (topicId: number, comment: any) => {
   return async (dispatch: Dispatch<any>) => {
     await axios.post(`${REACT_APP_API}/${topicId}/comment`,
       comment,
-      // {
-      //   withCredentials: true,
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json'
-      //   }
-      // }
-
     )
       .then(response => {
         console.log('response', response.data)
@@ -149,7 +130,20 @@ export const addComment = (topicId: number, comment: any) => {
         console.log(error)
       })
   }
+}
 
+export const deleteComment = (topicId: number, commentId: number) => {
+  return async (dispatch: Dispatch<any>) => {
+    axios.delete(`${REACT_APP_API}/${topicId}/comment/${commentId}`)
+      .then(response => {
+        console.log('response', response)
+          dispatch(commentDeleted());
+          dispatch(getTopicById(topicId));
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 }
 
 

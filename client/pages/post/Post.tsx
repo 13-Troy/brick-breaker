@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { WrapperSt, HeaderSt, TextSt, PostBodySt} from './style';
+import { WrapperSt, HeaderSt, TextSt, PostBodySt, SettingsBlockSt } from './style';
 import Link from '../../components/Link';
 import Title from '../../components/Title';
 import Button from '../../components/Button';
@@ -10,12 +10,13 @@ import Comments from '../../components/Comments';
 
 import { AppRoute } from '../../services/const';
 
-
 import { useToggle } from '../../hooks/useToggle';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTopicById, addComment } from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Textarea from '../../components/Textarea';
+import { useNavigate } from 'react-router-dom';
+import { deleteTopic } from '../../store/forum/actions';
 
 
 const Post = () => {
@@ -62,6 +63,13 @@ const Post = () => {
   };
 
 
+  const handleDelete = (id: number) => {
+    if (window.confirm("Вы действительно хотите удалить топик ?")) {
+      dispatch(deleteTopic(id))
+      navigate('/forum')
+    }
+  }
+
   const handleAddComments = () => {
     if (!post.comment) {
       console.log('заполите текст комментария')
@@ -77,17 +85,26 @@ const Post = () => {
       toggleVisibleField();
     }
   }
+  const navigate = useNavigate();
+
 
   return (
     <WrapperSt>
       <HeaderSt>
         <Link to={AppRoute.FORUM}>к списку</Link>
-        <div onClick={toggleVisible} >edit</div>
+        {
+          user.id === topic.ownerId &&
+          <SettingsBlockSt>
+            <div onClick={() => handleDelete(topic.topicId)}> удалить </div>
+            <div onClick={toggleVisible}> редактировать </div>
+          </SettingsBlockSt>
+        }
+
       </HeaderSt>
       <PostBodySt>
         <Title h={2}> {topic.topicName}</Title>
         <TextSt>
-          {topic.topicText}
+          <Title h={4}>{topic.topicText}</Title>
         </TextSt>
       </PostBodySt>
       <Comments comments={commentsList} />

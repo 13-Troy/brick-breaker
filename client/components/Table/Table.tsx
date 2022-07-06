@@ -20,13 +20,13 @@ interface TableProps {
 
 const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
   const navigate = useNavigate();
-  
+
   const tableRow = Object.values(content).map((obj, i) => (
     <TableRowSt key={i}>
       {Object.keys(obj)
         .filter((key) => key !== 'id' && key !== 'user_avatar')
         .map((key, index) => {
-          if (key == 'user_name') {
+          if (key == 'user_name' || key == 'user_name') {
             return (
               <TableColSt>
                 <WrapperColSt>
@@ -46,8 +46,8 @@ const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
             просмотр
           </Button>
         ) : (
-          ''
-        )}
+            ''
+          )}
       </TableColSt>
     </TableRowSt>
   ));

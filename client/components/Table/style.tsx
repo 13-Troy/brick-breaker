@@ -4,6 +4,7 @@ export const TableSt = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 40px;
+  font-size: 14px;
 `;
 
 export const TableBodySt = styled.tbody``;

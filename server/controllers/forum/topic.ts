@@ -3,8 +3,6 @@ import { Comment } from '../../../server/models/comment';
 class TopicController {
   create(body:any) {
     const { topicName, topicText, ownerId, ownerName, ownerAvatar } = body
-    console.log('body',body)
-
     return Topic.create({ topicName, topicText, ownerId, ownerName, ownerAvatar});
   }
   getAll() {

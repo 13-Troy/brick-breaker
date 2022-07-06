@@ -8,3 +8,18 @@ export const CommentsBlockSt = styled.div`
 export const CommentBlockSt = styled.div`
   margin-bottom: 20px;
 `;
+
+export const AuthorTextBlockST = styled.div`
+  display: flex;
+  align-items: center;
+  div {
+    margin-right: 10px;
+  }
+`;
+
+export const CommentTextBlockST = styled.div`
+  margin-left: 50px;
+  h4{
+    color:${({ theme }) => theme.allColors.white};
+  }
+`;

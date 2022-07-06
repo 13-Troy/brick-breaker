@@ -17,6 +17,11 @@ export const PostBodySt = styled.div`
   margin-bottom: 80px;
 `;
 
+
+export const SettingsBlockSt = styled.div`
+  font-size: 12px;
+`;
+
 export const TextSt = styled.div`
   font-size: 14px;
 `;

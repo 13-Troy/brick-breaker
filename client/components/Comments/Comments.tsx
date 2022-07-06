@@ -13,8 +13,8 @@ const Comments = (props: CommentsProps) => {
     <>
       <Title h={4}>Комментарии</Title>
       <CommentsBlockSt>
-        {comments && comments.map((item: any) => (
-          <Comment item={item} />
+        {comments && comments.map((item: any, i) => (
+          <Comment key={i} item={item} />
         ))}
       </CommentsBlockSt>
     </>

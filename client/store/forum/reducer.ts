@@ -29,6 +29,11 @@ export const forumReducer = (state = initialState, action: any) => {
           topic: action.payload,
           loading: false,
         };
+      case ActionType.DELETE_COMMENT:
+        return {
+          ...state,
+          loading: false,
+        };
     default:
     return state;
   }

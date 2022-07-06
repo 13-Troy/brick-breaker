@@ -15,11 +15,9 @@ router.get('/', async (req, res) => {
 })
 
 
-const jsonParser = bodyParser.json()
+const jsonParser = bodyParser.json()  
 router.post('/', jsonParser, async (req, res) => {
   const { topicName, topicText, ownerId, ownerName, ownerAvatar } = req.body
-
-  console.log('req.bodyreq.bodyreq.body',req.body)
   try {
     const response = await TopicController.create({
       topicName: topicName,
@@ -86,6 +84,16 @@ router.post('/:id/comment', jsonParser,  async (req, res) => {
     res.status(500).send(error);
   }
 })
+
+router.delete('/:topicId/comment/:commentId', async (req, res) => {
+  try {
+    const id = Number(req.params.commentId)
+    await CommentController.delete(id)
+    res.status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 
 
 export default router;
