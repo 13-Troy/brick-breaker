@@ -32,14 +32,15 @@ const Comment = (props: CommentsProps) => {
         </CommentTextBlockST>
       </CommentTopBlockSt>
       <CommentTextBlockST> {item.commentText} </CommentTextBlockST>
-      <CommentBottomBlockSt>
-        {
-          user.id === item.ownerId &&
+      {
+        user.id === item.ownerId &&
+        <CommentBottomBlockSt>
           <div onClick={() => handleDelete(item.topicId, item.commentId)}>
             <img src={trashIcon} />
           </div>
-        }
-      </CommentBottomBlockSt>
+        </CommentBottomBlockSt>
+      }
+
     </CommentBlockSt>
   );
 };

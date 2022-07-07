@@ -34,4 +34,7 @@ export const CommentTopBlockSt = styled.div`
 export const CommentBottomBlockSt = styled.div`
   display: flex;
   justify-content: flex-end;
+  div {
+    cursor: pointer;
+  }
 `;
