@@ -9,7 +9,7 @@ import { useToggle } from '../../hooks/useToggle';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadTopics,  addTopic } from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
-
+import { toast } from 'react-toastify';
 const Forum = () => {
   const [loaded, setLoaded] = useState(false)
   const [isShown, toggleVisible] = useToggle(false);
@@ -37,11 +37,17 @@ const Forum = () => {
 
   const handleTopicAdd = () => {
     if (!user.id) {
-      console.log('авторизуйтесь')
+      toast.warn("Авторизуйтесь", {
+        autoClose: 1000,
+        icon: false
+      });
     }
 
     if (!topic.content || !topic.name) {
-      console.log('заполните все поля')
+      toast.error("Заполните все поля", {
+        autoClose: 1000,
+        icon: false
+      });
     } else {
       const test = {
         topicName: topic.name,
@@ -51,6 +57,10 @@ const Forum = () => {
         ownerAvatar: user.avatar,
       }
       dispatch(addTopic(test))
+      toast.success("Топик добавлен", {
+        autoClose: 1000,
+        icon: false
+      });
       toggleVisible();
     }
   }

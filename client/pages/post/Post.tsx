@@ -17,6 +17,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import Textarea from '../../components/Textarea';
 import { useNavigate } from 'react-router-dom';
 import { deleteTopic } from '../../store/forum/actions';
+import { toast } from 'react-toastify';
 
 const Post = () => {
   const [isShownChangeModal, toggleVisible] = useToggle(false);
@@ -65,13 +66,20 @@ const Post = () => {
   const handleDelete = (id: number) => {
     if (window.confirm("Вы действительно хотите удалить топик ?")) {
       dispatch(deleteTopic(id))
+      toast.success("топик удален", {
+        delay: 1000,
+        icon: false
+      });
       navigate('/forum')
     }
   }
 
   const handleAddComments = () => {
     if (!post.comment) {
-      console.log('заполите текст комментария')
+      toast.error("Заполните все поля", {
+        delay: 1000,
+        icon: false,
+      });
     } else {
       const commentData = {
         commentText: post.comment,
@@ -81,6 +89,7 @@ const Post = () => {
         topicId: topic.topicId,
       }
       dispatch(addComment(topic.topicId, commentData))
+      setPost({ name: '', content: '', comment: '' })
       toggleVisibleField();
     }
   }

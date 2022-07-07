@@ -4,7 +4,9 @@ import Avatar from '../Avatar';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { deleteComment } from '../../store/forum/actions';
-import  Icon from '../Icon/Icon';
+import Icon from '../Icon/Icon';
+import { toast } from 'react-toastify';
+
 interface CommentsProps {
   item: any;
 }
@@ -17,6 +19,9 @@ const Comment = (props: CommentsProps) => {
   const handleDelete = (topicId: number, commentId: number) => {
     if (window.confirm("Вы действительно хотите удалить комментрий?")) {
       dispatch(deleteComment(topicId, commentId))
+      toast.success("комментарий удален", {
+        icon: false
+      });
     }
   }
   const item = props.item
@@ -35,7 +40,7 @@ const Comment = (props: CommentsProps) => {
         user.id === item.ownerId &&
         <CommentBottomBlockSt>
           <div onClick={() => handleDelete(item.topicId, item.commentId)}>
-            <Icon name="trash"/>
+            <Icon name="trash" />
           </div>
         </CommentBottomBlockSt>
       }
