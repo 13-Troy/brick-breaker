@@ -39,16 +39,13 @@ const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
             return <TableColSt key={index}>{obj[key]}</TableColSt>;
           }
         })}
-
-      <TableColSt>
-        {isShowBtn ? (
+      {isShowBtn &&
+        <TableColSt>
           <Button onClick={() => navigate(`post/${content[i].id}`)}>
             просмотр
           </Button>
-        ) : (
-            ''
-          )}
-      </TableColSt>
+        </TableColSt>
+      }
     </TableRowSt>
   ));
 
