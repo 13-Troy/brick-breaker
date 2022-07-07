@@ -23,12 +23,6 @@ export const SettingsBlockSt = styled.div`
   align-items: center;
   div{
     margin-left: 20px;
-    cursor: pointer;
-    svg {
-      &:hover {
-        stroke: ${({ theme }) => theme.allColors.white};
-      }
-    }
   }
 `;
 

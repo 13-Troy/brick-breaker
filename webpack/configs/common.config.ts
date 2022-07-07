@@ -1,4 +1,4 @@
-const imageExtensions = /\.(bmp|gif|jpg|jpeg|png)$/;
+const imageExtensions = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
 const audioExtensions = /\.(mp3|wav|ogg)$/;
 
 export default {

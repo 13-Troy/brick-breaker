@@ -7,7 +7,7 @@ import Title from '../../components/Title';
 import Button from '../../components/Button';
 import ChangePostModal from '../../components/ChangePostModal';
 import Comments from '../../components/Comments';
-
+import  Icon from '../../components/Icon/Icon';
 import { AppRoute } from '../../services/const';
 
 import { useToggle } from '../../hooks/useToggle';
@@ -17,8 +17,6 @@ import { ThunkDispatch } from 'redux-thunk';
 import Textarea from '../../components/Textarea';
 import { useNavigate } from 'react-router-dom';
 import { deleteTopic } from '../../store/forum/actions';
-import pencilIcon from '../../assets/img/pencil.png';
-import trashIcon from '../../assets/img/trash.png';
 
 const Post = () => {
   const [isShownChangeModal, toggleVisible] = useToggle(false);
@@ -97,10 +95,10 @@ const Post = () => {
           user.id === topic.ownerId &&
           <SettingsBlockSt>
             <div onClick={() => handleDelete(topic.topicId)}>
-              <img src={trashIcon} />
+              <Icon name="trash"/>
             </div>
             <div onClick={toggleVisible}> 
-              <img src={pencilIcon} />
+              <Icon name="pencil"/>
             </div>
           </SettingsBlockSt>
         }

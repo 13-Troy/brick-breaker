@@ -4,8 +4,7 @@ import Avatar from '../Avatar';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { deleteComment } from '../../store/forum/actions';
-import trashIcon from '../../assets/img/trash.png';
-
+import  Icon from '../Icon/Icon';
 interface CommentsProps {
   item: any;
 }
@@ -36,7 +35,7 @@ const Comment = (props: CommentsProps) => {
         user.id === item.ownerId &&
         <CommentBottomBlockSt>
           <div onClick={() => handleDelete(item.topicId, item.commentId)}>
-            <img src={trashIcon} />
+            <Icon name="trash"/>
           </div>
         </CommentBottomBlockSt>
       }
