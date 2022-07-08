@@ -29,11 +29,15 @@ import { AppRoute } from '../services/const';
 import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
-import { baseTheme } from '../styles/variables';
+import { baseTheme, darkTheme } from '../styles/variables';
 import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
+import ToggleTheme from '../components/ToggleTheme';
+
+import { useToggle } from '../hooks/useToggle';
+
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -70,6 +74,12 @@ const Page = () => {
   // const user: boolean = localStorage.getItem('user') === 'true';
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [user, setUser] = useState(false);
+  const [isBaseTheme, setTogglerTheme] = useToggle(true);
+
+
+  const handleToggleTheme = () => {
+    setTogglerTheme();
+  };
 
   useEffect(() => {
     if (user) {
@@ -83,12 +93,11 @@ const Page = () => {
     }
   }, []);
 
-
-
   return (
-    <ThemeProvider theme={baseTheme}>
+    <ThemeProvider theme=  {isBaseTheme ? baseTheme : darkTheme}>
       <GlobalStyle />
         <NavTest />
+        <ToggleTheme onChange ={handleToggleTheme} value ={isBaseTheme} />
         <Routes>
 
           <Route element={<ProtectedStartRouteProps user={user} />}>

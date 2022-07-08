@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const MenuSt = styled.div`
   height: 70px;
-  background-color: ${({ theme }) => theme.allColors.green};
+  background-color: ${({ theme }) => theme.colors.bgHeader};
 `;
 
 export const MenuContainerSt = styled.div`
@@ -21,5 +21,5 @@ export const MenuItemSt = styled.div``;
 export const MenuLinkSt = styled(Link)`
   text-transform: uppercase;
   font-weight: bold;
-  color: ${({ theme }) => theme.allColors.black};
+  color: ${({ theme }) => theme.colors.accentFont};
 `;
