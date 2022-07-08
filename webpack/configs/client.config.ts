@@ -3,7 +3,7 @@ import path from 'path';
 import webpack, { HotModuleReplacementPlugin } from 'webpack';
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
-const imageExtensions = /\.(bmp|gif|jpg|jpeg|png)$/;
+const imageExtensions = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
 const audioExtensions = /\.(mp3|wav|ogg)$/;
 
 const isDev = process.env.NODE_ENV === 'development';

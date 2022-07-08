@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 5000;
   await dbConnect()
 
   const app = express();
-
   app.use('/api/topic', forumApi)
 
+ 
 
   app.use(express.static(path.join(__dirname, '../../public')));
   app.use(render());

@@ -34,6 +34,7 @@ import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
+import { ToastContainer } from 'react-toastify';
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -89,6 +90,17 @@ const Page = () => {
     <ThemeProvider theme={baseTheme}>
       <GlobalStyle />
         <NavTest />
+        <ToastContainer
+          position="top-right"
+          autoClose={500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <Routes>
 
           <Route element={<ProtectedStartRouteProps user={user} />}>

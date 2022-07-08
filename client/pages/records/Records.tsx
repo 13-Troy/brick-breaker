@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
 import Table from '../../components/Table';
-import Button from '../../components/Button';
-
 import { UrlSite } from '../../services/const';
 
 import { WrapperSt } from './style';
@@ -33,14 +30,9 @@ const Records = () => {
       });
   }, [0]);
 
-  const handleShowMore = () => {
-    console.log('handleShowMore');
-  };
-
   return (
     <WrapperSt>
       <Table colNames={colNames} content={leaderboard} isShowBtn={false} />
-      {/*<Button onClick={handleShowMore}>показать еще </Button>*/}
     </WrapperSt>
   );
 };
