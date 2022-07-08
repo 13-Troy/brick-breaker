@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
 export const TableSt = styled.table`
+  background-color: ${({ theme }) => theme.colors.bgTable};
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 40px;
+  font-size: 14px;
 `;
 
-export const TableBodySt = styled.tbody``;
+export const TableBodySt = styled.tbody`
+`;
 
 export const TableRowSt = styled.tr`
   cursor: pointer;

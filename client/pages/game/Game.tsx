@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../components/Button';
+import Icon from '../../components/Icon/Icon';
 import { Game } from './utils/game';
 import { toggleFullscreen } from '../../services/fullscreen-api';
 import { WrapperSt } from './style';
-import {useSelector} from "react-redux";
-import {AppState} from "../../store/configureStore";
+import { useSelector } from "react-redux";
+import { AppState } from "../../store/configureStore";
 
 import { UrlSite } from '../../services/const';
 
@@ -60,7 +61,7 @@ const GamePage = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "data": {"score": String(gameScore), "user_name": user.display_name, "user_avatar": user.avatar},
+          "data": { "score": String(gameScore), "user_name": user.display_name, "user_avatar": user.avatar },
           "ratingFieldName": "score",
           "teamName": "troy"
         })
@@ -71,9 +72,9 @@ const GamePage = () => {
 
   return (
     <WrapperSt>
-      <Button onClick={handleMuted}>
-        {isMuted ? 'выкл звук' : 'вкл звук'}
-      </Button>
+      <div onClick={handleMuted}>
+        {isMuted ? <Icon name="volume-off" /> : <Icon name="volume-up" />}
+      </div>
       <Button id="toggler" onClick={handleToggleFullscreen}>
         {toggler ? 'Exit fullscreen' : 'fullscreen'}
       </Button>

@@ -2,6 +2,7 @@ const allColors = {
   yellow: '#FBBF24',
   white: '#FFFFFF',
   black: '#231F20',
+  black_light:'#96A7AF',
   red: '#F87171',
   green: '#34D399',
   blue: '#4F46E5',
@@ -9,12 +10,9 @@ const allColors = {
   purple_medium: '#818CF8',
   purple_light: '#E0E7FF',
   grey: '#efefef',
-  
   grey_light: '#f7f7f7',
-
   dark_grey: '#2A3C44',
   medium_grey: '#475E69'
-  
 };
 
 export const baseTheme = {
@@ -36,20 +34,16 @@ export const baseTheme = {
     bg: allColors.purple_medium,
     bgBtn: allColors.blue,
     bgHeader: allColors.green,
-
     bgBtnHover: allColors.purple_light,
-
     bgModal: allColors.white,
-
     accentFont:allColors.black,
-
     font: allColors.black,
     fontBtn: allColors.white,
     fontBtnHover: allColors.purple,
     fontLink: allColors.blue,
     danger: allColors.red,
     inputBorder: allColors.purple,
-  
+    bgTable: allColors.white,
   },
 
   fonts: {
@@ -84,17 +78,15 @@ export const darkTheme = {
     bgBtn: allColors.blue,
     bgHeader: allColors.medium_grey,
     bgBtnHover: allColors.purple_light,
-
     bgModal: allColors.medium_grey,
     accentFont:allColors.white,
-    font: allColors.black,
+    font: allColors.black_light,
     fontBtn: allColors.white,
     fontBtnHover: allColors.purple,
     fontLink: allColors.blue,
     danger: allColors.red,
     inputBorder: allColors.purple,
-
-  
+    bgTable: allColors.medium_grey,
   },
 
   fonts: {
@@ -106,6 +98,3 @@ export const darkTheme = {
   borderRadius: '6px',
   skillsStartAnim: '0.3s',
 } as const;
-
-// export type Theme = typeof baseTheme;
-// export type Theme = typeof darkTheme;

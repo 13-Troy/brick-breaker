@@ -16,6 +16,8 @@ export interface IComment {
   commentId: number;
   commentText: string;
   ownerId: number;
+  ownerName: string;
+  ownerAvatar?: string;
   topicId: number;
 }
 
@@ -44,8 +46,17 @@ export class Comment extends Model implements IComment {
   @Column(DataType.INTEGER)
   ownerId: number;
 
+  @AllowNull(false)
+  @NotEmpty
+  @Column(DataType.STRING)
+  ownerName: string;
+
+  @NotEmpty
+  @Column(DataType.STRING)
+  ownerAvatar: string;
+
   @ForeignKey(() => Topic)
   @Column
   topicId: number;
-
+  onDelete: 'cascade'
 };

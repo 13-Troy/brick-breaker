@@ -9,6 +9,9 @@ export const HardPopUpSt = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  h4 {
+   color: ${({ theme }) => theme.colors.accentFont};
+  }
 `;
 
 export const InfoSt = styled.div`

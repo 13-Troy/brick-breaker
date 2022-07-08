@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Routes,
   Route,
@@ -34,10 +34,10 @@ import { useDispatch } from 'react-redux';
 import { getProfile } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
+import { ToastContainer } from 'react-toastify';
 import ToggleTheme from '../components/ToggleTheme';
 
 import { useToggle } from '../hooks/useToggle';
-
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -94,38 +94,50 @@ const Page = () => {
   }, []);
 
   return (
-    <ThemeProvider theme=  {isBaseTheme ? baseTheme : darkTheme}>
+    <ThemeProvider theme={isBaseTheme ? baseTheme : darkTheme}>
       <GlobalStyle />
-        <NavTest />
-        <ToggleTheme onChange ={handleToggleTheme} value ={isBaseTheme} />
-        <Routes>
+      <NavTest />
+      <ToastContainer
+        position="top-right"
+        autoClose={500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        
+      />
+      <ToggleTheme onChange={handleToggleTheme} value={isBaseTheme} />
+      <Routes>
 
-          <Route element={<ProtectedStartRouteProps user={user} />}>
-            <Route path={AppRoute.ROOT} element={<Home />} />
-            <Route path={AppRoute.OAUTH} element={<Oauth />} />
-            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-          </Route>
+        <Route element={<ProtectedStartRouteProps user={user} />}>
+          <Route path={AppRoute.ROOT} element={<Home />} />
+          <Route path={AppRoute.OAUTH} element={<Oauth />} />
+          <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+        </Route>
 
-          <Route
-            element={
-              <>
-                <Menu />
-                <ProtectedRoute user={user} />
-              </>
-            }
-          >
-            <Route path={AppRoute.PROFILE} element={<Profile />} />
-            <Route path={AppRoute.FORUM} element={<Forum />} />
-            <Route path={AppRoute.ABOUT} element={<About />} />
-            <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
-            <Route path={AppRoute.RECORDS} element={<Records />} />
-             <Route path={AppRoute.GAME} element={<Game />} />
-          </Route>
+        <Route
+          element={
+            <>
+              <Menu />
+              <ProtectedRoute user={user} />
+            </>
+          }
+        >
+          <Route path={AppRoute.PROFILE} element={<Profile />} />
+          <Route path={AppRoute.FORUM} element={<Forum />} />
+          <Route path={AppRoute.ABOUT} element={<About />} />
+          <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
+          <Route path={AppRoute.RECORDS} element={<Records />} />
+          <Route path={AppRoute.GAME} element={<Game />} />
+        </Route>
 
-          <Route path={'*'} element={<NotFound />} />
-          <Route path={'/500'} element={<ServerError />} />
-        </Routes>
-     </ThemeProvider>
+        <Route path={'*'} element={<NotFound />} />
+        <Route path={'/500'} element={<ServerError />} />
+      </Routes>
+    </ThemeProvider>
   );
 };
 
