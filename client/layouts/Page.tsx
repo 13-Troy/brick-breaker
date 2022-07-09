@@ -30,14 +30,15 @@ import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
 import { baseTheme, darkTheme } from '../styles/variables';
-import { useDispatch } from 'react-redux';
-import { getProfile } from '../store/user/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadProfile, addTheme, loadTheme, updateTheme } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
 import { ToastContainer } from 'react-toastify';
 import ToggleTheme from '../components/ToggleTheme';
 
 import { useToggle } from '../hooks/useToggle';
+
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -76,14 +77,29 @@ const Page = () => {
   const [user, setUser] = useState(false);
   const [isBaseTheme, setTogglerTheme] = useToggle(true);
 
-
   const handleToggleTheme = () => {
+
+    // const dataTheme = {
+    //   userId: 11144,
+    //   baseTheme: isBaseTheme,
+    // }
+    // dispatch(addTheme(dataTheme))
+
+    // обновление
+    const dataTheme = {
+      userId: 11144,
+      baseTheme: isBaseTheme,
+    }
+    dispatch(updateTheme(11144, dataTheme))
+
+
     setTogglerTheme();
   };
 
   useEffect(() => {
     if (user) {
-      dispatch(getProfile());
+      dispatch(loadProfile());
+
     }
   }, [user]);
 
@@ -107,7 +123,7 @@ const Page = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        
+
       />
       <Routes>
 

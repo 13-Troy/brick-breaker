@@ -1,5 +1,4 @@
-import { USER } from '../types';
-
+import { USER, GET_THEME } from '../types';
 const initialState = {
   id: 0,
   email: '',
@@ -19,6 +18,12 @@ export const reducer = (state = initialState, action: any) => {
       return {
         ...payload,
       };
+    case GET_THEME: 
+      return {
+        ...state,
+        baseTheme: action.payload,
+        loading: false,
+    };
 
     default:
       return state;

@@ -1,5 +1,6 @@
 export const USER = 'USER';
 export const FORUM = 'FORUM';
+export const GET_THEME = 'GET_THEME';
 
 export interface User {
   first_name: string;
