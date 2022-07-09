@@ -63,7 +63,7 @@ const ChangePostModal: FC<ModalProps> = ({isShown, toggleVisible, headerText}) =
         onChange={handleChange}
         value={data.topic_text}
       />
-      <Button onClick={handleTopicEdit}>сохранить</Button>
+      <Button onClick={handleTopicEdit} fullWidth>сохранить</Button>
     </Modal>
   );
 };

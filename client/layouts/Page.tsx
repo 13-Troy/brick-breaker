@@ -109,7 +109,6 @@ const Page = () => {
         pauseOnHover
         
       />
-      <ToggleTheme onChange={handleToggleTheme} value={isBaseTheme} />
       <Routes>
 
         <Route element={<ProtectedStartRouteProps user={user} />}>
@@ -122,6 +121,7 @@ const Page = () => {
           element={
             <>
               <Menu />
+              <ToggleTheme onChange={handleToggleTheme} value={isBaseTheme} />
               <ProtectedRoute user={user} />
             </>
           }

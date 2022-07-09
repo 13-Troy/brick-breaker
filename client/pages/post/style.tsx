@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const WrapperSt = styled.div`
-  width: 700px;
-  margin: 40px auto;
-  h4 {
-    text-align: initial;
-  }
-`;
 
 export const HeaderSt = styled.div`
   display: flex;

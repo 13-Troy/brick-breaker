@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { WrapperSt, HeaderSt, TextSt, PostBodySt, SettingsBlockSt, CommentAddBlockSt} from './style';
+import { HeaderSt, TextSt, PostBodySt, SettingsBlockSt, CommentAddBlockSt } from './style';
 import Link from '../../components/Link';
 import Title from '../../components/Title';
 import Button from '../../components/Button';
 import ChangePostModal from '../../components/ChangePostModal';
 import Comments from '../../components/Comments';
-import  Icon from '../../components/Icon/Icon';
+import Icon from '../../components/Icon/Icon';
+import MainContainer from '../../components/MainContainer';
 import { AppRoute } from '../../services/const';
 
 import { useToggle } from '../../hooks/useToggle';
@@ -97,30 +98,30 @@ const Post = () => {
 
 
   return (
-    <WrapperSt>
+    <MainContainer>
       <HeaderSt>
         <Link to={AppRoute.FORUM}>к списку</Link>
         {
           user.id === topic.ownerId &&
           <SettingsBlockSt>
             <div onClick={() => handleDelete(topic.topicId)}>
-              <Icon name="trash"/>
+              <Icon name="trash" />
             </div>
-            <div onClick={toggleVisible}> 
-              <Icon name="pencil"/>
+            <div onClick={toggleVisible}>
+              <Icon name="pencil" />
             </div>
           </SettingsBlockSt>
         }
       </HeaderSt>
       <PostBodySt>
-        <Title h={2}> {topic.topicName}</Title>
+        <Title h={2} center> {topic.topicName}</Title>
         <TextSt>
           <Title h={4}>{topic.topicText}</Title>
         </TextSt>
       </PostBodySt>
       <Comments comments={commentsList} />
 
-      <Button onClick={() => toggleVisibleField()}>оставить комментарий</Button>
+      <Button onClick={() => toggleVisibleField()} center>оставить комментарий</Button>
       {isShownCommentField ?
         <CommentAddBlockSt>
           <Textarea
@@ -128,7 +129,7 @@ const Post = () => {
             placeholder={'текст комментария'}
             onChange={handleChange}
           />
-          <Button onClick={handleAddComments}>сохранить</Button>
+          <Button onClick={handleAddComments} center>сохранить</Button>
         </CommentAddBlockSt>
         : ""
       }
@@ -138,7 +139,7 @@ const Post = () => {
         toggleVisible={toggleVisible}
         headerText="Редактирование топика"
       />
-    </WrapperSt>
+    </MainContainer>
   );
 };
 export default Post;

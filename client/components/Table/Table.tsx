@@ -41,7 +41,7 @@ const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
         })}
       {isShowBtn &&
         <TableColSt>
-          <Button onClick={() => navigate(`post/${content[i].id}`)}>
+          <Button onClick={() => navigate(`post/${content[i].id}`)} center>
             просмотр
           </Button>
         </TableColSt>

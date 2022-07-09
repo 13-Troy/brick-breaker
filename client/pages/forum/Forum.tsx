@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Button from '../../components/Button';
 import CreatePostModal from '../../components/CreatePostModal';
 import Title from '../../components/Title';
-import { WrapperSt, ButtonWrapperSt } from './style';
+import MainContainer from '../../components/MainContainer';
+import { ButtonWrapperSt } from './style';
 import Table from '../../components/Table';
 import { useToggle } from '../../hooks/useToggle';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { loadTopics,  addTopic } from '../../store/forum/actions';
+import { loadTopics, addTopic } from '../../store/forum/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import { toast } from 'react-toastify';
 const Forum = () => {
@@ -67,9 +68,9 @@ const Forum = () => {
 
   if (loading) {
     return (
-      <div>
-        <Title h={3}>loading...</Title>
-      </div>
+      <MainContainer>
+        <Title h={3} center>loading...</Title>
+      </MainContainer>
     );
   }
 
@@ -83,14 +84,14 @@ const Forum = () => {
       'user_name': item.ownerName,
       'user_avatar': item.ownerAvatar,
       'answers': item.comments.length,
-      'date': new Date(item.createdAt).toUTCString().substring(0,22)
+      'date': new Date(item.createdAt).toUTCString().substring(0, 22)
     };
   });
 
   return (
-    <WrapperSt>
+    <MainContainer>
       <ButtonWrapperSt>
-        <Button onClick={toggleVisible}>создать пост</Button>
+        <Button onClick={toggleVisible} center>создать пост</Button>
       </ButtonWrapperSt>
       {topics.length !== 0 &&
         <Table colNames={colNames} content={topicsNewArr} />
@@ -102,7 +103,7 @@ const Forum = () => {
         handleAdd={handleTopicAdd}
         handleChange={handleChange}
       />
-    </WrapperSt>
+    </MainContainer>
   );
 };
 

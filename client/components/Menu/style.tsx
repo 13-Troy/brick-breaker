@@ -7,7 +7,7 @@ export const MenuSt = styled.div`
 `;
 
 export const MenuContainerSt = styled.div`
-  max-width: 700px;
+  max-width: 800px;
   height: 100%;
   margin: 0 auto;
   display: flex;

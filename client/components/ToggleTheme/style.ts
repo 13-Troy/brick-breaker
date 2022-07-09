@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const WrapSwithSt = styled.div`
-  position: absolute;
-  right: 25%;
-  top: 80px;
+  display: flex;
+  justify-content: end;
+  justify-content: flex-end;
 `

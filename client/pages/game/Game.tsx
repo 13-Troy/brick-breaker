@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../components/Button';
 import Icon from '../../components/Icon/Icon';
+import MainContainer from '../../components/MainContainer';
 import { Game } from './utils/game';
 import { toggleFullscreen } from '../../services/fullscreen-api';
-import { WrapperSt } from './style';
 import { useSelector } from "react-redux";
 import { AppState } from "../../store/configureStore";
 
@@ -71,20 +71,23 @@ const GamePage = () => {
   }, [gameScore]);
 
   return (
-    <WrapperSt>
-      <div onClick={handleMuted}>
-        {isMuted ? <Icon name="volume-off" /> : <Icon name="volume-up" />}
-      </div>
-      <Button id="toggler" onClick={handleToggleFullscreen}>
-        {toggler ? 'Exit fullscreen' : 'fullscreen'}
-      </Button>
-      <canvas
-        ref={canvasRef}
-        width={800}
-        height={600}
-        style={{ background: '#663399' }}
-      />
-    </WrapperSt>
+    <>
+      <MainContainer>
+        <div onClick={handleMuted}>
+          {isMuted ? <Icon name="volume-off" /> : <Icon name="volume-up" />}
+        </div>
+        <Button id="toggler" onClick={handleToggleFullscreen} center>
+          {toggler ? 'Exit fullscreen' : 'fullscreen'}
+        </Button>
+        <canvas
+          ref={canvasRef}
+          width={800}
+          height={600}
+          style={{ background: '#663399' }}
+        />
+      </MainContainer>
+
+    </>
   );
 };
 

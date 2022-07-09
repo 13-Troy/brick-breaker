@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 interface ButtonStProps {
   fullWidth?: boolean;
+  center?: boolean;
 }
 
 const Button = styled.button<ButtonStProps>`
@@ -18,7 +19,7 @@ const Button = styled.button<ButtonStProps>`
     background-color: ${({ theme }) => theme.colors.bgBtnHover};
     color: ${({ theme }) => theme.colors.fontBtnHover};
   }
-  margin: 0 auto;
+  margin: ${({ center }) => (center ? '0 auto' : 'initial')};
   display: block;
 `;
 
