@@ -10,7 +10,7 @@ services:
     depends_on:
       - main
     env_file:
-      - ../dev.env
+      - ./dev.env
     volumes:
       - ./nginx-confs/conf.d/proxy.dev.conf:/etc/nginx/conf.d/proxy.conf
       - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
