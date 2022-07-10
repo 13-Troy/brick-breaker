@@ -4,6 +4,7 @@ import path from 'path';
 import {dbConnect} from './db';
 import forumApi from './routers/forum'
 import themeApi from './routers/theme'
+const helmet = require("helmet");
 
 const PORT = process.env.PORT || 5000;
 
@@ -11,6 +12,10 @@ const PORT = process.env.PORT || 5000;
   await dbConnect()
 
   const app = express();
+
+  // как правильно???
+  app.use(helmet.hsts());
+
   app.use('/api/topic', forumApi)
   app.use('/api/theme', themeApi)
  
@@ -20,7 +25,7 @@ const PORT = process.env.PORT || 5000;
 
 
   app.listen(PORT, () => {
-    console.log(`App started at ${PORT} port`);
+    console.log(`App started at ${PORT} port7`);
   })
 
 })();
