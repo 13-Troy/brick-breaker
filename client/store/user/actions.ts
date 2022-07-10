@@ -9,6 +9,7 @@ export const ActionType = {
   ADD_THEME: 'ADD_THEME',
   GET_THEME: 'GET_THEME',
   UPDATE_THEME: 'UPDATE_THEME',
+  USER: 'USER',
 };
 
 const REACT_APP_API = '/api/theme'

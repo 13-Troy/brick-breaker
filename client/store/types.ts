@@ -3,6 +3,8 @@ export const FORUM = 'FORUM';
 export const GET_THEME = 'GET_THEME';
 
 export interface User {
+  baseTheme: any;
+  id: any;
   first_name: string;
   second_name: string;
   email: string;

@@ -24,7 +24,6 @@ const Profile = () => {
   const user = useSelector<AppState, AppState['user']>((state) => state.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
-
   // const dispatch = useDispatch();
 
   const onSend = () => {

@@ -39,6 +39,8 @@ import ToggleTheme from '../components/ToggleTheme';
 
 import { useToggle } from '../hooks/useToggle';
 
+import { AppState } from '../store/configureStore';
+
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -73,33 +75,36 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
 
 const Page = () => {
   // const user: boolean = localStorage.getItem('user') === 'true';
+  const userTest = useSelector<AppState, AppState['user']>((state) => state.user);
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [user, setUser] = useState(false);
-  const [isBaseTheme, setTogglerTheme] = useToggle(true);
+  // const [isBaseTheme, setTogglerTheme] = useToggle(true);
+
+  const [isBaseTheme, setTogglerTheme] = useState(true);
+
 
   const handleToggleTheme = () => {
 
     // const dataTheme = {
-    //   userId: 11144,
+    //   userId: userTest.id,
     //   baseTheme: isBaseTheme,
     // }
     // dispatch(addTheme(dataTheme))
 
-    // обновление
     const dataTheme = {
-      userId: 11144,
+      userId: userTest.id,
       baseTheme: isBaseTheme,
     }
-    dispatch(updateTheme(11144, dataTheme))
+    dispatch(updateTheme(userTest.id, dataTheme))
 
-
-    setTogglerTheme();
+    setTogglerTheme(!isBaseTheme);
   };
 
   useEffect(() => {
     if (user) {
-      dispatch(loadProfile());
-
+      dispatch(loadProfile())
+      console.log('setTogglerThemesetTogglerTheme',userTest.baseTheme)
+      setTogglerTheme(userTest.baseTheme);
     }
   }, [user]);
 
@@ -108,6 +113,12 @@ const Page = () => {
       setUser(localStorage.getItem('user') === 'true')
     }
   }, []);
+
+
+
+
+
+  console.log('baseThemebaseTheme', isBaseTheme)
 
   return (
     <ThemeProvider theme={isBaseTheme ? baseTheme : darkTheme}>
