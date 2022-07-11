@@ -13,8 +13,7 @@ const PORT = process.env.PORT || 5000;
 
   const app = express();
 
-  // как правильно???
-  app.use(helmet.hsts());
+  app.use(helmet.expectCt());
 
   app.use('/api/topic', forumApi)
   app.use('/api/theme', themeApi)
@@ -25,7 +24,7 @@ const PORT = process.env.PORT || 5000;
 
 
   app.listen(PORT, () => {
-    console.log(`App started at ${PORT} port7`);
+    console.log(`App started at ${PORT} port`);
   })
 
 })();
