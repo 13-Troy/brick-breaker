@@ -85,17 +85,17 @@ const Page = () => {
 
   const handleToggleTheme = () => {
 
-    const dataTheme = {
-      userId: userTest.id,
-      baseTheme: isBaseTheme,
-    }
-    dispatch(addTheme(dataTheme))
-
     // const dataTheme = {
     //   userId: userTest.id,
     //   baseTheme: isBaseTheme,
     // }
-    // dispatch(updateTheme(userTest.id, dataTheme))
+    // dispatch(addTheme(dataTheme))
+
+    const dataTheme = {
+      userId: userTest.id,
+      baseTheme: isBaseTheme,
+    }
+    dispatch(updateTheme(userTest.id, dataTheme))
 
     setTogglerTheme(!isBaseTheme);
   };
@@ -103,19 +103,24 @@ const Page = () => {
   useEffect(() => {
     if (user) {
       dispatch(loadProfile())
-      console.log('useruseruser',userTest.baseTheme)
+
+      console.log('userTestuserTest',userTest)
+      
       setTogglerTheme(userTest.baseTheme);
+
+      
     }
   }, [user]);
 
   useEffect(() => {
     if (typeof window !== "undefined" && !user) {
       setUser(localStorage.getItem('user') === 'true')
+      const baseTheme = JSON.parse(localStorage.getItem('userData')).baseTheme;
+      console.log('baseThemebaseTheme',baseTheme)
+      setTogglerTheme(baseTheme)
     }
   }, []);
 
-
-  console.log('baseThemebaseTheme', isBaseTheme)
 
   return (
     <ThemeProvider theme={isBaseTheme ? baseTheme : darkTheme}>
