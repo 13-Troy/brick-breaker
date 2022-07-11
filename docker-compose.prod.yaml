@@ -49,7 +49,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: secret
       PGADMIN_LISTEN_PORT: 80
     ports:
-      - "8081:80"
+      - "8081:8082"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
