@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
     networks:
       - awesome
-    command: [nginx, '-g', 'daemon off;']
+#    command: [nginx, '-g', 'daemon off;']
 
   postgres:
     container_name: brick_game_db # Можно и не указывать, тогда будет взято за основу название сервиса: `postgres`
