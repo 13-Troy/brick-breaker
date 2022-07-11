@@ -1,6 +1,5 @@
-
-import { WrapSwithSt } from './style';
 import React from "react";
+import { WrapSwithSt } from './style';
 import Button from '../../components/Button';
 import MainContainer from '../../components/MainContainer';
 interface ToggleThemeProps {
@@ -14,7 +13,7 @@ const ToggleTheme = (props: ToggleThemeProps) => {
     <MainContainer>
       <WrapSwithSt>
         <Button onClick={onChange}>
-          {value ? 'светлая тема' : 'темная тема'}
+          {value ? 'темная тема' : 'светлая тема'}
         </Button>
       </WrapSwithSt>
     </MainContainer>

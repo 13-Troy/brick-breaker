@@ -85,17 +85,17 @@ const Page = () => {
 
   const handleToggleTheme = () => {
 
-    // const dataTheme = {
-    //   userId: userTest.id,
-    //   baseTheme: isBaseTheme,
-    // }
-    // dispatch(addTheme(dataTheme))
-
     const dataTheme = {
       userId: userTest.id,
       baseTheme: isBaseTheme,
     }
-    dispatch(updateTheme(userTest.id, dataTheme))
+    dispatch(addTheme(dataTheme))
+
+    // const dataTheme = {
+    //   userId: userTest.id,
+    //   baseTheme: isBaseTheme,
+    // }
+    // dispatch(updateTheme(userTest.id, dataTheme))
 
     setTogglerTheme(!isBaseTheme);
   };
@@ -103,7 +103,7 @@ const Page = () => {
   useEffect(() => {
     if (user) {
       dispatch(loadProfile())
-      console.log('setTogglerThemesetTogglerTheme',userTest.baseTheme)
+      console.log('useruseruser',userTest.baseTheme)
       setTogglerTheme(userTest.baseTheme);
     }
   }, [user]);
@@ -113,9 +113,6 @@ const Page = () => {
       setUser(localStorage.getItem('user') === 'true')
     }
   }, []);
-
-
-
 
 
   console.log('baseThemebaseTheme', isBaseTheme)
