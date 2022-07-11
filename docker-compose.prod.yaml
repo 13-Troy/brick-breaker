@@ -1,7 +1,8 @@
 version: "3"
 services:
   proxy:
-    image: nginx:1.21.0
+    build:
+      context: ./nginx-confs
     container_name: proxy
     ports:
       - "443:443"
