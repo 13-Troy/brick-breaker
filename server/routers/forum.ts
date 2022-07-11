@@ -70,7 +70,7 @@ router.delete('/:id', async (req, res) => {
 
 
 
-router.post('/:id/comment', jsonParser,  async (req, res) => {
+router.post('/:id/comment', jsonParser, body('commentText').not().isEmpty().trim().escape(),  async (req, res) => {
   const { commentText, ownerId, ownerName, ownerAvatar, topicId} = req.body
   try {
     const response = await CommentController.create({
