@@ -34,7 +34,6 @@ export const loadProfile = () => {
     )
       .then(response => {
         dispatch(getProfile(response.data))
-        // localStorage.setItem('userData', JSON.stringify(response.data))
         dispatch(loadTheme(response.data.id));
       })
       .catch(error => {

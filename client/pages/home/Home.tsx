@@ -9,16 +9,10 @@ import { AppRoute, redirect_uri, UrlSite } from '../../services/const';
 
 import { HardPopUpSt } from './style';
 import { useOauth } from '../../hooks';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../store/configureStore';
 
 const Home = () => {
   const [logIn, setLogIn] = useState({ login: '', password: '' });
   const { handleOauthSignIn } = useOauth(redirect_uri);
-
-  const userTest = useSelector<AppState, AppState['user']>((state) => state.user);
-
-  console.log('HomeHomeHomeHome',userTest)
 
   const onSens = () => {
     fetch(`${UrlSite.URL}/auth/signin`, {
@@ -32,10 +26,7 @@ const Home = () => {
     }).then((data) => {
       if (data.ok) {
         location.reload();
-        localStorage.setItem('22222', 'ffffff');
-        localStorage.setItem('userTheme', userTest.baseTheme);
         localStorage.setItem('user', 'true');
-
       }
     });
   };
@@ -48,7 +39,7 @@ const Home = () => {
 
   return (
     <HardPopUpSt>
-      <Title h={2} center>вход</Title>
+      <Title h={2}>вход</Title>
       <Input
         name={'login'}
         type={'text'}
