@@ -1,7 +1,7 @@
 version: "3"
 services:
   proxy:
-    image: nginx:latest
+    image: nginx:1.22-alpine
     ports:
       - "443:443"
       - "8080:80"
@@ -16,7 +16,11 @@ services:
 #      - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
   #      - ./nginx-confs/ssl/:/etc/ssl/
   #      - ./nginx-confs/error:/var/log/nginx/error
-    command: ["nginx-debug", '-g', 'daemon off;']
+    restart: always
+    networks:
+      - awesome
+    command: [nginx-debug, '-g', 'daemon off;']
+
   postgres:
     container_name: brick_game_db # Можно и не указывать, тогда будет взято за основу название сервиса: `postgres`
     image: postgres:12

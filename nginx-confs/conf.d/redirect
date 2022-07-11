@@ -1,5 +1,5 @@
 server {
     listen 80 default_server;
-    server_name ${MAIN_HOST};
+    server_name troy-brick-breaker-13.ya-praktikum.tech;
     return 301 http://$host$request_uri;
 }
