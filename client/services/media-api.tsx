@@ -9,7 +9,7 @@ import newLevelAudio from '../assets/audio/new-level.mp3';
 import decreaseLivesAudio from '../assets/audio/decrease-lives.mp3';
 
 class AudioManager extends EventEmitter {
-  tracks: any;
+  tracks: HTMLAudioElement;
   constructor() {
     super();
     this.tracks = {};

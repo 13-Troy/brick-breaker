@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import {
   Routes,
   Route,
@@ -29,12 +29,15 @@ import { AppRoute } from '../services/const';
 import { GlobalStyle } from '../styles/style';
 import { ThemeProvider } from 'styled-components';
 
-import { baseTheme } from '../styles/variables';
-import { useDispatch } from 'react-redux';
-import { loadProfile } from '../store/user/actions';
+import { baseTheme, darkTheme } from '../styles/variables';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadProfile, addTheme, loadTheme, updateTheme } from '../store/user/actions';
 import { ThunkDispatch } from 'redux-thunk';
 import Menu from '../components/Menu';
 import { ToastContainer } from 'react-toastify';
+import ToggleTheme from '../components/ToggleTheme';
+import { AppState } from '../store/configureStore';
+
 interface ProtectedStartRouteProps {
   user: boolean;
   redirectPath?: any;
@@ -68,67 +71,97 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({
 };
 
 const Page = () => {
-  // const user: boolean = localStorage.getItem('user') === 'true';
+  const userTest = useSelector<AppState, AppState['user']>((state) => state.user);
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [user, setUser] = useState(false);
 
+  const [isBaseTheme, setTogglerTheme] = useState(userTest.baseTheme);
+
+
+  const handleToggleTheme = () => {
+
+    dispatch(loadTheme(userTest.id))
+    const isTheme = userTest.baseTheme
+
+    const dataTheme = {
+      userId: userTest.id,
+      baseTheme: !isBaseTheme,
+    }
+
+    if (isTheme === undefined) {
+      dispatch(addTheme(dataTheme))
+    } else {
+      dispatch(updateTheme(userTest.id, dataTheme))
+    }
+    setTogglerTheme(dataTheme.baseTheme);
+  };
+
   useEffect(() => {
     if (user) {
-      dispatch(loadProfile());
+      dispatch(loadProfile())
+      setTogglerTheme(userTest.baseTheme);
     }
   }, [user]);
+
+
+  useEffect(() => {
+    setTogglerTheme(userTest.baseTheme);
+  }, [userTest.baseTheme])
+
 
   useEffect(() => {
     if (typeof window !== "undefined" && !user) {
       setUser(localStorage.getItem('user') === 'true')
+      setTogglerTheme(isBaseTheme)
     }
   }, []);
 
 
-
   return (
-    <ThemeProvider theme={baseTheme}>
+    <ThemeProvider theme={isBaseTheme || isBaseTheme === undefined ? baseTheme : darkTheme}>
       <GlobalStyle />
-        <NavTest />
-        <ToastContainer
-          position="top-right"
-          autoClose={500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <Routes>
+      <NavTest />
+      <ToastContainer
+        position="top-right"
+        autoClose={500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
 
-          <Route element={<ProtectedStartRouteProps user={user} />}>
-            <Route path={AppRoute.ROOT} element={<Home />} />
-            <Route path={AppRoute.OAUTH} element={<Oauth />} />
-            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-          </Route>
+      />
+      <Routes>
 
-          <Route
-            element={
-              <>
-                <Menu />
-                <ProtectedRoute user={user} />
-              </>
-            }
-          >
-            <Route path={AppRoute.PROFILE} element={<Profile />} />
-            <Route path={AppRoute.FORUM} element={<Forum />} />
-            <Route path={AppRoute.ABOUT} element={<About />} />
-            <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
-            <Route path={AppRoute.RECORDS} element={<Records />} />
-             <Route path={AppRoute.GAME} element={<Game />} />
-          </Route>
+        <Route element={<ProtectedStartRouteProps user={user} />}>
+          <Route path={AppRoute.ROOT} element={<Home />} />
+          <Route path={AppRoute.OAUTH} element={<Oauth />} />
+          <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+        </Route>
 
-          <Route path={'*'} element={<NotFound />} />
-          <Route path={'/500'} element={<ServerError />} />
-        </Routes>
-     </ThemeProvider>
+        <Route
+          element={
+            <>
+              <Menu />
+              <ToggleTheme onChange={handleToggleTheme} value={isBaseTheme} />
+              <ProtectedRoute user={user} />
+            </>
+          }
+        >
+          <Route path={AppRoute.PROFILE} element={<Profile />} />
+          <Route path={AppRoute.FORUM} element={<Forum />} />
+          <Route path={AppRoute.ABOUT} element={<About />} />
+          <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
+          <Route path={AppRoute.RECORDS} element={<Records />} />
+          <Route path={AppRoute.GAME} element={<Game />} />
+        </Route>
+
+        <Route path={'*'} element={<NotFound />} />
+        <Route path={'/500'} element={<ServerError />} />
+      </Routes>
+    </ThemeProvider>
   );
 };
 

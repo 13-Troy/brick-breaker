@@ -1,4 +1,4 @@
-import { USER, GET_THEME } from '../types';
+import { USER, GET_THEME, UPDATE_THEME } from '../types';
 const initialState = {
   id: 0,
   baseTheme: true,
@@ -21,12 +21,17 @@ export const reducer = (state = initialState, action: any) => {
         ...payload,
         loading: false,
       };
-    case GET_THEME: 
+    case UPDATE_THEME:
+      return {
+        ...state,
+        loading: false,
+      };
+    case GET_THEME:
       return {
         ...state,
         baseTheme: action.payload,
         loading: false,
-    };
+      };
 
     default:
       return state;

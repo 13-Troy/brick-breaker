@@ -121,7 +121,7 @@ export const updateTheme = (userId: number, theme: any) => {
       .then(response => {
         console.log('response', response.data)
         dispatch(themeUpdated());
-        dispatch(getTheme(userId));
+        dispatch(loadTheme(userId));
       })
       .catch(error => {
         console.log(error)
