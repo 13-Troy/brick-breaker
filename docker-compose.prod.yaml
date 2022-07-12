@@ -14,7 +14,6 @@ services:
     volumes:
       - ./nginx-confs/conf.d/proxy.dev.conf:/etc/nginx/nginx.conf
       - ./nginx-confs/conf.d/headers:/etc/nginx/conf.d/headers
-      - ./nginx-confs/conf.d/redirect:/etc/nginx/conf.d/redirect
       - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
       - ./nginx-confs/conf.d/ssl-params.conf:/etc/nginx/conf.d/ssl-params.conf
       - /etc/letsencrypt:/etc/letsencrypt
@@ -29,7 +28,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./postgresdata:/var/lib/postgresql/data
+      - postgresdata:/var/lib/postgresql/data
       # Если у вас есть схема БД, которую можно подгрузить на старте, — передайте её
       # - ./src/migrations/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
     restart: always
@@ -79,6 +78,7 @@ services:
 
 volumes:
   pgadmin-data:
+  postgresdata:
 # Настройки созданной сети между сервисами
 networks:
   awesome:
