@@ -16,6 +16,7 @@ services:
       - ./nginx-confs/conf.d/headers:/etc/nginx/conf.d/headers
       - ./nginx-confs/conf.d/redirect:/etc/nginx/conf.d/redirect
       - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
+      - ./nginx-confs/conf.d/ssl-params.conf:/etc/nginx/conf.d/ssl-params.conf
       - /etc/letsencrypt:/etc/letsencrypt
     restart: unless-stopped
     networks:
