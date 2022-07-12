@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 
 export const InnerBlockSt = styled.div`
- padding: 0 100px;
+  padding: 0 100px;
   h4 {
-   color: ${({ theme }) => theme.colors.accentFont};
+    color: ${({ theme }) => theme.colors.accentFont};
+  }
+  @media (max-width: 768px) {
+    padding: 0 20px;
   }
 `;
 

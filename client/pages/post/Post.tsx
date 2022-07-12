@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { HeaderSt, TextSt, PostBodySt, SettingsBlockSt, CommentAddBlockSt } from './style';
+import { HeaderSt, TextSt, PostBodySt, SettingsBlockSt, CommentAddBlockSt, InnerBlockSt } from './style';
 import Link from '../../components/Link';
 import Title from '../../components/Title';
 import Button from '../../components/Button';
@@ -99,46 +99,48 @@ const Post = () => {
 
   return (
     <MainContainer>
-      <HeaderSt>
-        <Link to={AppRoute.FORUM}>к списку</Link>
-        {
-          user.id === topic.ownerId &&
-          <SettingsBlockSt>
-            <div onClick={() => handleDelete(topic.topicId)}>
-              <Icon name="trash" />
-            </div>
-            <div onClick={toggleVisible}>
-              <Icon name="pencil" />
-            </div>
-          </SettingsBlockSt>
+      <InnerBlockSt>
+        <HeaderSt>
+          <Link to={AppRoute.FORUM}>к списку</Link>
+          {
+            user.id === topic.ownerId &&
+            <SettingsBlockSt>
+              <div onClick={() => handleDelete(topic.topicId)}>
+                <Icon name="trash" />
+              </div>
+              <div onClick={toggleVisible}>
+                <Icon name="pencil" />
+              </div>
+            </SettingsBlockSt>
+          }
+        </HeaderSt>
+        <PostBodySt>
+          <Title h={2} center> {topic.topicName}</Title>
+          <TextSt>
+            <Title h={4}>{topic.topicText}</Title>
+          </TextSt>
+        </PostBodySt>
+        <Comments comments={commentsList} />
+
+        <Button onClick={() => toggleVisibleField()} center>оставить комментарий</Button>
+        {isShownCommentField ?
+          <CommentAddBlockSt>
+            <Textarea
+              name={'comment'}
+              placeholder={'текст комментария'}
+              onChange={handleChange}
+            />
+            <Button onClick={handleAddComments} center>сохранить</Button>
+          </CommentAddBlockSt>
+          : ""
         }
-      </HeaderSt>
-      <PostBodySt>
-        <Title h={2} center> {topic.topicName}</Title>
-        <TextSt>
-          <Title h={4}>{topic.topicText}</Title>
-        </TextSt>
-      </PostBodySt>
-      <Comments comments={commentsList} />
 
-      <Button onClick={() => toggleVisibleField()} center>оставить комментарий</Button>
-      {isShownCommentField ?
-        <CommentAddBlockSt>
-          <Textarea
-            name={'comment'}
-            placeholder={'текст комментария'}
-            onChange={handleChange}
-          />
-          <Button onClick={handleAddComments} center>сохранить</Button>
-        </CommentAddBlockSt>
-        : ""
-      }
-
-      <ChangePostModal
-        isShown={isShownChangeModal}
-        toggleVisible={toggleVisible}
-        headerText="Редактирование топика"
-      />
+        <ChangePostModal
+          isShown={isShownChangeModal}
+          toggleVisible={toggleVisible}
+          headerText="Редактирование топика"
+        />
+      </InnerBlockSt>
     </MainContainer>
   );
 };

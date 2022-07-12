@@ -120,7 +120,6 @@ const Page = () => {
   return (
     <ThemeProvider theme={isBaseTheme || isBaseTheme === undefined ? baseTheme : darkTheme}>
       <GlobalStyle />
-      <NavTest />
       <ToastContainer
         position="top-right"
         autoClose={500}

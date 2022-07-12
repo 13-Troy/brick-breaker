@@ -6,6 +6,11 @@ export const TableSt = styled.table`
   border-collapse: collapse;
   margin-bottom: 40px;
   font-size: 14px;
+  @media (max-width: 768px) {
+    display: inline-block;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
 `;
 
 export const TableBodySt = styled.tbody`

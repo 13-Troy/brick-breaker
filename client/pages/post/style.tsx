@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const InnerBlockSt = styled.div`
+  @media (max-width: 768px) {
+    padding: 0 20px;
+  }
+`;
 
 export const HeaderSt = styled.div`
   display: flex;
