@@ -16,9 +16,7 @@ services:
       - ./nginx-confs/conf.d/headers:/etc/nginx/conf.d/headers
       - ./nginx-confs/conf.d/redirect:/etc/nginx/conf.d/redirect
       - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
-      - /etc/letsencrypt/troy-brick-breaker-13.ya-praktikum.tech/:/etc/nginx/conf.d/
-#      - /etc/letsencrypt/troy-brick-breaker-13.ya-praktikum.tech/fullchain.pem:/etc/ssl/fullchain.pem
-#      - /etc/letsencrypt/troy-brick-breaker-13.ya-praktikum.tech/privkey.pem:/etc/ssl/privkey.pem
+      - /etc/letsencrypt/troy-brick-breaker-13.ya-praktikum.tech:/etc/ssl
     restart: unless-stopped
     networks:
       - awesome
