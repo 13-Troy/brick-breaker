@@ -74,7 +74,7 @@ const GamePage = () => {
     <>
       <MainContainer>
         <div onClick={handleMuted}>
-          {isMuted ? <Icon name="volume-off" /> : <Icon name="volume-up" />}
+          {isMuted ? <Icon name="volume-up" /> : <Icon name="volume-off" />}
         </div>
         <Button id="toggler" onClick={handleToggleFullscreen} center>
           {toggler ? 'Exit fullscreen' : 'fullscreen'}
