@@ -65,10 +65,7 @@ class AudioManager extends EventEmitter {
     document.body.appendChild(media)
 
     this.tracks[audio] = media
-
     media.volume = this.isMuted ? 0 : 1
-
-    // this.isMuted  ? media.volume = 0 : this.tracks.volume = 1 
     media.play();
   }
 }
