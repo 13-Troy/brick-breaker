@@ -9,7 +9,6 @@ import newLevelAudio from '../assets/audio/new-level.mp3';
 import decreaseLivesAudio from '../assets/audio/decrease-lives.mp3';
 
 class AudioManager extends EventEmitter {
-  tracks: HTMLAudioElement;
   isMuted = false
   constructor() {
     super();
@@ -50,12 +49,12 @@ class AudioManager extends EventEmitter {
 
   muted(isMuted: boolean) {
     const media = document.querySelectorAll('audio');
-    media.forEach(track =>  isMuted ? track.volume = 0 : track.volume = 1 )
+    media.forEach(track => isMuted ? track.volume = 0 : track.volume = 1)
     this.isMuted = isMuted
   }
 
   play(audio: string) {
-    
+
     if (this.tracks[audio]) {
       this.tracks[audio].play();
       return;
@@ -67,7 +66,7 @@ class AudioManager extends EventEmitter {
 
     this.tracks[audio] = media
 
-    media.volume = this.isMuted ? 0 :1 
+    media.volume = this.isMuted ? 0 : 1
 
     // this.isMuted  ? media.volume = 0 : this.tracks.volume = 1 
     media.play();
