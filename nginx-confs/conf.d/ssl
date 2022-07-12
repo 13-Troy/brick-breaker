@@ -1,2 +1,2 @@
-ssl_certificate /www/var/certs/fullchain.pem;
-ssl_certificate_key /www/var/certs/privkey.pem;
+ssl_certificate /etc/letsencrypt/live/troy-brick-breaker-13.ya-praktikum.tech/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/troy-brick-breaker-13.ya-praktikum.tech/privkey.pem;
