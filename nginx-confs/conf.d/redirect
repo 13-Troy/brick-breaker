@@ -1,7 +1,0 @@
-server {
-    listen 80;
-    listen [::]:80;
-
-    server_name troy-brick-breaker-13.ya-praktikum.tech www.troy-brick-breaker-13.ya-praktikum.tech;
-    return 301 https://$host$request_uri;
-}
