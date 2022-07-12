@@ -12,7 +12,7 @@ services:
     env_file:
       - ./prod.env
     volumes:
-      - ./nginx-confs/conf.d/proxy.dev.conf:/etc/nginx/conf.d/proxy.conf
+      - ./nginx-confs/conf.d/proxy.dev.conf:/etc/nginx/nginx.conf
       - ./nginx-confs/conf.d/headers:/etc/nginx/conf.d/headers
       - ./nginx-confs/conf.d/redirect:/etc/nginx/conf.d/redirect
       - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
