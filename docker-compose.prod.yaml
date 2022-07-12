@@ -16,7 +16,7 @@ services:
       - ./nginx-confs/conf.d/headers:/etc/nginx/conf.d/headers
       - ./nginx-confs/conf.d/redirect:/etc/nginx/conf.d/redirect
       - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
-      - /etc/letsencrypt/troy-brick-breaker-13.ya-praktikum.tech:/etc/ssl
+      - ./ssl:/etc/ssl
     restart: unless-stopped
     networks:
       - awesome
