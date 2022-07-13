@@ -25,7 +25,7 @@ export const MenuLinkSt = styled(NavLink)`
   text-transform: uppercase;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.accentFont};
-  &.active{
+  &.active, &:hover {
     padding-bottom: 2px;
     border-bottom: 2px solid ${({ theme }) => theme.colors.accentFont};
   }

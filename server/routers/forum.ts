@@ -5,6 +5,8 @@ import TopicController from '../controllers/forum/topic';
 import CommentController from '../controllers/forum/comment';
 import bodyParser from 'body-parser';
 
+const { body } = require('express-validator');
+
 router.get('/', async (req, res) => {
   try {
     const response = await TopicController.getAll()
@@ -15,8 +17,8 @@ router.get('/', async (req, res) => {
 })
 
 
-const jsonParser = bodyParser.json()  
-router.post('/', jsonParser, async (req, res) => {
+const jsonParser = bodyParser.json()
+router.post('/', jsonParser,  body('topicName').not().isEmpty().trim().escape(),  body('topicText').not().isEmpty().trim().escape(), async (req, res) => {
   const { topicName, topicText, ownerId, ownerName, ownerAvatar } = req.body
   try {
     const response = await TopicController.create({
@@ -68,7 +70,7 @@ router.delete('/:id', async (req, res) => {
 
 
 
-router.post('/:id/comment', jsonParser,  async (req, res) => {
+router.post('/:id/comment', jsonParser, body('commentText').not().isEmpty().trim().escape(),  async (req, res) => {
   const { commentText, ownerId, ownerName, ownerAvatar, topicId} = req.body
   try {
     const response = await CommentController.create({

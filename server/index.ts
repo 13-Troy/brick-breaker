@@ -4,6 +4,7 @@ import path from 'path';
 import {dbConnect} from './db';
 import forumApi from './routers/forum'
 import themeApi from './routers/theme'
+import helmet from 'helmet';
 
 const PORT = process.env.PORT || 5000;
 
@@ -11,6 +12,9 @@ const PORT = process.env.PORT || 5000;
   await dbConnect()
 
   const app = express();
+
+  app.use(helmet.expectCt());
+
   app.use('/api/topic', forumApi)
   app.use('/api/theme', themeApi)
  
