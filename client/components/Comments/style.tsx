@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+export const WrapCommentsSt = styled.div`
+  h4 {
+    color: ${({ theme }) => theme.colors.accentFont};
+  }
+`;
 export const CommentsBlockSt = styled.div`
   border-top: 1px solid ${({ theme }) => theme.allColors.purple_light};
   padding: 20px;

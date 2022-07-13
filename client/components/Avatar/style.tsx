@@ -16,7 +16,7 @@ export const AvatarSt = styled.div.attrs((props: AvatarProps) => ({
 }))`
   background-color: ${({ theme }) => theme.allColors.grey};
   border-radius: 50%;
-  cursor: pointer;
+  cursor:  ${({ editable }) => (editable ? 'pointer' : 'initial')};
   position: relative;
   width: ${({ size }) => (size ? `${size}px` : '130px')};
   min-width: ${({ size }) => (size ? `${size}px` : '130px')};

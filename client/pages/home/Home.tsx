@@ -39,7 +39,7 @@ const Home = () => {
 
   return (
     <HardPopUpSt>
-      <Title h={2}>вход</Title>
+      <Title h={2} center>вход</Title>
       <Input
         name={'login'}
         type={'text'}
@@ -53,9 +53,7 @@ const Home = () => {
         onChange={handleChange}
       />
       <Link to={AppRoute.REGISTRATION}>{'Нет аккаунта? Регистрация'}</Link>
-      <Button fullWidth onClick={onSens}>
-        {'вход'}
-      </Button>
+      <Button fullWidth onClick={onSens} center> вход </Button>
       <div style={{ marginTop: '20px' }}>
         <Button fullWidth onClick={() => handleOauthSignIn(redirect_uri)}>
           Вход через Яндекс

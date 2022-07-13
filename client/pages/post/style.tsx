@@ -1,10 +1,8 @@
 import styled from 'styled-components';
 
-export const WrapperSt = styled.div`
-  width: 700px;
-  margin: 40px auto;
-  h4 {
-    text-align: initial;
+export const InnerBlockSt = styled.div`
+  @media (max-width: 768px) {
+    padding: 0 20px;
   }
 `;
 
@@ -15,8 +13,10 @@ export const HeaderSt = styled.div`
 
 export const PostBodySt = styled.div`
   margin-bottom: 80px;
+  h2 {
+   color: ${({ theme }) => theme.colors.accentFont};
+  }
 `;
-
 
 export const SettingsBlockSt = styled.div`
   display: flex;

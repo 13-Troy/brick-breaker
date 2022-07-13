@@ -20,7 +20,7 @@ const Comment = (props: CommentsProps) => {
     if (window.confirm("Вы действительно хотите удалить комментрий?")) {
       dispatch(deleteComment(topicId, commentId))
       toast.success("комментарий удален", {
-        icon: false
+        icon: false,
       });
     }
   }

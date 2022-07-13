@@ -28,7 +28,7 @@ const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
         .map((key, index) => {
           if (key == 'user_name' || key == 'user_name') {
             return (
-              <TableColSt>
+              <TableColSt key={index}>
                 <WrapperColSt>
                   <Avatar backgroundImage={content[i].user_avatar} size={40} />
                   <BlockUserSt>{content[i].user_name}</BlockUserSt>
@@ -41,7 +41,7 @@ const Table: FC<TableProps> = ({ colNames, content, isShowBtn = true }) => {
         })}
       {isShowBtn &&
         <TableColSt>
-          <Button onClick={() => navigate(`post/${content[i].id}`)}>
+          <Button onClick={() => navigate(`post/${content[i].id}`)} center>
             просмотр
           </Button>
         </TableColSt>

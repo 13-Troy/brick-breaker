@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
-import { WrapperSt, HeaderSt, TextSt, PostBodySt, SettingsBlockSt, CommentAddBlockSt} from './style';
+import { HeaderSt, TextSt, PostBodySt, SettingsBlockSt, CommentAddBlockSt, InnerBlockSt } from './style';
 import Link from '../../components/Link';
 import Title from '../../components/Title';
 import Button from '../../components/Button';
 import ChangePostModal from '../../components/ChangePostModal';
 import Comments from '../../components/Comments';
-import  Icon from '../../components/Icon/Icon';
+import Icon from '../../components/Icon/Icon';
+import MainContainer from '../../components/MainContainer';
 import { AppRoute } from '../../services/const';
 
 import { useToggle } from '../../hooks/useToggle';
@@ -97,49 +98,50 @@ const Post = () => {
 
 
   return (
-    <WrapperSt>
-      <HeaderSt>
-        <Link to={AppRoute.FORUM}>к списку</Link>
-        {
-          user.id === topic.ownerId &&
-          <SettingsBlockSt>
-            <div onClick={() => handleDelete(topic.topicId)}>
-              <Icon name="trash"/>
-            </div>
-            <div onClick={toggleVisible}> 
-              <Icon name="pencil"/>
-            </div>
-          </SettingsBlockSt>
+    <MainContainer>
+      <InnerBlockSt>
+        <HeaderSt>
+          <Link to={AppRoute.FORUM}>к списку</Link>
+          {
+            user.id === topic.ownerId &&
+            <SettingsBlockSt>
+              <div onClick={() => handleDelete(topic.topicId)}>
+                <Icon name="trash" />
+              </div>
+              <div onClick={toggleVisible}>
+                <Icon name="pencil" />
+              </div>
+            </SettingsBlockSt>
+          }
+        </HeaderSt>
+        <PostBodySt>
+          <Title h={2} center> {topic.topicName}</Title>
+          <TextSt>
+            <Title h={4}>{topic.topicText}</Title>
+          </TextSt>
+        </PostBodySt>
+        <Comments comments={commentsList} />
+
+        <Button onClick={() => toggleVisibleField()} center>оставить комментарий</Button>
+        {isShownCommentField ?
+          <CommentAddBlockSt>
+            <Textarea
+              name={'comment'}
+              placeholder={'текст комментария'}
+              onChange={handleChange}
+            />
+            <Button onClick={handleAddComments} center>сохранить</Button>
+          </CommentAddBlockSt>
+          : ""
         }
 
-      </HeaderSt>
-      <PostBodySt>
-        <Title h={2}> {topic.topicName}</Title>
-        <TextSt>
-          <Title h={4}>{topic.topicText}</Title>
-        </TextSt>
-      </PostBodySt>
-      <Comments comments={commentsList} />
-
-      <Button onClick={() => toggleVisibleField()}>оставить комментарий</Button>
-      {isShownCommentField ?
-        <CommentAddBlockSt>
-          <Textarea
-            name={'comment'}
-            placeholder={'текст комментария'}
-            onChange={handleChange}
-          />
-          <Button onClick={handleAddComments}>сохранить</Button>
-        </CommentAddBlockSt>
-        : ""
-      }
-
-      <ChangePostModal
-        isShown={isShownChangeModal}
-        toggleVisible={toggleVisible}
-        headerText="Редактирование топика"
-      />
-    </WrapperSt>
+        <ChangePostModal
+          isShown={isShownChangeModal}
+          toggleVisible={toggleVisible}
+          headerText="Редактирование топика"
+        />
+      </InnerBlockSt>
+    </MainContainer>
   );
 };
 export default Post;

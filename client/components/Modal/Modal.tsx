@@ -24,7 +24,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
       <BackdropSt onClick={hide} />
       <WrapperSt>
         <ModalSt>
-          <Title h={4}>{headerText}</Title>
+          <Title h={4} center>{headerText}</Title>
           {children}
         </ModalSt>
       </WrapperSt>

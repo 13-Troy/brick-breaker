@@ -3,7 +3,8 @@ import render from './render';
 import path from 'path';
 import {dbConnect} from './db';
 import forumApi from './routers/forum'
-const helmet = require("helmet");
+import themeApi from './routers/theme'
+import helmet from 'helmet';
 
 const PORT = process.env.PORT || 5000;
 
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 5000;
   app.use(helmet.expectCt());
 
   app.use('/api/topic', forumApi)
-
+  app.use('/api/theme', themeApi)
  
 
   app.use(express.static(path.join(__dirname, '../../public')));
