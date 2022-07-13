@@ -3,7 +3,7 @@ name: Deploy app
 on:
   push:
     branches:
-      - feat/deploy-workflow
+      - main
 
   workflow_dispatch:
 
