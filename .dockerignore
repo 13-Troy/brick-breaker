@@ -6,3 +6,4 @@ docker-compose.prod.yaml
 /dist
 /bundle
 /public
+./.github
