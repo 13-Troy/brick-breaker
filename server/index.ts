@@ -3,7 +3,6 @@ import render from './render';
 import path from 'path';
 import {dbConnect} from './db';
 import forumApi from './routers/forum'
-import {auth} from "./routers/auth";
 const helmet = require("helmet");
 
 const PORT = process.env.PORT || 5000;
@@ -15,7 +14,7 @@ const PORT = process.env.PORT || 5000;
 
   app.use(helmet.expectCt());
 
-  app.use('/api/topic', auth, forumApi)
+  app.use('/api/topic', forumApi)
 
  
 
