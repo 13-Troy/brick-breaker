@@ -6,7 +6,7 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from "redux-devtools-extension";
-import {User} from './types';
+import {User, Forum} from './types';
 
 const middlewares = [thunk];
 
@@ -17,9 +17,11 @@ if (process.env.NODE_ENV === "development") {
 }
 
 import { reducer as userReducer } from './user/reducer';
+import { forumReducer } from './forum/reducer';
 
 const rootReducer = combineReducers({
   user:userReducer,
+  forum:forumReducer
 });
 
 export function configureStore(initialState = {}) {
@@ -36,4 +38,5 @@ export function configureStore(initialState = {}) {
 
 export type AppState = {
   user: User
+  forum: Forum,
 };

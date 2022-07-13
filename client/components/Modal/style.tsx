@@ -24,11 +24,14 @@ export const BackdropSt = styled.div`
 
 export const ModalSt = styled.div`
   z-index: 100;
-  background: ${({ theme }) => theme.allColors.white};
+  background: ${({ theme }) => theme.colors.bgModal};
   position: relative;
   margin: auto;
   border-radius: ${({ theme }) => theme.borderRadius};
   min-width: 380px;
   min-height: 100px;
   padding: 40px;
+  h4 {
+    color: ${({ theme }) => theme.colors.accentFont};
+  }
 `;

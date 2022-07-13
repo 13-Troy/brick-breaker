@@ -9,11 +9,11 @@ import Modal from '../../components/Modal';
 import ChangeAvatarModal from '../../components/ChangeAvatarModal';
 import ChangeProfileDataModal from '../../components/ChangeProfileDataModal';
 import ChangePasswordModal from '../../components/ChangePasswordModal';
-
+import MainContainer from '../../components/MainContainer';
 import { UrlSite } from '../../services/const';
 import { useToggle } from '../../hooks/useToggle';
 
-import { HardPopUpSt, InfoSt, WrapperAvatarSt } from './style';
+import { InnerBlockSt, InfoSt, WrapperAvatarSt } from './style';
 
 import { AppState } from '../../store/configureStore';
 
@@ -24,7 +24,6 @@ const Profile = () => {
   const user = useSelector<AppState, AppState['user']>((state) => state.user);
   const [isShown, toggleVisible] = useToggle(false);
   const [changeProfile, setChangeProfile] = useState('');
-
   // const dispatch = useDispatch();
 
   const onSend = () => {
@@ -46,8 +45,8 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <HardPopUpSt>
+    <MainContainer>
+      <InnerBlockSt>
         <WrapperAvatarSt>
           <Avatar
             backgroundImage={user.avatar as string}
@@ -55,7 +54,7 @@ const Profile = () => {
             onClick={() => onCallModal('changeAvatar')}
           />
         </WrapperAvatarSt>
-        <Title h={4}>{user.first_name}</Title>
+        <Title h={4} center>{user.first_name}</Title>
         <InfoSt>
           <DataLine title={'Почта'} value={user.email}></DataLine>
           <DataLine title={'Логин'} value={user.login}></DataLine>
@@ -65,21 +64,19 @@ const Profile = () => {
           <DataLine title={'Телефон'} value={user.phone}></DataLine>
         </InfoSt>
         <ButtonSettings onClick={() => onCallModal('changeData')}>
-          {'Изменить данные'}
+          Изменить данные
         </ButtonSettings>
         <ButtonSettings onClick={() => onCallModal('changePassword')}>
-          {'Изменить пароль'}
+          Изменить пароль
         </ButtonSettings>
         <Modal isShown={isShown} hide={toggleVisible}>
           {changeProfile === 'changeAvatar' && <ChangeAvatarModal />}
           {changeProfile === 'changeData' && <ChangeProfileDataModal />}
           {changeProfile === 'changePassword' && <ChangePasswordModal />}
         </Modal>
-        <Button fullWidth={false} onClick={onSend}>
-          {'выход'}
-        </Button>
-      </HardPopUpSt>
-    </div>
+        <Button fullWidth={false} onClick={onSend} center> выход </Button>
+      </InnerBlockSt>
+    </MainContainer>
   );
 };
 

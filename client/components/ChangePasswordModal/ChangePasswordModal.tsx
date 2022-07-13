@@ -34,7 +34,7 @@ const ChangePasswordModal = () => {
 
   return (
     <>
-      <Title h={4}>{'изменить пароль'}</Title>
+      <Title h={4} center>{'изменить пароль'}</Title>
       <Input
         name={'oldPassword'}
         type={'password'}

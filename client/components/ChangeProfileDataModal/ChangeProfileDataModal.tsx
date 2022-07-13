@@ -33,7 +33,7 @@ const ChangeProfileDataModal = () => {
 
   return (
     <>
-      <Title h={4}>{'изменить данные'}</Title>
+      <Title h={4} center>{'изменить данные'}</Title>
       <Input
         name={'email'}
         type={'email'}
