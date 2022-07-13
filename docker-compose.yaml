@@ -1,26 +1,5 @@
 version: "3"
 services:
-  proxy:
-    build:
-      context: ./nginx-confs
-    container_name: proxy
-    ports:
-      - "443:443"
-      - "8080:80"
-    depends_on:
-      - main
-    env_file:
-      - ./dev.env
-    volumes:
-      - ./nginx-confs/conf.d/proxy.dev.conf:/etc/nginx/conf.d/proxy.conf
-      - ./nginx-confs/conf.d/ssl:/etc/nginx/conf.d/ssl
-      - ./nginx-confs/conf.d/headers:/etc/nginx/conf.d/headers
-      - ./nginx-confs/conf.d/redirect:/etc/nginx/conf.d/redirect
-#      - ./nginx-confs/ssl/:/etc/ssl/
-#      - ./nginx-confs/error:/var/log/nginx/error
-    networks:
-      - awesome
-    restart: always
 
   postgres:
     container_name: brick_game_db # Можно и не указывать, тогда будет взято за основу название сервиса: `postgres`
