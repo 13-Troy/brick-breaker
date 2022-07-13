@@ -37,7 +37,7 @@ const CreatePostModal: FC<ModalProps> = ({
         placeholder={'текст поста'}
         onChange={handleChange}
       />
-      <Button onClick={handleAdd}>сохранить</Button>
+      <Button onClick={handleAdd} fullWidth center>сохранить</Button>
     </Modal>
   );
 };

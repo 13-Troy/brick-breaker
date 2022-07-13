@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
 
-const titleSt = css`
-  text-align: center;
+interface TitleStProps {
+  isCenter?: boolean;
+}
+
+const titleSt = css<TitleStProps>`
+  text-align: ${({ isCenter }) => (isCenter ? 'center' : 'initial')};
   text-transform: uppercase;
   margin-bottom: 24px;
   color: ${({ theme }) => theme.colors.font};

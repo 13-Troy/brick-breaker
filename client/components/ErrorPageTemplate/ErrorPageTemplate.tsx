@@ -28,7 +28,7 @@ const ErrorPageTemplate: FC<ErrorPageTemplateProps> = ({
       </ContainerTitleSt>
 
       {!noBtn && (
-        <Button fullWidth={false} onClick={goBack}>
+        <Button fullWidth={false} onClick={goBack} center>
           назад
         </Button>
       )}

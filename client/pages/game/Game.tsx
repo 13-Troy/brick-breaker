@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Button from '../../components/Button';
+import Icon from '../../components/Icon/Icon';
+import MainContainer from '../../components/MainContainer';
 import { Game } from './utils/game';
 import { toggleFullscreen } from '../../services/fullscreen-api';
-import { WrapperSt } from './style';
-import {useSelector} from "react-redux";
-import {AppState} from "../../store/configureStore";
+import { useSelector } from "react-redux";
+import { AppState } from "../../store/configureStore";
 
 import { UrlSite } from '../../services/const';
 
@@ -60,7 +61,7 @@ const GamePage = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          "data": {"score": String(gameScore), "user_name": user.display_name, "user_avatar": user.avatar},
+          "data": { "score": String(gameScore), "user_name": user.display_name, "user_avatar": user.avatar },
           "ratingFieldName": "score",
           "teamName": "troy"
         })
@@ -70,20 +71,23 @@ const GamePage = () => {
   }, [gameScore]);
 
   return (
-    <WrapperSt>
-      <Button onClick={handleMuted}>
-        {isMuted ? 'выкл звук' : 'вкл звук'}
-      </Button>
-      <Button id="toggler" onClick={handleToggleFullscreen}>
-        {toggler ? 'Exit fullscreen' : 'fullscreen'}
-      </Button>
-      <canvas
-        ref={canvasRef}
-        width={800}
-        height={600}
-        style={{ background: '#663399' }}
-      />
-    </WrapperSt>
+    <>
+      <MainContainer>
+        <div onClick={handleMuted}>
+          {isMuted ? <Icon name="volume-up" /> : <Icon name="volume-off" />}
+        </div>
+        <Button id="toggler" onClick={handleToggleFullscreen} center>
+          {toggler ? 'Exit fullscreen' : 'fullscreen'}
+        </Button>
+        <canvas
+          ref={canvasRef}
+          width={800}
+          height={600}
+          style={{ background: '#663399' }}
+        />
+      </MainContainer>
+
+    </>
   );
 };
 
