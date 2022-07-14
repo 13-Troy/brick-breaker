@@ -37,6 +37,7 @@ import Menu from '../components/Menu';
 import { ToastContainer } from 'react-toastify';
 import ToggleTheme from '../components/ToggleTheme';
 import { AppState } from '../store/configureStore';
+import loader from "ts-loader";
 
 interface ProtectedStartRouteProps {
   user: boolean;
@@ -44,9 +45,9 @@ interface ProtectedStartRouteProps {
 }
 
 const ProtectedStartRouteProps: FC<ProtectedStartRouteProps> = ({
-  user,
-  redirectPath = AppRoute.PROFILE,
-}) => {
+                                                                  user,
+                                                                  redirectPath = AppRoute.PROFILE,
+                                                                }) => {
   if (user) {
     return <Navigate to={redirectPath} replace />;
   }
@@ -60,9 +61,9 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: FC<ProtectedRouteProps> = ({
-  user,
-  redirectPath = AppRoute.ROOT,
-}) => {
+                                                   user,
+                                                   redirectPath = AppRoute.ROOT,
+                                                 }) => {
   if (!user) {
     return <Navigate to={redirectPath} replace />;
   }
@@ -74,6 +75,7 @@ const Page = () => {
   const userTest = useSelector<AppState, AppState['user']>((state) => state.user);
   const dispatch = useDispatch() as ThunkDispatch<any, any, any>;
   const [user, setUser] = useState(false);
+  const [loader, setLoaded] = useState(false);
 
   const [isBaseTheme, setTogglerTheme] = useState(userTest.baseTheme);
 
@@ -97,11 +99,15 @@ const Page = () => {
   };
 
   useEffect(() => {
+    const exec:any = async () => {
+      await  dispatch(loadProfile())
+      setLoaded(true);
+    }
     if (user) {
-      dispatch(loadProfile())
       setTogglerTheme(userTest.baseTheme);
     }
-  }, [user]);
+    exec();
+  }, []);
 
 
   useEffect(() => {
@@ -116,51 +122,54 @@ const Page = () => {
     }
   }, []);
 
+  if (!loader) {
+    return null;
+  }
 
   return (
-    <ThemeProvider theme={isBaseTheme || isBaseTheme === undefined ? baseTheme : darkTheme}>
-      <GlobalStyle />
-      <ToastContainer
-        position="top-right"
-        autoClose={500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
+      <ThemeProvider theme={isBaseTheme || isBaseTheme === undefined ? baseTheme : darkTheme}>
+        <GlobalStyle />
+        <ToastContainer
+            position="top-right"
+            autoClose={500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
 
-      />
-      <Routes>
+        />
+        <Routes>
 
-        <Route element={<ProtectedStartRouteProps user={user} />}>
-          <Route path={AppRoute.ROOT} element={<Home />} />
-          <Route path={AppRoute.OAUTH} element={<Oauth />} />
-          <Route path={AppRoute.REGISTRATION} element={<Registration />} />
-        </Route>
+          <Route element={<ProtectedStartRouteProps user={!!userTest.email} />}>
+            <Route path={AppRoute.ROOT} element={<Home />} />
+            <Route path={AppRoute.OAUTH} element={<Oauth />} />
+            <Route path={AppRoute.REGISTRATION} element={<Registration />} />
+          </Route>
 
-        <Route
-          element={
-            <>
-              <Menu />
-              <ToggleTheme onChange={handleToggleTheme} value={isBaseTheme} />
-              <ProtectedRoute user={user} />
-            </>
-          }
-        >
-          <Route path={AppRoute.PROFILE} element={<Profile />} />
-          <Route path={AppRoute.FORUM} element={<Forum />} />
-          <Route path={AppRoute.ABOUT} element={<About />} />
-          <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
-          <Route path={AppRoute.RECORDS} element={<Records />} />
-          <Route path={AppRoute.GAME} element={<Game />} />
-        </Route>
+          <Route
+              element={
+                <>
+                  <Menu />
+                  <ToggleTheme onChange={handleToggleTheme} value={isBaseTheme} />
+                  <ProtectedRoute user={!!userTest.email} />
+                </>
+              }
+          >
+            <Route path={AppRoute.PROFILE} element={<Profile />} />
+            <Route path={AppRoute.FORUM} element={<Forum />} />
+            <Route path={AppRoute.ABOUT} element={<About />} />
+            <Route path={`${AppRoute.FORUM}/post/:id`} element={<Post />} />
+            <Route path={AppRoute.RECORDS} element={<Records />} />
+            <Route path={AppRoute.GAME} element={<Game />} />
+          </Route>
 
-        <Route path={'*'} element={<NotFound />} />
-        <Route path={'/500'} element={<ServerError />} />
-      </Routes>
-    </ThemeProvider>
+          <Route path={'*'} element={<NotFound />} />
+          <Route path={'/500'} element={<ServerError />} />
+        </Routes>
+      </ThemeProvider>
   );
 };
 
