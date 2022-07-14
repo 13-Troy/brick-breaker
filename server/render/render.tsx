@@ -67,7 +67,7 @@ export default async (req: Request, res: Response) => {
                     ).replace(/</g, '\\u003c')}
                 </script>
                 <div id="root">${reactHtml}</div>
-                <script defer src="${script}"></script>
+                <script defer src="/${script}"></script>
   `
   );
 

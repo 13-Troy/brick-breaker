@@ -19,8 +19,6 @@ import Game from '../pages/game';
 import NotFound from '../pages/404';
 import ServerError from '../pages/500';
 
-// components
-import NavTest from '../components/NavTest';
 
 // constants
 import { AppRoute } from '../services/const';
@@ -37,7 +35,6 @@ import Menu from '../components/Menu';
 import { ToastContainer } from 'react-toastify';
 import ToggleTheme from '../components/ToggleTheme';
 import { AppState } from '../store/configureStore';
-import loader from "ts-loader";
 
 interface ProtectedStartRouteProps {
   user: boolean;
