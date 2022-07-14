@@ -2,6 +2,7 @@ import common from './common.config';
 import path from 'path';
 import webpack, { HotModuleReplacementPlugin } from 'webpack';
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const imageExtensions = /\.(bmp|gif|jpg|jpeg|png|svg)$/;
 const audioExtensions = /\.(mp3|wav|ogg)$/;
@@ -56,6 +57,9 @@ export default {
       overlay: {
         sockIntegration: 'whm',
       },
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: './assets/sw.js' }],
     }),
   ].filter(Boolean)
 } as webpack.Configuration;

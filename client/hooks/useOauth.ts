@@ -32,7 +32,9 @@ export const useOauth = (redirect_uri: string) => {
   };
 
   const getOauthCodeRedirect = (serviceId: string, redirect_uri: string) => {
-    return `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}`;
+    return `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${encodeURIComponent(
+      redirect_uri
+    )}`;
   };
 
   const makeOauthSignInRequest = async (authData: YaOauthPayload) => {
@@ -51,8 +53,6 @@ export const useOauth = (redirect_uri: string) => {
         getOauthCodeRedirect(oAuthServiceData.service_id, redirect_uri),
         '_blank'
       );
-
-      //TODO: then delete client_id:'40fc5f1e19dd4bd3bf52518444f9bec0'
     } catch (e) {
       console.log('error getting service id', e);
     }

@@ -27,7 +27,6 @@ export async function auth(req: any, res: any, next: any) {
       return
     }
   }
-
   next();
 
 }
