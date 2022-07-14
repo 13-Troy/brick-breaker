@@ -26,7 +26,9 @@ const PORT = process.env.PORT || 5000;
   app.use('/api/theme', themeApi)
   app.use(render());
 
-  app.listen(8080);
+  app.listen(PORT, () => {
+    console.log(`App started at ${PORT} port`);
+  });
 
   if (process.env.NODE_ENV === 'development') {
     const serverOptions = {
@@ -35,8 +37,8 @@ const PORT = process.env.PORT || 5000;
     };
 
     const server = https.createServer(serverOptions, app)
-    server.listen(PORT, () => {
-      console.log(`App started at ${PORT} port`);
+    server.listen(8080, () => {
+      console.log(`App (https) started at ${8080} port`);
     })
   }
 
