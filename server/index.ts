@@ -38,11 +38,6 @@ const PORT = process.env.PORT || 5000;
     server.listen(PORT, () => {
       console.log(`App started at ${PORT} port`);
     })
-
-    const key = fs.readFileSync(path.join(__dirname, 'localhost-key.pem'));
-    const cert = fs.readFileSync(path.join(__dirname, 'localhost.pem'));
-
-    https.createServer({ key, cert }, app).listen(8443);
   }
 
 })();
