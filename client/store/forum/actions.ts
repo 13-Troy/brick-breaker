@@ -49,7 +49,7 @@ const commentDeleted = () => ({
 
 export const loadTopics = () => {
   return async (dispatch: Dispatch<any>) => {
-    await axios.get(`${REACT_APP_API}`)
+    await axios.get(`${REACT_APP_API}`, {withCredentials: true}) 
       .then(response => {
         dispatch(getTopics(response.data))
       })
