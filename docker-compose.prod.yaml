@@ -64,7 +64,7 @@ services:
       dockerfile: Dockerfile.prod
     # Проброс порта так же, как в командной строке — на какой порт хоста какой порт контейнера
     ports:
-      - '5000:5000'
+      - '5000:8080'
     # Зависимость от сервиса postgres и pgadmin
     depends_on:
       - postgres
