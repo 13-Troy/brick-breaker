@@ -19,7 +19,10 @@ Brick breaker - это игра в которой игрок должен раз
         npm run build
         docker-compose up --build 
         
-Для локального просмотра сайта необходимо в файл hosts добавить запись - 127.0.0.1 local.ya-praktikum.tech
+Для локального просмотра сайта необходимо в файл hosts добавить запись 
+   ```bash
+     127.0.0.1 local.ya-praktikum.tech
+   ```
 
 ### Среды
 ##### [prod](https://troy-brick-breaker-13.ya-praktikum.tech)
