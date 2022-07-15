@@ -30,19 +30,15 @@ const PORT = process.env.PORT || 5000;
 
   if (process.env.NODE_ENV === 'development') {
     const serverOptions = {
-      key: fs.readFileSync(path.join(__dirname, 'localhost-key.pem')),
-      cert: fs.readFileSync(path.join(__dirname, 'localhost.pem')),
+      key: fs.readFileSync(path.join(__dirname, '../../localhost-key.pem')),
+      cert: fs.readFileSync(path.join(__dirname, '../../localhost.pem')),
     };
 
     const server = https.createServer(serverOptions, app)
+
     server.listen(PORT, () => {
       console.log(`App started at ${PORT} port`);
     })
-
-    const key = fs.readFileSync(path.join(__dirname, 'localhost-key.pem'));
-    const cert = fs.readFileSync(path.join(__dirname, 'localhost.pem'));
-
-    https.createServer({ key, cert }, app).listen(8443);
   }
 
 })();
