@@ -39,7 +39,7 @@ const Home = () => {
 
   return (
     <HardPopUpSt>
-      <Title h={2} center>вход</Title>
+      <Title h={2} center>вход - тест</Title>
       <Input
         name={'login'}
         type={'text'}
